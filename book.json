@@ -1,0 +1,39 @@
+{
+    "author": "He he<zhulinger520@163.com>",
+    "description": "前端面试资料库",
+    "extension": null,
+    "generator": "site",
+    "links": {
+        "sharing": {
+            "all": null,
+            "facebook": null,
+            "google": null,
+            "twitter": null,
+            "weibo": null
+        }
+    },
+    "output": null,
+    "pdf": {
+        "fontSize": 12,
+        "footerTemplate": null,
+        "headerTemplate": null,
+        "margin": {
+            "bottom": 36,
+            "left": 62,
+            "right": 62,
+            "top": 36
+        },
+        "pageNumbers": false,
+        "paperSize": "a4"
+    },
+    "plugins": [
+        "multipart"
+    ],
+    "pluginsConfig": {
+        "disqus": {
+            "shortName": "资料库"
+        }
+    },
+    "title": "前端面试资料库",
+    "variables": {}
+}
