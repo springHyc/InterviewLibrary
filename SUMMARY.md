@@ -10,4 +10,6 @@
   * [CSS](interView/css/questionsAndAnswers.md)
   * [Regular纯题目](interView/regular/questions.md)
   * [Regular](interView/regular/questionsAndAnswers.md)
-
+* [学习资料](learningFiles/learningFiles.md)
+  * [综合](learningFiles/mix/mix.md)
+  * [Regular](learningFiles/regular/regular.md)
