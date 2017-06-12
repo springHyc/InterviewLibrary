@@ -1,8 +1,11 @@
-# callback 回调函数
+# callback 回调函数  
 
 >以下内容借鉴老鸟的经验和知识，精髓的总结
 
 *一句话 对于以后研究node 和那些热门的前端框架  很有帮助。如果你看过这个文章 对于你来说 质的突变。
+
+
+>不bb那么多，翠花上酸菜
 
 *理解javascript中的回调函数(`callback`)，希望对你有所帮助。
 
@@ -11,6 +14,9 @@
 *function实际上是一种对象，它可以“存储在变量中，通过参数传递给(别一个)函数(function)，在函数内部创建，从函数中返回结果值”。
 
 *函数式编程最主要的技术之一就是回调函数，实现回调函数就像传递一般的参数变量一样简单。
+
+
+
 
 #### 那么第一个问题来了，什么是回调？
 
@@ -55,8 +61,10 @@ $(".btn").click(function() {//不执行匿名函数的参数
   	alert("clicked");
 });
 
-//匿名函数将延迟在click函数的函数体内被调用，即使没有名称，也可以被包含函数通过 arguments对象访问。
 
+
+
+//匿名函数将延迟在click函数的函数体内被调用，即使没有名称，也可以被包含函数通过 arguments对象访问。
 
 function sum(callback) {
 	var args = Array.prototype.slice.call(arguments, 1);
@@ -66,7 +74,6 @@ function sum(callback) {
 
 function add(options) {
 	var totle = 0;
-
 	options.map(function(item) {
 		if (typeof item === 'object' && Object.prototype.toString.call(item) === '[object Array]') {
 			item.map(function(itemCell) {
@@ -81,4 +88,15 @@ function add(options) {
 
 sum(add, 1, 2, 3, 4, 5, [10, 20])
 ```
-回调函数是闭包的
+
+>回调函数是闭包的
+当作为参数传递另一个函数时，回调函数将在包含函数函数体内的某个位置被执行，就像回调函数在包含函数的函数体内定义一样。这意味着回调函数是闭包的.
+
+
+
+
+####实现回调函数的基本原则
+
+>使用命名函数或匿名函数作为回调
+在前面的jQuery和forEach的例子中，我们在包含函数的参数中定义匿名函数，这是使用回调函数的通用形式之一
+另一个经常被使用的形式是定义一个带名称的函数，并将函数名作为参数传递给另一个函数,例如
