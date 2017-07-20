@@ -42,16 +42,26 @@ for(var i=1;i<=5;i++) {
 
 * 1
   ```js
-    var foo = 1,bar = 2,j,test;
+  var foo = 1,bar = 2,j,test;
+  test = function(j) {
+      j = 5;
+      var bar = 5;
+    console.log(bar); // 5
+      foo = 5;
+  }
+  test(10);
+  console.log(foo); // 5 改变的全局变量
+  console.log(bar); // 2 由于函数作用域对全局作用域的隐藏，所以只有在test函数内部，bar=5,并不能影响到全局中的bar
+  console.log(j); // undefined  test(10)函数调用的时候，是函数内部的参数j接收到了10，但是它也是函数作用域内的变量，并不会改变全局作用域中的j。
+  ```
+  > 这个题目还有一个类似的题目：这个考察的是，数组和对象都是引用复制
+  ```js
+    var j = [1,2,3];
     test = function(j) {
-        j = 5;
-        var bar = 5;
-        foo = 5;
-    }
-    test(10);
-    console.log(foo); //
-    console.log(bar); //
-    console.log(j); //
+      j.push(4);
+  }
+  test(j);
+  console.log(j); // [1,2,3,4],因为test(j)中的j是对[1,2,3]的引用复制给function(j)中的j,而在test函数内部，通过引用改变的是[1,2,3]这是数组本身，所以console.log(j); 为 [1,2,3,4]
   ```
 * 2
 
