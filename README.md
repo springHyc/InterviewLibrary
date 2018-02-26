@@ -8,7 +8,7 @@
 
 过程是大家整理资料，相互提高的一个过程，目的是提高大家，所以没有能力高低的区分，只有大家共同进步的过程。
 
-如果想要参与我们，欢迎告知你的GitHub的userName或者email address，开放权限，就可以编辑，欢迎加入我们。
+如果想要参与我们，欢迎告知你的 GitHub 的 userName 或者 email address，开放权限，就可以编辑，欢迎加入我们。
 
 ## 初步计划
 
@@ -31,10 +31,9 @@
 
 ## 网上地址
 
-* [GitHub地址](https://github.com/springHyc/InterviewLibrary.git)
-* [gitbook地址](https://www.gitbook.com/book/hyc/interviewlibrary/details)
+* [GitHub 地址](https://github.com/springHyc/InterviewLibrary.git)
+* [gitbook 地址](https://www.gitbook.com/book/hyc/interviewlibrary/details)
 
 ## 参与编辑人员
 
 * 贺贺，[个人博客](http://blog.csdn.net/u010130282),[简书](http://www.jianshu.com/u/eddf4324a2da)
-
