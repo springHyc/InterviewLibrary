@@ -185,3 +185,30 @@ var a = "this is a 'a'";
 bar(); // ?
 foo(); // ?
 ```
+
+### 10. 根据以下代码，写出结果
+
+```js
+// 第一组
+alert(a);
+a();
+var a = 3;
+function a() {
+  alert(10);
+}
+alert(a);
+a = 6;
+a();
+
+//------------分割线------------------
+// 第二组
+alert(a);
+a();
+var a = 3;
+var a = function() {
+  alert(10);
+};
+alert(a);
+a = 6;
+a();
+```
