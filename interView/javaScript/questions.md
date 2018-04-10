@@ -167,3 +167,21 @@ const a = 2;
 console.log(a); // ?
 a = 3; //?
 ```
+
+### 9. 下面代码分别输出什么？
+
+```js
+function foo() {
+  "use strict";
+  console.log(this.a);
+}
+
+function bar() {
+  console.log(this.a);
+}
+
+var a = "this is a 'a'";
+
+bar(); // ?
+foo(); // ?
+```
