@@ -128,6 +128,74 @@ for (var i = 1; i <= 5; i++) {
   obj.method(); // 10 , 对fn是简介引用，调用这个函数会应用默认的绑定规则
   ```
 
+> 这个考察的是`this`的指向问题。
+
+还有一个类似的问题：
+
+```js
+var num = 100;
+
+var obj = {
+  num: 200,
+  inner: {
+    num: 300,
+    print: function() {
+      console.log(this.num);
+    }
+  }
+};
+
+obj.inner.print(); //300
+
+var func = obj.inner.print;
+func(); //100
+
+(obj.inner.print)(); //300
+
+(obj.inner.print = obj.inner.print)(); //100
+
+问题：第一个和第三个有什么区别？第三个和第四个有什么区别？
+```
+
+1.第一个和第三个没有区别，运行的都是 obj.inner.print()，里面的 this 指向 obj.inner.num
+
+2.第四个，首先你要知道一点，复制操作，会返回所赋的值。
+
+```js
+var a;
+console.log((a = 5)); //5
+```
+
+所以(obj.inner.print = obj.inner.print)的结果就是一个函数，内容是
+
+```js
+function () {
+    console.log(this.num);
+}
+```
+
+在全局下运行这个函数，里面的 this 指向的就是 window，所以(obj.inner.print = obj.inner.print)();的结果就是
+
+```js
+var num = 100;
+function () {
+    console.log(this.num);
+}()
+// 100
+```
+
+3.  第二个
+
+赋值操作，fun 完全就是一个函数引用，这个引用丢失了函数原本所在的上下文信息，所以最终是在全局上下文中运行
+
+```js
+function() {
+  console.log(this.num);
+}
+```
+
+所以这个时候 num 是全局的 num,也就是 100
+
 * 4
 
   ```js
