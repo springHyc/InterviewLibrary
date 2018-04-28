@@ -2,6 +2,126 @@
 
 > 该文档存放的只是 HTML 部分的问题，其中答案部分放在对应目录下的 questionsAndAnswers.md 文件中，答案部分也只是个人所做的答案，可能存在不正确的地方，欢迎大家共同讨论，找出一个完美的答案。希望大家能够多学一点知识，能够对面试有所有帮助。
 
+## 0. this 指向性问题总结。下面代码中分别输出什么？
+
+> 由于在很多地方都遇到了不同形式的`this`指向性问题，所以干脆在这里把我遇到的题目都总结一下，也是为了更加集中的复习。
+
+```js
+// code 1
+var length = 10;
+function fn() {
+  alert(this.length);
+}
+var obj = {
+  length: 5,
+  method: function() {
+    fn();
+  }
+};
+obj.method(); // ？
+
+// code 2
+var num = 100;
+var obj = {
+  num: 200,
+  inner: {
+    num: 300,
+    print: function() {
+      console.log(this.num);
+    }
+  }
+};
+
+obj.inner.print(); //？
+
+var func = obj.inner.print;
+func(); //？
+
+obj.inner.print(); //？
+
+(obj.inner.print = obj.inner.print)(); //？
+
+// code 3
+function foo() {
+  console.log(this.a);
+}
+var obj2 = { a: 42, foo: foo };
+var obj1 = { a: 2, obj2: obj2 };
+obj1.obj2.foo(); // ？
+
+var obj3 = { a: 2 };
+foo.call(obj3); // ？
+
+var bar = function() {
+  foo.call(obj3);
+};
+bar(); // ？
+setTimeout(bar, 100); // ？
+bar.call(window); // ？
+
+var obj4 = { a: 3, foo: foo };
+obj2.foo(); // ？
+obj4.foo(); // ？
+obj2.foo.call(obj4); //？
+obj4.foo.call(obj2); // ？
+
+// code 4
+function foo() {
+  console.log(this.a);
+}
+var obj = {
+  a: 2,
+  foo: foo
+};
+var a = "oops, global";
+setTimeout(obj.foo, 100); // ？
+obj.foo(); // ？
+
+// code 5 (new绑定)
+function foo(a) {
+  this.a = a;
+}
+var bar = new foo(2);
+console.log(bar.a); // ？
+
+var obj1 = { foo: foo };
+var obj2 = {};
+
+obj1.foo(2);
+console.log(obj1.a); // ？
+
+obj1.foo.call(obj2, 3);
+console.log(obj2.a); // ？
+
+var bar = new obj1.foo(4);
+console.log(obj1.a); // ？
+console.log(bar.a); // ？
+
+// code 6
+
+function foo() {
+  console.log(this.a);
+}
+
+var a = 2;
+
+foo.call(null); // ？
+var bar = foo.bind(null);
+bar(); // ？
+foo.apply(undefined); // ？
+
+// code 7 箭头函数
+
+function foo() {
+  return a => console.log(this.a);
+}
+
+var obj1 = { a: 2 };
+var obj2 = { a: 3 };
+var bar = foo.call(obj1);
+bar.call(obj2); // ？
+```
+
 ## 1. 字符串实现倒序
 
 ## 2. 下面这段代码的执行结果是什么？
@@ -29,6 +149,7 @@ for (var i = 1; i <= 5; i++) {
 ## 5. 以下代码执行结果是什么？
 
 * 1
+
   ```js
   var foo = 1,
     bar = 2,
@@ -44,6 +165,7 @@ for (var i = 1; i <= 5; i++) {
   console.log(bar); //
   console.log(j); //
   ```
+
 * 2
 
   ```js
@@ -68,7 +190,7 @@ for (var i = 1; i <= 5; i++) {
       fn();
     }
   };
-  obj.method(); //
+  obj.method(); //？
   ```
 
 * 4

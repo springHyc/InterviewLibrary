@@ -2,6 +2,127 @@
 
 > 下面所有的代码都是个人作答，可能存在理解错误或者答案错误的地方，欢迎大家在[项目下方](https://github.com/springHyc/InterviewLibrary)或者[项目的 issues](https://github.com/springHyc/InterviewLibrary/issues)中留言指正。
 
+## 0. this 指向性问题总结。下面代码中分别输出什么？
+
+> 由于在很多地方都遇到了不同形式的`this`指向性问题，所以干脆在这里把我遇到的题目都总结一下，也是为了更加集中的复习。
+
+```js
+// code 1
+var length = 10;
+function fn() {
+  alert(this.length);
+}
+var obj = {
+  length: 5,
+  method: function() {
+    fn();
+  }
+};
+obj.method(); // 10 隐式绑定的函数会丢失绑定对象，会应用默认绑定。`obj.method()`它实际上引用的是函数fn本身。
+
+// code 2
+var num = 100;
+var obj = {
+  num: 200,
+  inner: {
+    num: 300,
+    print: function() {
+      console.log(this.num);
+    }
+  }
+};
+
+obj.inner.print(); //300
+
+var func = obj.inner.print;
+func(); //100 默认绑定，绑定的是全局对象
+
+obj.inner.print(); //300 隐式绑定，当函数引用有上下文对象时，隐式绑定规则会把函数调用的`this`绑定到这个上下文对象。
+
+(obj.inner.print = obj.inner.print)(); //100 赋值对象返回的是一个函数，默认绑定，绑定的是全局对象
+
+// code 3
+function foo() {
+  console.log(this.a);
+}
+var obj2 = { a: 42, foo: foo };
+var obj1 = { a: 2, obj2: obj2 };
+obj1.obj2.foo(); // 42 对象属性引用链中只有上一层或者说最后一层在调用位置中起作用。
+
+var obj3 = { a: 2 };
+foo.call(obj3); // 2
+
+var bar = function() {
+  foo.call(obj3);
+};
+bar(); // 2
+setTimeout(bar, 100); // 2
+bar.call(window); // 2 硬绑定的bar不可能在修改它的this
+
+var obj4 = { a: 3, foo: foo };
+obj2.foo(); // 42
+obj4.foo(); // 3
+obj2.foo.call(obj4); // 3
+obj4.foo.call(obj2); // 42 显示绑定比隐式绑定优先级高
+
+// code 4
+function foo() {
+  console.log(this.a);
+}
+var obj = {
+  a: 2,
+  foo: foo
+};
+var a = "oops, global"; // a是全局对象的属性
+setTimeout(obj.foo, 100); // "oops, global"
+obj.foo(); // 2
+
+// code 5 (new绑定)
+function foo(a) {
+  this.a = a;
+}
+var bar = new foo(2);
+console.log(bar.a); // 2 new绑定
+
+var obj1 = { foo: foo };
+var obj2 = {};
+
+obj1.foo(2);
+console.log(obj1.a); // 2
+
+obj1.foo.call(obj2, 3);
+console.log(obj2.a); // 3
+
+var bar = new obj1.foo(4);
+console.log(obj1.a); // 2
+console.log(bar.a); // 4 new绑定比隐式绑定优先级高
+
+// code 6
+
+function foo() {
+  console.log(this.a);
+}
+
+var a = 2;
+
+// 如果你把null或者undefined作为this的绑定对象传入call\apply\bind，这些值在调用的时候会被忽略，实际应用的是默认绑定规则。
+foo.call(null); // 2
+var bar = foo.bind(null);
+bar(); // 2
+foo.apply(undefined); // 2
+
+// code 7 箭头函数
+
+function foo() {
+  return a => console.log(this.a);
+}
+
+var obj1 = { a: 2 };
+var obj2 = { a: 3 };
+var bar = foo.call(obj1);
+bar.call(obj2); // 2 箭头函数是根据外层（函数或者全局）作用域来决定this。并且绑定后无法修改。
+```
+
 ## 1. 字符串实现倒序
 
 > 个人答案
