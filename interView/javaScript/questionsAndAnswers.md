@@ -188,11 +188,43 @@ for (var i = 1; i <= 5; i++) {
 
 ## 4. 以下代码执行结果分别是什么？
 
-* 3 + "3"
-* "23" > "3"
-* var b = true && 2;
-* "abc123".slice(2, -1)
-* "abc123".substring(2, -1)
+* 3 + "3" // '33'
+* "23" > "3" // false
+* var b = true && 2; // undefined
+* "abc123".slice(2, -1) // 'c12'
+* "abc123".substring(2, -1) // 'ab' //如果 start or stop 是负数或 NaN，会把它当成 0 对待;如果 start > stop,则会交换这两个参数
+
+解释：
+
+**String.slice() 和 String.substring(),String.substr()的区别**
+
+Syntax: string.slice(start, stop);
+Syntax: string.substring(start, stop);
+返回一个字符串，左包含，右不包含
+
+Syntax:String.substr(start, num);
+返回字符串,包含 start 开始,num 为字符数
+
+---
+
+slice VS substring
+
+相同：
+
+1.如果 start == stop,return 一个空字符串
+2.stop 如果被省略，则直接扫至字符串尾 3.如果 start 或 stop 大于了字符串长度，则会被替换成字符串长度
+
+不同：
+substing():
+
+* 1.如果 start > stop,则会交换这两个参数
+* 2.如果 start or stop 是负数或 NaN，会把它当成 0 对待
+
+slice():
+
+* 1.如果 start > stop,不会交换这两个参数，返回空字符串””
+* 2.如果 start,or stop 是负数，且绝对值小于字符串长度，则开头\结尾是 start\stop+字符串长度
+* 3.如果 start or stop 是负数，且绝对值大于字符串长度，则当作 0 处理
 
 ## 5. 以下代码执行结果是什么？
 
@@ -246,7 +278,7 @@ for (var i = 1; i <= 5; i++) {
       fn();
     }
   };
-  obj.method(); // 10 , 对fn是简介引用，调用这个函数会应用默认的绑定规则
+  obj.method(); // 10 , 对fn间接引用，调用这个函数会应用默认的绑定规则
   ```
 
 > 这个考察的是`this`的指向问题。
@@ -320,15 +352,15 @@ function() {
 * 4
 
   ```js
-  function foo() {
+  function Foo() {
     this.value = 42;
   }
-  foo.prototype = {
+  Foo.prototype = {
     method: function() {
       return true;
     }
   };
-  function bar() {
+  function Bar() {
     var value = 1;
     return {
       method: function() {
@@ -336,13 +368,13 @@ function() {
       }
     };
   }
-  foo.prototype = new bar();
-  console.log(foo.prototype.constructor); //
-  console.log(foo.prototype instanceof bar); //
-  var test = new foo();
-  console.log(test instanceof foo); //
-  console.log(test instanceof bar); //
-  console.log(test.method()); //
+  Foo.prototype = new Bar();
+  console.log(Foo.prototype.constructor); // ƒ Object() { [native code] }
+  console.log(Foo.prototype instanceof Bar); // false
+  var test = new Foo();
+  console.log(test instanceof Foo); // true
+  console.log(test instanceof Bar); // false
+  console.log(test.method()); // 1
   ```
 
 * 5
@@ -421,6 +453,22 @@ setTimeout(sinaNews.test, 500); // "this.name:  //"
 
 ## 6. 如何对数组进行排序？如：[2, [1,2], 3, "2", "a", "b", "a", [1, 2]]，重排序后[2, [1, 2], 3, "2", "a", "b"]
 
+> 个人答案
+
+```js
+function deleteCopy(arr) {
+  var map = {};
+  var newarr = [];
+  arr.forEach(item => {
+    if (!map[JSON.stringify(item)]) {
+      newarr.push(item);
+      map[JSON.stringify(item)] = 1;
+    }
+  });
+  return newarr;
+}
+```
+
 ## 7. 要给羡慕所有的 li 元素保定 click 时间，在鼠标点击每个 li 的时候 alert 该 li 里面的内容；且在鼠标离开外部 ul 元素范围的时候弹出一个 alert 提示、（实现时请注意代码执行小路及浏览器兼容性，不要使用现成的框架库，用原生 js 编写完成）
 
 ```js
@@ -459,8 +507,8 @@ function bar() {
 
 var a = "this is a 'a'";
 
-bar(); // "TypeError: Cannot read property 'a' of undefined
-foo(); // "this is a 'a'"
+bar(); // "this is a 'a'"
+foo(); // "TypeError: Cannot read property 'a' of undefined
 ```
 
 接下来我们可以看到当调用 foo() 时，this.a 被解析成了全局变量 a。为什么?因为在本 例中，函数调用时应用了 this 的默认绑定，因此 this 指向全局对象。
@@ -554,5 +602,29 @@ var a = function() {
 //函数声明，优于变量声明
 function a() {
   alert(10);
+}
+```
+
+## 9. 给出一个字符串，找到里面重复最多的字符？
+
+> 个人答案, 如果有重复数相同的，那么不会记录后面的字符
+
+```js
+function findMax(str) {
+  var map = {},
+    max = { num: 0 };
+
+  for (var index in str) {
+    if (map[str[index]]) {
+      map[str[index]]++;
+    } else {
+      map[str[index]] = 1;
+    }
+    if (map[str[index]] > max.num) {
+      max.num = map[str[index]];
+      max.key = str[index];
+    }
+  }
+  console.log(`max num is ${max.num}, the key is ${max.key}`);
 }
 ```
