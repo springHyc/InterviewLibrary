@@ -121,6 +121,24 @@ var obj1 = { a: 2 };
 var obj2 = { a: 3 };
 var bar = foo.call(obj1);
 bar.call(obj2); // 2 箭头函数是根据外层（函数或者全局）作用域来决定this。并且绑定后无法修改。
+
+// code 8 独立函数调用
+
+var a = 1;
+function main() {
+  alert(a); // undefined
+  var a = 2;
+  alert(this.a); // 1 这个地方的this一定指的全局对象，使用的是默认绑定规则
+  alert(a); // 2
+}
+main();
+
+//----------
+function foo() {
+  console.log(this.a);
+}
+var a = 2;
+foo(); // 2
 ```
 
 ## 1. 字符串实现倒序
@@ -186,13 +204,15 @@ for (var i = 1; i <= 5; i++) {
 
 ## 3. JavaScript 的数据类型有哪些？如何准确的检测数据类型？
 
+object null undefined string number Boolean
+
 ## 4. 以下代码执行结果分别是什么？
 
-* 3 + "3" // '33'
-* "23" > "3" // false
-* var b = true && 2; // undefined
-* "abc123".slice(2, -1) // 'c12'
-* "abc123".substring(2, -1) // 'ab' //如果 start or stop 是负数或 NaN，会把它当成 0 对待;如果 start > stop,则会交换这两个参数
+- 3 + "3" // '33'
+- "23" > "3" // false
+- var b = true && 2; // undefined
+- "abc123".slice(2, -1) // 'c12'
+- "abc123".substring(2, -1) // 'ab' //如果 start or stop 是负数或 NaN，会把它当成 0 对待;如果 start > stop,则会交换这两个参数
 
 解释：
 
@@ -217,18 +237,18 @@ slice VS substring
 不同：
 substing():
 
-* 1.如果 start > stop,则会交换这两个参数
-* 2.如果 start or stop 是负数或 NaN，会把它当成 0 对待
+- 1.如果 start > stop,则会交换这两个参数
+- 2.如果 start or stop 是负数或 NaN，会把它当成 0 对待
 
 slice():
 
-* 1.如果 start > stop,不会交换这两个参数，返回空字符串””
-* 2.如果 start,or stop 是负数，且绝对值小于字符串长度，则开头\结尾是 start\stop+字符串长度
-* 3.如果 start or stop 是负数，且绝对值大于字符串长度，则当作 0 处理
+- 1.如果 start > stop,不会交换这两个参数，返回空字符串””
+- 2.如果 start,or stop 是负数，且绝对值小于字符串长度，则开头\结尾是 start\stop+字符串长度
+- 3.如果 start or stop 是负数，且绝对值大于字符串长度，则当作 0 处理
 
 ## 5. 以下代码执行结果是什么？
 
-* 1
+- 1
   ```js
   var foo = 1,
     bar = 2,
@@ -254,7 +274,7 @@ slice():
   test(j);
   console.log(j); // [1,2,3,4],因为test(j)中的j是对[1,2,3]的引用复制给function(j)中的j,而在test函数内部，通过引用改变的是[1,2,3]这是数组本身，所以console.log(j); 为 [1,2,3,4]
   ```
-* 2
+- 2
 
   ```js
   for (var i = 0; i < 10; i++) {
@@ -265,7 +285,7 @@ slice():
   console.log(i); // 10
   ```
 
-* 3
+- 3
 
   ```js
   var length = 10;
@@ -349,7 +369,7 @@ function() {
 
 所以这个时候 num 是全局的 num,也就是 100
 
-* 4
+- 4
 
   ```js
   function Foo() {
@@ -377,7 +397,7 @@ function() {
   console.log(test.method()); // 1
   ```
 
-* 5
+- 5
 
   ```js
   if (!("sina" in window)) {
@@ -398,7 +418,7 @@ function() {
 
   >  声明被提升后，`window.sina`的值就是 undefined，但是`!("sina" in window)`这段代码的运行结果是`true`，所以`sina = 1;`就不会被执行，所以  本题目的输出结果是`undefined`。
 
-* 6
+- 6
 
   ```js
   var t1 = new Date().getTime();
@@ -426,7 +446,7 @@ function() {
 
 综上所述， 500ms 后异步任务执行完毕，然后就在“任务队列”之中防止一个事件。但是，需要主线程的 “执行栈”中所有的同步任务执行完毕后，“任务队列”中的时间才会开始执行。所以，500+ms 后才真正的执行输出。
 
-* 7
+- 7
   ```js
   function SINA() {
     return 1;
@@ -437,7 +457,7 @@ function() {
 
 > 重复声明被忽略掉了，所以`var SINA`并没有起到作用，而是被忽略掉了。
 
-* 8
+- 8
 
 ```js
 var sinaNews = {
@@ -605,7 +625,7 @@ function a() {
 }
 ```
 
-## 9. 给出一个字符串，找到里面重复最多的字符？
+## 11. 给出一个字符串，找到里面重复最多的字符？
 
 > 个人答案, 如果有重复数相同的，那么不会记录后面的字符
 
@@ -628,3 +648,334 @@ function findMax(str) {
   console.log(`max num is ${max.num}, the key is ${max.key}`);
 }
 ```
+
+## 12.写一个函数实现`n!`
+
+> 实现阶乘，最开始我只想到了递归的方式。还一开始写的有问题，后来修改了才没问题的。
+
+### 递归方式
+
+```js
+function factorial(n) {
+  if (n <= 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+}
+```
+
+### while 循环方式
+
+```js
+function factorial(n) {
+  var result = 1;
+
+  while (n > 1) {
+    result = result * n;
+    n--;
+  }
+  return result;
+}
+```
+
+## 13. 下面写出答案
+
+```js
+a = 1;
+b = 1;
+a == b; // true
+name1 = { a: 1 };
+name2 = { a: 1 };
+name1 == name2; //false
+```
+
+## 14. 给一个`<div>`添加点击事件的方法？
+
+- 第一种，可以直接添加`onclick`事件
+  `<div onclick="alert('成功')">点击</div>`
+- 第二种，DOM 级事件处理
+
+```js
+<div id="div">
+<script type="text/javascript">
+    var divM = document.getElementById("div");
+    divM.onclick = function () {
+           alert("成功");
+       }
+ </script>
+```
+
+DOM 级事件处理 2
+
+```js
+<script type="text/javascript">
+ var oDiv = document.getElementById("div");
+  oDiv.addEventListener("click", function(){
+      alert("成功");
+  });
+ </script>
+```
+
+- 第三种， jQuery 的方式来添加
+
+```js
+$("#div").on("click", function() {
+  alert("成功");
+});
+```
+
+## 15. ajax 中有 3 个请求，如何顺序实现这 3 个请求？
+
+## 16. localStorage、sessionStorage 的区别？还要去了解一下 Cookie
+
+> 在 HTML5 之前，主要是使用 cookies 存储，cookies 的缺点有：需要再请求头上带着数据，存储大小不过在 4k 之内。
+
+> HTML5 web 存储，是一个比 cookie 更好的本地存储方式。
+
+> 使用 HTML5 可以在本地存储用户的浏览数据。
+
+客户端存储数据的两个对象为：
+
+- localStorage - 没有时间限制的数据存储
+- sessionStorage - 针对一个 session 的数据存储
+
+他们拥有相同的 API：
+
+- 保存数据:`localStorage.setItem(key,value)`
+- 读取数据：`localStorage.getItem(key)`
+- 删除单个数据：`localStorage.removeItem(key)`
+- 得到某个索引的 key: `localStorage.key(index)`
+
+> localStorage、sessionStorage、Cookie 共同点：都是保存在浏览器端，且同源的。
+
+### localStorage
+
+localStorage 对象存储的数据没有时间限制。**第二天、第二周或者下一年之后，数据依然可用。**
+
+localStorage 生命周期是永久的，这意味着除非用户显示在浏览器提供的 UI 上清除 localStorage 的信息，苟泽这些信息将永远存在。存放数据大小为一般为 5MB，而且它仅在客户端（即浏览器）中保存，不参与和服务器的通信。
+
+### sessionStorage
+
+sessionStorage 方法针对一个 session 进行数据存储。**当用户关闭浏览器窗口后，数据就会被删除。**
+
+存放数据大小为一般为 5MB，而且它仅在客户端（即浏览器）中保存，不参与和服务器的通信。
+
+### localStorage 和 sessionStorage 作用域不同
+
+- 不同浏览器无法共享 localStorage 和 sessionStorage 中的信息。
+- 相同浏览器的不同页面间可以共享相同的 localStorage（页面属于相同域名和端口）；但是不同页面或标签页（仅指顶级窗口）间无法共享 sessionStorage 的信息。
+
+### Cookie
+
+声明周期为只在设置的 cookie 过期之前一直有效，及时窗口或浏览器关闭。存储大小为 4k 左右，再长了会被截断。有个数限制（各个浏览器不同），一般不能超过 20 个。与服务器端通信：每次都会携带在 http 头中，**如果使用 cookie 保存过多数据就会带来性能问题。**
+
+## 17. 数组的哪些操作会改变数组？
+
+- pop
+- push
+- shift
+- unshift
+- sort
+- reverse
+- splice(删除)
+
+## 18. 事件代理的原理，请使用原生 js 实现一个
+
+## 19. 请说明下列方法功能：
+
+| 方法             | 功能                                                                  | 是否改变原数组 | 备注             |
+| ---------------- | --------------------------------------------------------------------- | -------------- | ---------------- |
+| push             | 添加元素到数组的末尾                                                  | √              |
+| pop              | 删除数组末尾的元素                                                    | √              |
+| shift            | 删除数组头部的元素                                                    | √              | 第一次写错啦     |
+| unshift          | 添加元素到数组的头部                                                  | √              | 第一次写错啦     |
+| splice(pos,n)    | 通过索引,从 pos 位置开始删除 n 个元素                                 | √              | 第一次写错啦     |
+| slice(start,end) | 返回一个新的数组，包含从`start`到`end`(不包括该元素）的数组中的元素。 | ×              | 和 splice 记混啦 |
+| sort             | 数组排序                                                              | √              |
+| reverse          | 数组倒序                                                              | √              | 是改变原数组的   |
+| slice()          | 复制整个数组                                                          | ×              |
+| indexOf          | 找出某个元素在数组中的索引                                            | ×              |
+
+## 20. apply 和 call 的作用和区别?
+
+apply(thisObj[, argArray]);
+call(thisObj[, arg1[, arg2[, [,...argN]]]])
+
+都可以用来代替另一个对象调用一个方法，将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。
+
+不同之处：
+
+- apply 最多有两个参数，新 this 对象和一个数组 argArray(参数)。
+- call 可以接受多个参数，第一个参数与 apply 一样，后面则是一串参数列表。
+
+第一个参数与 apply 一样，后面则是一串参数列表
+
+## 21. 写一个函数递归调用的例子
+
+> 我写的是!n
+
+```js
+function fn(n) {
+  if (n <= 1) {
+    return n;
+  } else {
+    return n * fn(n - 1);
+  }
+}
+```
+
+## 22. 写出下列代码的运行结果：
+
+```js
+var a = 1;
+function main() {
+  alert(a); // undefined
+  var a = 2;
+  alert(this.a); // 1 // 这个地方我写错了，为什么呢
+  alert(a); // 2
+}
+main();
+```
+
+## 23. 参数传递中引用和复制的区别？
+
+> JavaScript 的值类型和引用类型
+> 值类型：
+
+- Number
+- Boolean
+- null
+- undefined
+
+> 引用类型：
+
+- 对象
+- 数组
+- 函数
+
+值传参针对的是基本类型。值传参可以理解为复制变量值。基本类型复制后俩个变量完全独立，之后任何一方改变都不会影响另一方。
+
+引用传参针对的是引用类型，引用类型复制的是引用（即指针），之后的任何一方改变都会映射到另一方。
+
+> 一个面试题目
+
+```js
+function main() {
+  var re = [];
+  test(re);
+  console.log(re); // ?
+}
+
+function test(re) {
+  re = re.concat([1, 2, 3]);
+}
+
+main();
+```
+
+> 这个应该输出`[]`才对。
+> ECMAScript 中所有函数的参数都是按值传递的。也就是说，把函数外部的值复制给函数内部的参数，就和把值从一个变量复制到另一个变量一样。**但是如果传递的是对象，即使这个变量是按值传递的， obj 也会按引用来访问同一个对象。**
+> 对象变量它里面的值是这个对象在堆内存中的内存地址，这一点你要时刻铭记在心！因此它传递的值也就是这个内存地址，这也就是为什么函数内部对这个参数的修改会体现在外部的原因了，因为它们都指向同一个对象呀。
+> **保存对象的变量，它里面装的值是这个对象在堆内存中的地址。so => 在函数内部的对象改变了，函数外部的对象也会跟随着一起变**
+
+## 24. es6 的特性有什么？
+
+- 箭头函数
+- 类的支持
+- 解构
+- 不定参数
+- 默认参数
+- 块级作用域 let\const
+- 模板字符串
+- 多行字符串
+- 拆包表达式
+- promise
+- 改进的对象表达式
+- 模块化
+- 延展操作符
+- 更新的数据结构（map 和 set）
+- generator
+
+### 默认参数
+
+```js
+function fn(name="world") {...}
+```
+
+### 模板字符串
+
+```js
+var url = `http://login?username=${userName}&password=${password}`;
+```
+
+### 多行字符串
+
+一个比较好的语法糖。
+
+```js
+var roadPoem = `Then took the other, as just as fair,
+    And having perhaps the better claim
+    Because it was grassy and wanted wear,
+    Though as for that the passing there
+    Had worn them really about the same,`;
+```
+
+### 解构赋值
+
+ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构（Destructuring）。
+
+```js
+var [first, second, third] = someArray;
+
+//------
+let [a, b, c] = [1, 2, 3];
+//等同于
+let a = 1;
+let b = 2;
+let c = 3;
+
+// 对象的解构赋值：获取对象的多个属性并且使用一条语句将它们赋给多个变量。
+var { StyleSheet, Text, View } = React;
+```
+
+### 箭头函数
+
+箭头最神奇的地方在于他会让你写正确的代码。比如，this 在上下文和函数中的值应当是相同的，它不会变化，通常变化的原因都是因为你创建了闭包。
+
+使用箭头函数可以让我们不再用 that = this 或者 self = this 或者\_this = this 或者.bind(this)这样的代码。
+
+### 延展操作符
+
+- 通过它可以将数组作为参数直接传入函数
+
+```js
+var people = ["Wayou", "John", "Sherlock"];
+function sayHello(people1, people2, people3) {
+  console.log(`Hello ${people1},${people2},${people3}`);
+}
+//改写为
+sayHello(...people); //输出：Hello Wayou,John,Sherlock
+```
+
+- 在函数定义时可以通过…rest 获取定义参数外的所有参数
+
+```js
+function foo(a, b, ...rest) {}
+```
+
+### Promise
+
+现在在 ES6 中终于有一个标准的 Promise 实现。
+
+### 模块化
+
+es6 有 import 和 export 运算符来实现了
+
+## 25. 箭头函数相比于普通函数的优点？
+
+## 26. for-of 的原理？
+
+## 27. 迭代器是什么？
+
+> 生成器返回的是迭代器。

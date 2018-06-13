@@ -14,14 +14,14 @@
 
 显示结果：`1 2 3`，为什么会有空格 ?
 
-* 原因：
+- 原因：
 
   > 行内元素之间产生的间距，是由于换行符、tab( 制表符 )、空格等字符引起，而字符的大小是定义字体大小来控制。（不论空格、换行符、tab 有几个，都显示一个空格）
 
   三个`span`标签之间都有换行符，而 “ 行内元素之间的空格相当于块级元素的回车换行
   ” 所以会在输出时，显示空格。
 
-* 解决办法
+- 解决办法
 
   1.  可以使用浮动来去除空格。
 
@@ -67,7 +67,7 @@
 
 针对 IE6、7 浏览器，使用 word-spacing 修复 IE6、7 中始终存在的 1px 空隙，减少 单词间的空白（即字间隔 `*word-spacing:-1px;`
 
-* 相关：
+- 相关：
 
 > 行内元素的高度由其内容撑开，**不可显示的设置其高度**，这就是为什么我们一次次的在 span 上设置 height 属性不好使的原因。
 
@@ -77,14 +77,14 @@
 
 ## 4. 写 HTML 代码时应注意什么？
 
-* 尽可能少的使用无语义的标签。例如`div`,`span`
-* 在语义不明显时，既可以使用`div`又可以使用`P`的时候，尽量使用`P`，因为`P`在默认情况下有上下间距，对兼容特殊终端有利
-* 不要使用纯样式标签，例如：`b,font,u`, 该用 CSS 设置
-* 需要强调的文本，可以包含在 strong 或 em 标签中（浏览器预设样式，能用 CSS 指定就不用它们）， strong 默认样式是加粗（不要用 b）， em 是斜体（不用 i）
-* 使用表格时，标题要用 caption，表头用 thead，主体部分用 tbody 包围，尾部用
+- 尽可能少的使用无语义的标签。例如`div`,`span`
+- 在语义不明显时，既可以使用`div`又可以使用`P`的时候，尽量使用`P`，因为`P`在默认情况下有上下间距，对兼容特殊终端有利
+- 不要使用纯样式标签，例如：`b,font,u`, 该用 CSS 设置
+- 需要强调的文本，可以包含在 strong 或 em 标签中（浏览器预设样式，能用 CSS 指定就不用它们）， strong 默认样式是加粗（不要用 b）， em 是斜体（不用 i）
+- 使用表格时，标题要用 caption，表头用 thead，主体部分用 tbody 包围，尾部用
   tfoot 包围。表头和一般单元格要区分开，表头用 th，单元格用 td
-* 表单域要用 fieldset 标签包起来，并用 legend 标签说明表单的用途
-* 每个 input 标签对应的说明文本都需要使用 label 标签，并且通过为 input 设置 id
+- 表单域要用 fieldset 标签包起来，并用 legend 标签说明表单的用途
+- 每个 input 标签对应的说明文本都需要使用 label 标签，并且通过为 input 设置 id
   属性，在 lable 标签中设置 for=someld 来让说明文本和相对应的 input 关联起来
 
 > 备注 :
@@ -92,73 +92,73 @@
 
 ## 5. 块级元素有哪些？
 
-* div
-* p
-* H1
-* H2
-* H3
-* H4
-* H5
-* H6
-* form
-* ul
+- div
+- p
+- H1
+- H2
+- H3
+- H4
+- H5
+- H6
+- form
+- ul
 
 ## 6. 行内元素有哪些？
 
-* span
-* a
-* b
-* br
-* i
-* input
+- span
+- a
+- b
+- br
+- i
+- input
 
 ## 7. 行内块级元素有哪些？
 
-* img
-* input
-* button
-* texterea
-* label
+- img
+- input
+- button
+- texterea
+- label
 
 ## 8. 行内元素和块级元素的具体区别是什么？行内元素的 padding 和 margin 可以设置吗？
 
 行内元素:
 
-* 和相邻的内联元素在同一行；
-* width\height\padding-bottom\padding-bottom 和 margin-top\margin-bottom 都不可改变（也就是 padding 和 margin 的 left 和 right 是可以改变的）
-* 宽度只与内容有关；
-* 行内元素只能容纳文本或其他行内元素。
+- 和相邻的内联元素在同一行；
+- width\height\padding-bottom\padding-bottom 和 margin-top\margin-bottom 都不可改变（也就是 padding 和 margin 的 left 和 right 是可以改变的）
+- 宽度只与内容有关；
+- 行内元素只能容纳文本或其他行内元素。
 
 块级元素
 
-* 总是在新的一行上开始，占据一整行，而且后面的元素也会另起一行显示；
-* width\height\padding\margin 都可控制；
-* 宽度始终与浏览器宽度一致，与内容无关；
-* 它可以容纳内联元素和其他块元素。
+- 总是在新的一行上开始，占据一整行，而且后面的元素也会另起一行显示；
+- width\height\padding\margin 都可控制；
+- 宽度始终与浏览器宽度一致，与内容无关；
+- 它可以容纳内联元素和其他块元素。
 
 ### 块级元素的特性
 
-* 总是在新行上开始，占据一整行，而且其后的元素也会另起一行显示
-* 宽度 (width)、高度 (height)、内边距 (padding) 和外边距 (margin) 都可控制
-* 宽带始终是与浏览器宽度一样，与内容无关
-* 它可以容纳内联元素和其他块元素
+- 总是在新行上开始，占据一整行，而且其后的元素也会另起一行显示
+- 宽度 (width)、高度 (height)、内边距 (padding) 和外边距 (margin) 都可控制
+- 宽带始终是与浏览器宽度一样，与内容无关
+- 它可以容纳内联元素和其他块元素
 
 ### 行内元素的特性
 
-* 和相邻的内联元素在同一行
-* 宽度 (width)、高度 (height)、内边距的 top/bottom(padding-top/padding-bottom)
+- 和相邻的内联元素在同一行
+- 宽度 (width)、高度 (height)、内边距的 top/bottom(padding-top/padding-bottom)
   和外边距的 top/bottom(margin-top/margin-bottom) 都不可改变（也就是 padding 和
   margin 的 left 和 right 是可以设置的），就是里面文字或图片的大小
-* 宽度只与内容有关
-* 行内元素只能容纳文本或者其他行内元素
+- 宽度只与内容有关
+- 行内元素只能容纳文本或者其他行内元素
 
 ## 9. 那么问题来了，浏览器还有默认的天生 inline-block 元素（拥有内在尺寸，可设置高宽，但不会自动换行），有哪些？( 行内块级元素 )
 
-* `<input>`
-* `<img>`
-* `<button>`
-* `<texterea>`
-* `<label>`
+- `<input>`
+- `<img>`
+- `<button>`
+- `<texterea>`
+- `<label>`
 
 ## 10 每个 HTML 文件里开头都有个很重要的东西，`DOCTYPE`，这是做什么的？
 
@@ -177,14 +177,73 @@ GET 和 POST 本质上就是 TCP 链接，并无差别。但是由于 HTTP 的�
 
 从前端的常规使用来说，由于服务器和浏览器的限制，出现了一些不同之处：
 
-* GET 在浏览器回退时是无害的，而 POST 会再次提交请求。
-* GET 产生的 URL 地址可以被书签收藏，而 POST 不可
-* GET 请求会被浏览器主动 cache，而 POST 不会，除非手动设置。
-* GET 请求只能进行 url 编码，而 POST 支持多种编码方式。
-* GET 请求参数会被完整保留在浏览器历史记录里，而 POST 中的参数不会被保留。
-* GET 请求在 URL 中传送的参数是有长度限制的(大多数浏览器限制在 2K，大多数服务器在 64K 左右)，而 POST 么有。
-* 对参数的数据类型，GET 只接受 ASCII 字符，而 POST 没有限制。
-* GET 比 POST 更不安全，因为参数直接暴露在 URL 上，所以不能用来传递敏感信息。
-* GET 参数通过 URL 传递，POST 放在 Request body 中。
+- GET 在浏览器回退时是无害的，而 POST 会再次提交请求。
+- GET 产生的 URL 地址可以被书签收藏，而 POST 不可
+- GET 请求会被浏览器主动 cache，而 POST 不会，除非手动设置。
+- GET 请求只能进行 url 编码，而 POST 支持多种编码方式。
+- GET 请求参数会被完整保留在浏览器历史记录里，而 POST 中的参数不会被保留。
+- GET 请求在 URL 中传送的参数是有长度限制的(大多数浏览器限制在 2K，大多数服务器在 64K 左右)，而 POST 么有。
+- 对参数的数据类型，GET 只接受 ASCII 字符，而 POST 没有限制。
+- GET 比 POST 更不安全，因为参数直接暴露在 URL 上，所以不能用来传递敏感信息。
+- GET 参数通过 URL 传递，POST 放在 Request body 中。
 
 > [这个解释很棒](https://mp.weixin.qq.com/s?__biz=MzI3NzIzMzg3Mw==&mid=100000054&idx=1&sn=71f6c214f3833d9ca20b9f7dcd9d33e4#rd)
+
+## 12. 什么是同源策略？跨域有哪些解决方案？什么是跨域？
+
+### 什么是跨域？
+
+浏览器从一个域名的网页去请求另一个域名的资源时，域名、端口、协议任一不同，都是跨域。
+
+> 一级域名和二级域名：
+> 在完整的域名中，最右一个“.”的右边部分称为顶级域名或一级域名。
+> 含二级域名的“二级域名.顶级域名”这样的结构一起称为“二级域名，以此类推。所提及的“域名”都为整个字符串。
+> 例如： yahoo.com.cn 中，
+> com、cn 都是顶级域名（参见通用顶级域名概念）。
+> yahoo 为三级域名。
+> com 为二级域名。
+> cn 为顶级域名或一级域名。
+> 每一级域名控制它下一级的域名分配。例如，顶级域名 cn 下定义了 com.cn 、net.cn 和 org.cn 。（注：com、net、org 也称为顶级域名（参见通用顶级域名概念），或二级域名。）
+
+- 域名不同
+
+  ```js
+  // 主域名不同
+  http://www.baidu.com/index.html
+  http://www.sina.com/test.js
+  // 子域名不同
+  http://www.666.baidu.com/index.html
+  http://www.555.baidu.com/test.js
+
+  // 域名或域名IP
+  http://www.baidu.com/index.html
+  http://180.149.132.47/test.js
+  ```
+
+- 端口不同
+
+  ```js
+  http://www.baidu.com:8080/index.html
+  http://www.baidu.com:8081/test.js
+  ```
+
+- 协议不同
+
+  ```js
+  http://www.baidu.com:8080/index.html
+  https://www.baidu.com:8080/test.js
+  ```
+
+### 跨域的解决方案
+
+- 通过 JSONP 跨域
+  填充式 json。类似往页面添加一个 script 标签，通过 src 属性去触发对指定地址的请求,故只能是 Get 请求
+- 代理
+  通过后端去调用。
+  www.baidu.com/index.html 需要调用 www.sina.com/server.php，可以写一个接口 www.baidu.com/server.php，由这个接口在后端去调用 www.sina.com/server.php 并拿到返回值，然后再返回给 index.html
+
+* PHP 端修改 header
+  header(‘Access-Control-Allow-Origin:\*’);//允许所有来源访问
+  header(‘Access-Control-Allow-Method:POST,GET’);//允许访问的方式
+* documen.domian
+  document.domian 可以解决不同 window 之间不能进行交互的操作。只适用于主域相同，子域不相同的情况。
