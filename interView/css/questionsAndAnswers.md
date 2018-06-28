@@ -101,3 +101,174 @@
 | [:checked](http://www.w3school.com.cn/cssref/selector_checked.asp)                                | input:checked         | 选择每个被选中的 <input> 元素。                     | 3   |
 | [:not(_selector_)](http://www.w3school.com.cn/cssref/selector_not.asp)                            | :not(p)               | 选择非 <p> 元素的每个元素。                         | 3   |
 | [::selection](http://www.w3school.com.cn/cssref/selector_selection.asp)                           | ::selection           | 选择被用户选取的元素部分。                          | 3   |
+
+## 3. css 盒模型是什么？
+
+盒模型的组成：由里向外是：content、padding、border、margin。
+
+盒模型有两种标准：一个 w3c 标准模型，一个是 IE 模型。
+
+![标准模型](../images/w3c.png)
+![ie模型](../images/ie.png)
+
+从上面两图不难看出在标准模型中，盒模型的宽高只是内容（content）的宽高，
+
+而在 IE 模型中盒模型的宽高是内容(content)+填充(padding)+边框(border)的总宽高。
+
+## 4. 实现 div 的动画移动
+
+使用 css3 的动画 animation 和@keyframes 来实现 div 的移动。
+
+```html
+<html>
+<head>
+  <style>
+    div {
+      width: 100px;
+      height: 100px;
+      border: 1px solid red;
+      position: relative;
+      animation: div 5s  infinite alternate;
+    }
+
+    @keyframes div {
+      form {left: 0; background-color:'#fff'}
+      to {left: 200px; background-color: red}
+    }
+  </style>
+</head>
+
+<body>
+  <div></div>
+</body>
+</html
+```
+
+## 5. css 模块化是什么？
+
+css 模块化就是所有的类名都只有局部作用域的 css 文件。
+
+> 好处
+> css 模块化将作用域限制于组件中，从而避免了全局作用域的问题，编译过程还能帮你完成命名。
+
+> css 模块化的解决方案
+> 目前解决方案有两种:
+> 第一，彻底抛弃 css,使用 js 或 json 来写样式，例如：[Radium](https://github.com/FormidableLabs/radium)，[jsxstyle](https://github.com/smyte/jsxstyle)，[react-style](https://github.com/js-next/react-style) 属于这一类。
+> 第二, 依旧使用旧的 css,使用 js 来管理样式依赖，代表是[css-modules](https://github.com/css-modules/css-modules)
+
+## 6. 如何实现一个三列布局，中间固定，两边自适应？
+
+```js
+<header>
+  <style>
+    .contaniner {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .item {
+      border: 1px solid red;
+      height: 100%;
+    }
+
+    .center {
+      width: 100px;
+    }
+
+    .left,
+    .right {
+      width: calc(50% - 50px);
+    }
+  </style>
+</header>
+<div class="contaniner">
+  <div class="item left">
+    left
+  </div>
+  <div class="item center">
+    中间
+  </div>
+  <div class="item right">
+    右边
+  </div>
+</div>
+```
+
+> 相对应的问题来了，如何实现一个三栏布局，中间自适应，两边固定？
+
+> 只需要把中间和两边的宽度调整一下即可。
+>
+> ```js
+>    .center {
+>      width: calc(100% - 200px);
+>
+> }
+>
+>    .left,
+>    .right {
+>      width: 100px;
+>    }
+> ```
+
+## 7. 通过 html img 标签设置图片和通过 div 背景图设置图片，两种设置图片的方式有什么优劣？
+
+- 占位符
+  `<img>` 标签定义 HTML 页面中的图像。从技术上讲，图片并不会插入 HTML 页面中，而是链接到 HTML 页面上。img 标签的作用是为被引用的图像创建占位符。
+
+  background-image 作为背景，在图片没有加载的时候或者加载失败的时候，不会有图片的占位标记，不会出现红叉。
+
+- 加载时间
+  `img`是写在 HTML 里的是以 HTML 插入 img 标签的形式存在，CSS 图片背景是等结构加载完成后再去加载的。
+- 是否为内容
+  非内容的图片写在 css 里，内容的图片就写在 HTML 里。
+
+## 8. 实现一下一个 div 的居中。如果不适用 flex 布局怎么做？
+
+> 以前整理的文件中有
+
+## 8. 实现一下一个 div 的居中。如果不适用 flex 布局怎么做？
+
+```js
+<header>
+  <style>
+    .contaniner {
+      margin: 0 auto; // 左右居中
+      border: 1px solid red;
+      width: 100px;
+      height: 100px;
+      top: calc(50% - 50px);
+      position: relative;
+    }
+  </style>
+</header>
+<div class="contaniner" />
+```
+
+> 必须有 width,`margin: 0 auto`才有效果；
+> `top: calc(50% - 50px); position: relative;`是可以上下居中
+
+## 9. 普通的实现一下两个`<div>`横着排列？
+
+```js
+<header>
+  <style>
+    .contaniner {
+      height: 100%;
+      width: 100%;
+    }
+
+    .item {
+      border: 1px solid red;
+      width: 100px;
+      height: 100px;
+      float: left;
+    }
+  </style>
+</header>
+
+<div class="contaniner">
+  <div class="item"></div>
+  <div class="item"></div>
+</div>
+```

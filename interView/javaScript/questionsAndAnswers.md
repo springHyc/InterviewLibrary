@@ -139,9 +139,90 @@ function foo() {
 }
 var a = 2;
 foo(); // 2
+
+// code 9 网上改编自360的题目
+
+window.val = 1;
+var obj = {
+  val: 2,
+  dbl: function() {
+    this.val *= 2;
+    val *= 2;
+    console.log(val);
+    console.log(this.val);
+  }
+};
+// 说出下面的输出结果
+obj.dbl();  // 2 4 单独调用obj.dbl(); 其中this.val= 2； 而val 则是window.val => 第一个打印的结果是：1*2 ,第二个打印的结果是： 2*2
+var func = obj.dbl;
+func(); // 函数是引用，其中this.val === val === window.val === 2
+
+输出的结果是： 2 4 8 8
+
+// ----箭头函数中的this----
+// code 10
+var obj = {
+   say: function () {
+     setTimeout(() => {
+       console.log(this)
+     });
+   }
+ }
+ obj.say(); // obj
+ > 此时的 this继承自obj, 指的是定义它的对象obj, 而不是 window!
+
+// code 11
+var obj = {
+say: function () {
+  var f1 = () => {
+    console.log(this); // obj
+    setTimeout(() => {
+      console.log(this); // obj
+    })
+  }
+  f1();
+  }
+}
+obj.say()
+> 因为f1定义时所处的函数 中的 this是指的 obj, setTimeout中的箭头函数this继承自f1, 所以不管有多层嵌套,都是 obj
+
+// code 12
+
+var obj = {
+say: function () {
+  var f1 = function () {
+    console.log(this); // window, f1调用时,没有宿主对象,默认是window
+    setTimeout(() => {
+      console.log(this); // window
+    })
+  };
+  f1();
+  }
+}
+obj.say()
+
+// code 13
+var obj = {
+say: function () {
+  'use strict';
+  var f1 = function () {
+  console.log(this); // undefined
+  setTimeout(() => {
+    console.log(this); // undefined
+  })
+  };
+  f1();
+ }
+}
+obj.say()
+
+> 严格模式下,没有宿主调用的函数中的this是undefined!!!所以箭头函数中的也是undefined!
+// ----箭头函数中的this----
 ```
 
-## 1. 字符串实现倒序
+## 1. 字符
+
+串实现倒序
 
 > 个人答案
 
@@ -210,9 +291,9 @@ object null undefined string number Boolean
 
 - 3 + "3" // '33'
 - "23" > "3" // false
-- var b = true && 2; // undefined
-- "abc123".slice(2, -1) // 'c12'
-- "abc123".substring(2, -1) // 'ab' //如果 start or stop 是负数或 NaN，会把它当成 0 对待;如果 start > stop,则会交换这两个参数
+- var b = true && 2; // 2
+- "abc123".slice(2, -1) // 'c12' // 如果 start\stop 是负数（绝对值小于字符串长度），则 start\stop + 字符串长度。// 不会交换 start 和 stop
+- "abc123".substring(2, -1) // 'ab' //如果 start or stop 是负数或 NaN，会把它当成 0 对待;如果 start > stop,则会交换这两个参数 // 交换 start 和 stop
 
 解释：
 
@@ -231,8 +312,9 @@ slice VS substring
 
 相同：
 
-1.如果 start == stop,return 一个空字符串
-2.stop 如果被省略，则直接扫至字符串尾 3.如果 start 或 stop 大于了字符串长度，则会被替换成字符串长度
+1.  如果 start == stop,return 一个空字符串
+2.  stop 如果被省略，则直接扫至字符串尾
+3.  如果 start 或 stop 大于了字符串长度，则会被替换成字符串长度
 
 不同：
 substing():
@@ -389,13 +471,16 @@ function() {
     };
   }
   Foo.prototype = new Bar();
-  console.log(Foo.prototype.constructor); // ƒ Object() { [native code] }
+  console.log(Foo.prototype.constructor); // ƒ Object() { [native code] } 指向内置的Object()方法
   console.log(Foo.prototype instanceof Bar); // false
   var test = new Foo();
   console.log(test instanceof Foo); // true
   console.log(test instanceof Bar); // false
   console.log(test.method()); // 1
   ```
+
+  > 1: Foo.prototype 的.constructor 属性只是 Foo 函数在声明时的默认属性。如果你创建了一个新对象并替换了函数默认的.prototype 对象引用，**那么新对象并不会自动获得.constructor 属性**。（这也是原型继承时，需要重新赋值的原因。）
+  > Foo.prototype 没有.constructor 属性，所以他会委托[[Prototype]]链上的委托连顶端的 Object.prototype。这个对象有.constructor 属性，只想内置的 Object(...)函数。
 
 - 5
 
@@ -786,16 +871,16 @@ sessionStorage 方法针对一个 session 进行数据存储。**当用户关闭
 
 | 方法             | 功能                                                                  | 是否改变原数组 | 备注             |
 | ---------------- | --------------------------------------------------------------------- | -------------- | ---------------- |
-| push             | 添加元素到数组的末尾                                                  | √              |
-| pop              | 删除数组末尾的元素                                                    | √              |
+| push             | 添加元素到数组的末尾                                                  | √              |                  |
+| pop              | 删除数组末尾的元素                                                    | √              |                  |
 | shift            | 删除数组头部的元素                                                    | √              | 第一次写错啦     |
 | unshift          | 添加元素到数组的头部                                                  | √              | 第一次写错啦     |
 | splice(pos,n)    | 通过索引,从 pos 位置开始删除 n 个元素                                 | √              | 第一次写错啦     |
 | slice(start,end) | 返回一个新的数组，包含从`start`到`end`(不包括该元素）的数组中的元素。 | ×              | 和 splice 记混啦 |
-| sort             | 数组排序                                                              | √              |
+| sort             | 数组排序                                                              | √              |                  |
 | reverse          | 数组倒序                                                              | √              | 是改变原数组的   |
-| slice()          | 复制整个数组                                                          | ×              |
-| indexOf          | 找出某个元素在数组中的索引                                            | ×              |
+| slice()          | 复制整个数组                                                          | ×              |                  |
+| indexOf          | 找出某个元素在数组中的索引                                            | ×              |                  |
 
 ## 20. apply 和 call 的作用和区别?
 
@@ -974,8 +1059,424 @@ es6 有 import 和 export 运算符来实现了
 
 ## 25. 箭头函数相比于普通函数的优点？
 
+- 简洁
+- this
+  function 传统定义的函数，this 指向随着调用环境的改变而改变，而箭头 函数中的指向则是固定不变，一直指向定义环境的。
+  > 箭头函数在定义之后，this 就不会发生改变了，无论用什么样子的方式调用它，this 都不会改变
+  > 箭头函数没有它自己的 this 值，箭头函数内的 this 值继承自外围作用域。
+- 构造函数
+  箭头函数固然好用，但是不能用于构造函数，即不能被 new 一下
+- 变量提升
+  由于 js 的内存机制，function 的级别最高，而用箭头函数定义函数的时候，需要 var(let const 定义的时候更不必说)关键词，而 var 所定义的变量不能得到变量提升，故箭头函数一定要定义于调用之前！
+
 ## 26. for-of 的原理？
+
+for-of 通过方法调用(遍历器方法)来实现集合的遍历。数组、Maps、Sets 以及其他我们讨论过的对象之间有个共同点：有迭代器方法。
+
+> 另外一种解释
+> JavaScript 原有的表示“ 集合” 的数据结构， 主要是数组（ Array） 和对象（ Object）， ES6 又添加了 Map 和 Set。 这样就有了四种数据集合， 用户还可以组合使用它们， 定义自己的数据结构， 比如数组的成员是 Map， Map 的成员是对象。 这样就需要一种统一的接口机制， 来处理所有不同的数据结构。
+> 遍历器（ Iterator） 就是这样一种机制。 它是一种接口， 为各种不同的数据结构提供统一的访问机制。 任何数据结构只要部署 Iterator 接口， 就可以完成遍历操作（ 即依次处理该数据结构的所有成员）。
+> Iterator 的作用有三个：
+> 一是为各种数据结构， 提供一个统一的、 简便的访问接口。
+> 二是使得数据结构的成员能够按某种次序排列；
+> 三是 ES6 创造了一种新的遍历命令 for...of 循环， Iterator 接口主要供 for...of 消费。
+> Iterator 的遍历过程是这样的。
+> （ 1） 创建一个指针对象， 指向当前数据结构的起始位置。 也就是说， 遍历器对象本质上， 就是一个指针对象。
+> （ 2） 第一次调用指针对象的 next 方法， 可以将指针指向数据结构的第一个成员。
+> （ 3） 第二次调用指针对象的 next 方法， 指针就指向数据结构的第二个成员。
+> （ 4） 不断调用指针对象的 next 方法， 直到它指向数据结构的结束位置。
+> 每一次调用 next 方法， 都会返回数据结构的当前成员的信息。 具体来说， 就是返回一个包含 value 和 done 两个属性的对象。 其中， value 属性是当前成员的值， done 属性是一个布尔值， 表示遍历是否结束。
 
 ## 27. 迭代器是什么？
 
 > 生成器返回的是迭代器。
+
+## 28. for in 和 for of 的区别是什么？
+
+for-in 用于遍历对象更好
+for-of 用于遍历数组更好
+
+使用 for in 会遍历数组所有的可枚举属性，包括原型。所以**for-in 用于遍历对象更好**。
+
+记住，for in 遍历的是数组的索引（即键名），而 for of 遍历的是数组元素值。
+
+## 29. 简述 arguments 的作用，在 es6 中更好的替代方案是什么?
+
+不定参数和默认参数
+
+## 30. 实现一个动物类，动物有吃饭，吼叫的方法，有眼睛、鼻子属性。动物类有子类：猫和狗。猫的叫声是喵喵，猫的眼睛是蓝色的，狗得见叫声是汪汪，狗的眼睛是棕色的。请用代码实现上述描述。
+
+```js
+class Animal {
+  constructor(eye, nose) {
+    this.eye = eye;
+    this.nose = nose;
+  }
+  eat() {
+    return "吃东西";
+  }
+
+  howl() {
+    return "吼叫";
+  }
+}
+
+class Dog extends Animal {
+  constructor() {
+    super("棕色");
+  }
+
+  howl() {
+    return "wangwang";
+  }
+}
+
+class Cat extends Animal {
+  constructor() {
+    super("blue");
+  }
+
+  hol = () => "喵喵喵";
+}
+
+var dog = new Dog();
+console.log(dog.eye, dog.howl());
+
+var cat = new Cat();
+console.log(cat.eye, cat.howl());
+```
+
+## 31. 下面的执行结果是什么？
+
+```js
+function Promise1() {
+  return new Promise(function(resolve, reject) {
+    for (let i = 0; i < 2; i++) {
+      console.log("111");
+    }
+    resolve(true);
+  });
+}
+function Promise2() {
+  return new Promise(function(resolve, reject) {
+    for (let i = 0; i < 2; i++) {
+      console.log("222");
+    }
+    resolve(true);
+  });
+}
+
+setTimeout(function() {
+  console.log("333");
+}, 0); // 这是是会执行的。考察的是异步执行，js的任务队列
+
+Promise.all([Promise1(), Promise2()]).then(function() {
+  console.log("All Done!");
+});
+```
+
+> 结果是：
+
+```js
+"111";
+"111";
+"222";
+"222";
+"All Done!";
+"333";
+```
+
+## 32. 下面代码运行的结果是什么？
+
+```js
+let obj = {
+  fun1: () => {
+    console.log("111");
+  },
+  fun2: () => {
+    this.fun1();
+  }
+};
+
+obj.fun2(); // 报错 this不是指向obj的，而是指向undefined ，箭头函数的this是指向外部作用域的
+```
+
+## 33. 下面代码会输出什么？
+
+```js
+let arr = [1, 2, 3, 4];
+let it1 = arr[Symbol.iterator](); // 遍历器接口
+let res = it1.next();
+console.log(res);
+```
+
+结果是：
+
+```js
+{
+  done: false,
+  value: 1
+}
+```
+
+## 34. 下面代码输出什么？ ？
+
+```js
+Promise.resolve(1)
+  .then(x => x + 1)
+  .then(x => {
+    throw new Error("my error");
+  })
+  .catch(() => 1)
+  .then(x => x + 1)
+  .then(x => console.log(x))
+  .catch(console.error);
+```
+
+结果是：
+
+2
+
+## 35. 说一下对 Promise 的理解
+
+> Promise 是一种封装和组合未来值的易于复用的机制。
+> Promise 采用的是异步任务队列的方式来处理异步。
+
+- Promise 是一个构造函数，对回调函数的一种封装，对异步编程的一种改进。
+- new 出来的 promise 对象。它有三种状态：pending（进行中），resolved（已完成），rejected（已失败），状态一旦发生，就不能改变。执行 new 的时候状态就开始变化。promise 对象身上有两个方法：then()，和 catch()。
+
+promise 的特点：
+
+对象的状态不受外界影响。
+
+promise 的对待一个异步操作有 3 种状态：Pending（进行中）、Resolved（已完成，又称 Fulfilled）和 Rejected（失败）。
+
+一旦状态改变，就不会再变，任何时候都可以得到这个结果。
+
+promise 的好处：
+
+- 代码结构更加扁平化，易读易理解，更加清晰明了。
+- 能解决回调地狱的问题
+- 可以将数据请求和业务逻辑分离开来。
+- 便于维护管理
+- 可以更好的捕捉错误
+- es6 新增了 promise 来弥补回调的主要缺陷之一：缺少对可预测行为方式的保证。
+  i
+  promise 的方法
+
+| 方法              | 作用                                                                                                                                                                                                                                 | 例子                                                                     |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| Promise.all       | Promise.all 方法用于将多个 Promise 实例，包装成一个新的 Promise 实例:只有 p1、p2、p3 的状态都变成 fulfilled，p 的状态才会变成 fulfilled，此时 p1、p2、p3 的返回值组成一个数组，传递给 p 的回调函数。                                 | `var p = Promise.all([p1,p2,p3])`                                        |
+| Promise.race()    | Promise.race 方法同样是将多个 Promise 实例，包装城一个新的 Promise 实例: 上面代码中，只要 p1、p2、p3 之中有一个实例率先改变状态，p 的状态就跟着改变。那个率先改变的 Promise 实例的返回值，就传递给 p 的回调函数。                    | `var p = Promise.race([p1,p2,p3])`                                       |
+| Promise.resolve() | 有时需要将现有对象转为 Promise 对象，Promise.resolve 方法就起到这个作用                                                                                                                                                              | `Promise.resolve('foo')`等价于 `new Promise(resolve => resolve('foo'))`  |
+| Promise.reject()  | Promise.reject(reason)方法也会返回一个新的 Promise 实例，该实例的状态为 rejected。                                                                                                                                                   |
+| done()            | Promise 对象的回调链，不管以 then 方法或 catch 方法结尾，要是最后一个方法抛出错误，都有可能无法捕捉到（因为 Promise 内部的错误不会冒泡到全局）。因此，我们可以提供一个 done 方法，总是处于回调链的尾端，保证抛出任何可能出现的错误。 | `asyncFunc().then(f1).catch(r1).then(f2).done();`                        |
+| finally()         | finally 方法用于指定不管 Promise 对象最后状态如何，都会执行的操作。它与 done 方法的最大区别，它接受一个普通的回调函数作为参数，该函数不管怎样都必须执行。服务器使用 Promise 处理请求，然后使用 finally 方法关掉服务器。              | `server.listen(0).then(function () {// run test}).finally(server.stop);` |
+
+## 36. 回调地狱的缺点？
+
+```js
+fs.readdir(source, function(err, files) {
+  if (err) {
+    console.log("Error finding files: " + err);
+  } else {
+    files.forEach(function(filename, fileIndex) {
+      console.log(filename);
+      gm(source + filename).size(function(err, values) {
+        if (err) {
+          console.log("Error identifying file size: " + err);
+        } else {
+          console.log(filename + " : " + values);
+          aspect = values.width / values.height;
+          widths.forEach(
+            function(width, widthIndex) {
+              height = Math.round(width / aspect);
+              console.log(
+                "resizing " + filename + "to " + height + "x" + height
+              );
+              this.resize(width, height).write(
+                dest + "w" + width + "_" + filename,
+                function(err) {
+                  if (err) console.log("Error writing file: " + err);
+                }
+              );
+            }.bind(this)
+          );
+        }
+      });
+    });
+  }
+});
+```
+
+> 这个一堆以})结尾的金字塔，我们很亲切地称它为——“回调地狱”。
+
+- 代码嵌套太多
+- 代码太复杂
+
+## 37. 一个列表中给每项添加点击事件，如何添加？当列表有一万项的时候怎么添加？（事件委托是什么）
+
+假如有个列表，如下：
+
+```js
+<ul id="contaniner">
+  <li id="li1">1</li>
+  <li id="li2">2</li>
+  <li id="li3">3</li>
+</ul>
+```
+
+可以单个的给每个表单项添加点击事件，如`<li id="li1" onclick="alert(1)">1</li>`,可以看[##14]题目中的答案。
+
+但是当列表数据过多时，则不能采用这种形式来添加点击事件。
+
+想象以上示例中，`<li>`标签的数量很大时，循环为每个子元素添加事件，绝非好方法。下面给出一种优雅的方法，采用事件委托。
+
+```js
+document.getElementById("contaniner").addEventListener(
+  "click",
+  function(e) {
+    var target = e.target;
+    if (target.tagName == "LI") {
+      alert(target.innerText);
+    }
+  },
+  false
+);
+```
+
+这段代码里，使用事件委托只为`<ul>`元素添加一个 onclick 事件处理程序。因为有事件冒泡机制，单击每个`<li>`标签时，都会被这个函数处理。
+
+> React 中是怎么实现的？
+
+React 并不会真正的绑定事件到每一个具体的元素上，而是采用事件代理的模式：在根节点 document 上为每种事件添加唯一的 Listener，然后通过事件的 target 找到真实的触发元素。这样从触发元素到顶层节点之间的所有节点如果有绑定这个事件，React 都会触发对应的事件处理函数。这就是所谓的 React 模拟事件系统。
+
+尽管整个事件系统由 React 管理，但是其 API 和使用方法与原生事件一致。这种机制确保了跨浏览器的一致性：在所有浏览器（IE8 及以上）都可以使用符合 W3C 标准的 API，包括 stopPropagation()，preventDefault()等等。对于事件的冒泡（bubble）和捕获（capture）模式也都完全支持。
+
+## 38. 原型链是什么？
+
+### 原型是什么
+
+JavaScript 中对象有一个特殊的[[Prototype]]内置属性，其实就是对其他对象的引用。
+
+### 原型链是什么
+
+如果要访问对象中并不存在的一个属性，[[Get]]操作就会查找对象内部的[[Prototype]]关联的对象。这个关联关系实际上定了一条“原型链”，在属性查找时会对它进行遍历。
+
+## 39. 继承有几种方式？写一下
+
+```js
+// "动物"对象的构造函数
+function Animal() {
+  this.species = "动物";
+}
+// "猫"对象的构造函数。
+function Cat(name, color) {
+  this.name = name;
+  this.color = color;
+}
+```
+
+怎样才能使"猫"继承"动物"呢？
+
+- 构造函数绑定
+
+第一种方法也是最简单的方法，使用 call 或 apply 方法，将父对象的构造函数绑定在子对象上，即在子对象构造函数中加一行：
+
+```js
+function Cat(name, color) {
+  Animal.apply(this, arguments);
+  this.name = name;
+  this.color = color;
+}
+var cat1 = new Cat("大毛", "黄色");
+alert(cat1.species); // 动物
+```
+
+- prototype 模式
+
+如果"猫"的 prototype 对象，指向一个 Animal 的实例，那么所有"猫"的实例，就能继承 Animal 了。
+
+```js
+// 将Cat的prototype对象指向一个Animal的实例.它相当于完全删除了prototype 对象原先的值，然后赋予一个新值。
+Cat.prototype = new Animal();
+// 原来，任何一个prototype对象都有一个constructor属性，指向它的构造函数。
+// 如果没有"Cat.prototype = new Animal();"这一行，Cat.prototype.constructor是指向Cat的；
+// 加了这一行以后，Cat.prototype.constructor指向Animal。
+Cat.prototype.constructor = Cat;
+var cat1 = new Cat("大毛", "黄色");
+alert(cat1.species); // 动物
+```
+
+## 40. promise 能够一直.then 下去的原因？
+
+> Promise 决议后的值仍然是 promise 对象。
+
+> 如何将一个立即值封装为 promise 对象?
+> var p1 = Promise.resolve(42);
+
+## 41. 有一个场景，我们有很多以前的代码，都是回调函数的形式写的。如何将 callback 形式的回调函数转化为 promise 的调用方式？
+
+## 42. let const var 的区别？
+
+`const obj = {a: 1};`那么 a 还能赋值为其他值吗？为什么？
+
+## 43. 写一个函数，实现对象的深度拷贝。
+
+```js
+// 实现对象的浅拷贝
+
+function copy(p,c) {
+  var c = c || {};
+  for (var i = 0; i<p.length; i ++) {
+    c[i] = p[i];
+  }
+  c.uber = p;
+  return c;
+}
+
+// 对象的深拷贝
+function deepCopy(p, c) {
+  var c = c || {};
+
+  for (var i in p ){
+    if(typeOf p[i] === 'object') {
+      var c[i] = p[i].constructor == 'Array' ? [] : {};
+      deepCopy(c[i], p[i]);
+    } else {
+      c[i] = p[i];
+    }
+  }
+  c.uber = p;
+  return c;
+}
+
+Object.create(); //也是对象的深拷贝
+```
+
+## 44. 给一个字符串，找到里面重复最多的字符？
+
+```js
+function findMax(str) {
+  var map = {},
+    max = { num: 0 };
+
+  for (var i in str) {
+    if (map[str[i]]) {
+      map[str[i]]++;
+    } else {
+      map[str[i]] = 1;
+    }
+
+    if (map[str[i]] > max.num) {
+      max.num = map[str[i]];
+      max.key = str[i];
+    }
+  }
+  console.log(`max num is ${max.num}, and the key is ${max.key}`);
+  // 打印出来所有值的重复次数
+  for (var key in map) {
+    console.log(`${key} copied is ${map[key]}`);
+  }
+}
+```

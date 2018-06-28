@@ -8,3 +8,26 @@
 根据你的答案，会问你，复杂度是多少？有没有更高效的做法？
 
 然后问一个延伸问题：[0,1,2,3,...9999]这样的一个数组，如何打乱它？
+
+// -------------------打印分界线-----------------------
+
+## 2. 实现一下冒泡排序算法。
+
+```js
+function maopao(arr) {
+  var len = arr.length,
+    j,
+    tempValue;
+  while (len > 0) {
+    for (j = 0; j < len - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        tempValue = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = tempValue;
+      }
+    }
+    len--;
+  }
+  return arr;
+}
+```

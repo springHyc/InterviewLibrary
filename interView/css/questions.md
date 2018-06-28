@@ -43,3 +43,38 @@
 ## 3. css 盒模型是什么？
 
 ## 4. 实现 div 的动画移动
+
+## 5. css 模块化是什么？
+
+## 6. 如何实现一个三列布局，中间固定，两边自适应？
+
+## 7. 通过 html img 标签设置图片和通过 div 背景图设置图片，两种设置图片的方式有什么优劣？
+
+## 8. 实现一下一个 div 的居中。如果不适用 flex 布局怎么做？
+
+```js
+<header>
+  <style>
+    .contaniner {
+      margin: 0 auto; // 左右居中
+      border: 1px solid red;
+      width: 100px;
+      height: 100px;
+      top: calc(50% - 50px);
+      position: relative;
+    }
+  </style>
+</header>
+<div class="contaniner" />
+```
+
+> 必须有 width,`margin: 0 auto`才有效果；
+> `top: calc(50% - 50px); position: relative;`是可以上下居中
+
+## 9. 普通的实现一下两个`<div>`横着排列？
+
+// -------------------打印分界线-----------------------
+
+## 10. 请写出你所知道的清除浮动的方法（代码）
+
+- `clear :both`

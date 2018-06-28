@@ -196,15 +196,15 @@ for (var i = 1; i <= 5; i++) {
 - 4
 
   ```js
-  function foo() {
+  function Foo() {
     this.value = 42;
   }
-  foo.prototype = {
+  Foo.prototype = {
     method: function() {
       return true;
     }
   };
-  function bar() {
+  function Bar() {
     var value = 1;
     return {
       method: function() {
@@ -212,12 +212,12 @@ for (var i = 1; i <= 5; i++) {
       }
     };
   }
-  foo.prototype = new bar();
-  console.log(foo.prototype.constructor); //
-  console.log(foo.prototype instanceof bar); //
-  var test = new foo();
-  console.log(test instanceof foo); //
-  console.log(test instanceof bar); //
+  Foo.prototype = new Bar();
+  console.log(Foo.prototype.constructor); //
+  console.log(Foo.prototype instanceof Bar); //
+  var test = new Foo();
+  console.log(test instanceof Foo); //
+  console.log(test instanceof Bar); //
   console.log(test.method()); //
   ```
 
@@ -401,3 +401,100 @@ main();
 ## 27. 迭代器是什么？
 
 > 生成器返回的是迭代器。
+
+## 28. for in 和 for of 的区别是什么？
+
+## 29. 简述 arguments 的作用，在 es6 中更好的替代方案是什么?
+
+## 30. 实现一个动物类，动物有吃饭，吼叫的方法，有眼睛、鼻子属性。动物类有子类：猫和狗。猫的叫声是喵喵，猫的眼睛是蓝色的，狗得见叫声是汪汪，狗的眼睛是棕色的。请用代码实现上述描述。
+
+## 31. 下面的执行结果是什么？
+
+```js
+function Promise1() {
+  return new Promise(function(resolve, reject) {
+    for (let i = 0; i < 2; i++) {
+      console.log("111");
+    }
+    resolve(true);
+  });
+}
+function Promise2() {
+  return new Promise(function(resolve, reject) {
+    for (let i = 0; i < 2; i++) {
+      console.log("222");
+    }
+    resolve(true);
+  });
+}
+
+setTimeout(function() {
+  console.log("333");
+}, 0); // 这是是会执行的。考察的是异步执行，js的任务队列
+
+Promise.all([Promise1(), Promise2()]).then(function() {
+  console.log("All Done!");
+});
+```
+
+## 32. 下面代码运行的结果是什么？
+
+```js
+let obj = {
+  fun1: () => {
+    console.log("111");
+  },
+  fun2: () => {
+    this.fun1();
+  }
+};
+
+obj.fun2();
+```
+
+## 33. 下面代码会输出什么？
+
+```js
+let arr = [1, 2, 3, 4];
+let it1 = arr[Symbol.iterator](); // 遍历器接口
+let res = it1.next();
+console.log(res);
+```
+
+## 34. 下面代码输出什么？ ？
+
+```js
+Promise.resolve(1)
+  .then(x => x + 1)
+  .then(x => {
+    throw new Error("my error");
+  })
+  .catch(() => 1)
+  .then(x => x + 1)
+  .then(x => console.log(x))
+  .catch(console.error);
+```
+
+## 35. 说一下对 Promise 的理解？
+
+## 36. 回调地狱的缺点？
+
+## 37. 一个列表中给每项添加点击事件，如何添加？当列表有一万项的时候怎么添加？（事件委托是什么）做过的项目中 react-native 中的表格是怎么添加点击事件的？
+
+## 38. 原型链是什么？说一下原型链的 this 指针指向？
+
+## 39. 继承有几种方式？写一下
+
+// -------------------打印分界线-----------------------
+
+## 40. promise 能够一直.then 下去的原因？
+
+## 41. 有一个场景，我们有很多以前的代码，都是回调函数的形式写的。如何将 callback 形式的回调函数转化为 promise 的调用方式？
+
+## 42. let const var 的区别？
+
+`const obj = {a: 1};`那么 a 还能赋值为其他值吗？为什么？
+
+## 43. 写一个函数，实现对象的深度拷贝。
+
+## 44. 给一个字符串，找到里面重复最多的字符？
