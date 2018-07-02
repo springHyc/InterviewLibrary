@@ -44,3 +44,61 @@
 ## 12. 什么是同源策略？跨域有哪些解决方案？什么是跨域？
 
 // -------------------打印分界线-----------------------
+
+## 13. 一个原生的`<input>`标签都有些什么事件？在浏览器上 onchange 什么时候触发？
+
+### onchange 是怎么触发的？
+
+当 input 捕获到焦点后，系统储存当前值，当 input 焦点离开后，判断当前值与之前存储的值是否不等，如果为 true 则触发 onchange 事件。非 ie 敲回车也可以实现触发
+
+## 14. 原生的变化如何监听？怎么知道 input 框的值是改变了？
+
+在`<input>`上添加一个属性`defaultValue`,用来做对比，或者将原始值记录下来。
+
+## 15. html 原生事件
+
+### Keyboard 事件
+
+| 属性       | 值     | 描述                   |
+| ---------- | ------ | ---------------------- |
+| onkeydown  | script | 在用户按下按键时触发。 |
+| onkeypress | script | 在用户敲击按钮时触发。 |
+| onkeyup    | script | 当用户释放按键时触发。 |
+
+### Mouse 事件
+
+| 属性         | 值     | 描述                                           |
+| ------------ | ------ | ---------------------------------------------- |
+| onclick      | script | 元素上发生鼠标点击时触发。                     |
+| ondblclick   | script | 元素上发生鼠标双击时触发。                     |
+| ondrag       | script | 元素被拖动时运行的脚本。                       |
+| ondragend    | script | 在拖动操作末端运行的脚本。                     |
+| ondragenter  | script | 当元素元素已被拖动到有效拖放区域时运行的脚本。 |
+| ondragleave  | script | 当元素离开有效拖放目标时运行的脚本。           |
+| ondragover   | script | 当元素在有效拖放目标上正在被拖动时运行的脚本。 |
+| ondragstart  | script | 在拖动操作开端运行的脚本。                     |
+| ondrop       | script | 当被拖元素正在被拖放时运行的脚本。             |
+| onmousedown  | script | 当元素上按下鼠标按钮时触发。                   |
+| onmousemove  | script | 当鼠标指针移动到元素上时触发。                 |
+| onmouseout   | script | 当鼠标指针移出元素时触发。                     |
+| onmouseover  | script | 当鼠标指针移动到元素上时触发。                 |
+| onmouseup    | script | 当在元素上释放鼠标按钮时触发。                 |
+| onmousewheel | script | 当鼠标滚轮正在被滚动时运行的脚本。             |
+| onscroll     | script | 当元素滚动条被滚动时运行的脚本。               |
+
+## 16. http 和 https 的区别？对 https 有什么了解？
+
+### HTTP
+
+超文本传输协议 HTTP 协议被用于在 Web 浏览器和网站服务器之间传递信息。HTTP 协议以明文方式发送内容，不提供任何方式的数据加密，如果攻击者截取了 Web 浏览器和网站服务器之间的传输报文，就可以直接读懂其中的信息，因此 HTTP 协议不适合传输一些敏感信息，比如信用卡号、密码等。
+
+### HTTPS
+
+https 是比 http 更加安全的网络协议，可以说 HTTPS = HTTP + SSL。HTTPS 是在 HTTP 下加入 SSL 层，HTTPS 的安全基础是 SSL，因此加密的详细内容就需要 SSL。
+
+### 二者区别
+
+- https 协议需要到 ca 申请证书，一般免费证书很少，需要交费。
+- http 是超文本传输协议，信息是明文传输，https 则是具有安全性的 ssl 加密传输协议。
+- http 和 https 使用的是完全不同的连接方式，用的端口也不一样，前者是 80，后者是 443。
+- http 的连接很简单，是无状态的；HTTPS 协议是由 SSL+HTTP 协议构建的可进行加密传输、身份认证的网络协议，比 http 协议安全。

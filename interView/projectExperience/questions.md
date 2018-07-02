@@ -42,3 +42,130 @@
 ## 16. angular 中的异步与一般的异步事件有什么区别？
 
 ## 17. angular 与 ionIC 的关系?
+
+## 18. 介绍一下你最近项目中遇到的难题？
+
+> 我说的是 rn 中 webview 的使用
+
+## 19. 有没有用过 native 原生的东西？
+
+## 20. react-native 是怎么运行起来的？
+
+## 21. react-native 对于手机版本有要求吗?ios8 有什么特点吗？
+
+## 22. 你们用的版本 react 是什么版本？有关注过 16.0 有什么新特性吗？
+
+最近使用的是 16.0 的版本。
+
+16.0 的新特性有：
+
+- Components can now return arrays and strings from render.
+- Improved error handling with introduction of "error boundaries". Error boundaries are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of the component tree that crashed.
+
+  > 通过引入“错误边界”改进了错误处理。 错误边界是 React 组件，可以在其子组件树中的任何位置捕获 JavaScript 错误，记录这些错误并显示回退 UI，而不是崩溃的组件树。 - 翻译
+
+  > 什么是 Error Boundaries?
+  > 单一组件内部错误，不应该导致整个应用报错并显示空白页，而 Error Boundaries 解决的就是这个问题。
+  > Error Boundaries 的实现
+  > 需要在组件中定义个新的生命周期函数——componentDidCatch(error, info)
+
+  ```js
+  class ErrorBoundary extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { hasError: false };
+    }
+
+    componentDidCatch(error, info) {
+      // Display fallback UI
+      this.setState({ hasError: true });
+      // You can also log the error to an error reporting service
+      logErrorToMyService(error, info);
+    }
+
+    render() {
+      if (this.state.hasError) {
+        // You can render any custom fallback UI
+        return <h1>Something went wrong.</h1>;
+      }
+      return this.props.children;
+    }
+  }
+
+  // 上述的ErrorBoundary就是一个“错误边界”，然后我们可以这样来使用它：
+
+  <ErrorBoundary>
+    <MyWidget />
+  </ErrorBoundary>;
+  ```
+
+  > Erro Boundaries 本质上也是一个组件，通过增加了新的生命周期函数 componentDidCatch 使其变成了一个新的组件，这个特殊组件可以捕获其子组件树中的 js 错误信息，输出错误信息或者在报错条件下，显示默认错误页。
+  > **注意一个 Error Boundaries 只能捕获其子组件中的 js 错误，而不能捕获其组件本身的错误和非子组件中的 js 错误。**
+
+## 23. rn 中父子组件之前的通信方式是怎么样？除了 props 还知道什么其他的通信方式吗？
+
+## 24. 说一下 react 的生命周期;shouldUpdate 生命周期中有什么比较数据的好的方法吗？
+
+生命周期图；
+
+其中在 componentWillMount、componentDidMount 和 componentWillReceiveProps 三个生命周期中进行 setState 不会引起重新渲染。
+
+shouldComponentUpdate 生命周期默认返回 true。
+实际效果却是每个组件都完成 re-render 和 virtual-DOM diff 过程，虽然组件没有变更，这明显是一种浪费。react 的性能瓶颈主要表现在：对于 props 和 state 没有变化的组件，react 也要重新生成虚拟 DOM 及虚拟 DOM 的 diff。
+这个时候，就是 shouldComponentUpdate 上场的时候了。该对齐进行优化。
+
+优化主要有：
+
+react 在发展的不同阶段提供两套官方方案：
+
+- PureRenderMin
+- PureComponent
+
+### PureRenderMin
+
+一种是基于 ES5 的 React.createClass 创建的组件，配合该形式下的 mixins 方式来组合 PureRenderMixin 提供的 shouldComponentUpdate 方法。当然用 ES6 创建的组件也能使用该方案。
+
+```js
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+class Example extends React.Component {
+  constructor(props) {
+    super(props);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+}
+```
+
+### PureComponent
+
+在 React 15.3.0 版本发布的针对 ES6 而增加的一个组件基类：React.PureComponent。这明显对 ES6 方式创建的组件更加友好。
+
+```js
+import React, { PureComponent } from "react";
+class Example extends PureComponent {
+  render() {
+    // ...
+  }
+}
+```
+
+它内部的 shouldComponentUpdate 方法都是浅比较(shallowCompare)props 和 state 对象的，即只比较对象的第一层的属性及其值是不是相同。
+
+例如下面 state 对象变更为如下值：
+
+```js
+state = {
+  value: { foo: "bar" }
+};
+```
+
+为 state 的 value 被赋予另一个对象，使 nextState.value 与 this.props.value 始终不等，导致浅比较通过不了。在实际项目中，这种嵌套的对象结果是很常见的，如果使用 PureRenderMin 或者 PureComponent 方式时起不到应有的效果。
+**虽然可以通过深比较方式来判断，但是深比较类似于深拷贝，递归操作，性能开销比较大。**
+为此，可以对组件尽可能的拆分，使组件的 props 和 state 对象数据达到扁平化，结合着使用 PureRenderMin 或者 PureComponent 来判断组件是否更新，可以更好地提升 react 的性能，不需要开发人员过多关心。
+
+## 26. 说一下 redux
+
+- 使用 `react-redux` 中的`<Provider>`来绑定全局的一个 store;
+- 使用 `react-redux` 中的`connect`来创建容器组件。
+
+## 27. redux 是在哪儿监听数据的？怎么监听的？
+
+- 使用`redux-saga/effects`中的`takeLates`来监听最新的 action 以及`redux-saga`中的`createSagaMiddleware`来创建监听
