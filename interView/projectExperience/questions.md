@@ -35,25 +35,28 @@
 
 ## 14. 遇到一个问题，该怎么去处理？
 
-## react 现在使用的版本？核心架构是什么？16.0.0 新增了一个东西是什么？react 的原理是什么？
+## 15. react 核心架构是什么？react 的原理是什么？
 
-## 15. 高阶组件了解多少？
+## 16. 高阶组件了解多少？
 
-## 16. angular 中的异步与一般的异步事件有什么区别？
+## 17. angular 中的异步与一般的异步事件有什么区别？
 
-## 17. angular 与 ionIC 的关系?
+## 18. angular 与 ionIC 的关系?
 
-## 18. 介绍一下你最近项目中遇到的难题？
+## 19. 介绍一下你最近项目中遇到的难题？
 
 > 我说的是 rn 中 webview 的使用
 
-## 19. 有没有用过 native 原生的东西？
+## 20. 有没有用过 native 原生的东西？ react-native 怎么调 native 的文件服务？jsbridge 怎么使用？
 
-## 20. react-native 是怎么运行起来的？
+## 21. react-native 是怎么运行起来的？React Native 是怎么在 Android /ios 上跑起来的？
 
-## 21. react-native 对于手机版本有要求吗?ios8 有什么特点吗？
+## 22. react-native 对于手机版本有要求吗?ios8 有什么特点吗？
 
-## 22. 你们用的版本 react 是什么版本？有关注过 16.0 有什么新特性吗？
+- Android >= 4.1 (API 16)
+- iOS >= 7.0
+
+## 23. 你们用的版本 react 是什么版本？有关注过 16.0 有什么新特性吗？
 
 最近使用的是 16.0 的版本。
 
@@ -102,9 +105,9 @@
   > Erro Boundaries 本质上也是一个组件，通过增加了新的生命周期函数 componentDidCatch 使其变成了一个新的组件，这个特殊组件可以捕获其子组件树中的 js 错误信息，输出错误信息或者在报错条件下，显示默认错误页。
   > **注意一个 Error Boundaries 只能捕获其子组件中的 js 错误，而不能捕获其组件本身的错误和非子组件中的 js 错误。**
 
-## 23. rn 中父子组件之前的通信方式是怎么样？除了 props 还知道什么其他的通信方式吗？
+## 24. rn 中父子组件之前的通信方式是怎么样？除了 props 还知道什么其他的通信方式吗？
 
-## 24. 说一下 react 的生命周期;shouldUpdate 生命周期中有什么比较数据的好的方法吗？
+## 25. 说一下 react 的生命周期;shouldUpdate 生命周期中有什么比较数据的好的方法吗？
 
 生命周期图；
 
@@ -169,3 +172,48 @@ state = {
 ## 27. redux 是在哪儿监听数据的？怎么监听的？
 
 - 使用`redux-saga/effects`中的`takeLates`来监听最新的 action 以及`redux-saga`中的`createSagaMiddleware`来创建监听
+
+## 29. 涉及到 react-native 打包的问题。
+
+### 29.1 react-native 是怎么打包的？（iOS 和 android）打包加载是什么？里面的路径是什么？
+
+### 29.2 打包后的文件有看过吗？资源代码和逻辑代码是什么？
+
+### 29.3 涉及到 webview 的话，有静态的 html 文件的话，版本管理是怎么实现的？怎么更新？每个页面是怎么更新的？
+
+## 30. 安卓发送一个请求怎么去走？
+
+## 31. react 题目
+
+```js
+this.state = {
+      val: 0
+    };
+
+componentDidMount() {
+    this.setState({ val: this.state.val + 1 }, () => {
+      console.log("A ", this.state.val);
+    });
+    console.log("B ", this.state.val);
+    setTimeout(() => {
+      console.log("C ", this.state.val);
+      this.setState({ val: this.state.val + 1 }, () => {
+        console.log("D ", this.state.val);
+      });
+      setTimeout(() => {
+        console.log("E ", this.state.val);
+      }, 0);
+      console.log("F ", this.state.val);
+    }, 0);
+  }
+```
+
+> 结果：
+> App.js:31 B 0
+> App.js:29 A 1
+> App.js:33 C 1
+> App.js:35 D 2
+> App.js:40 F 2
+> App.js:38 E 2
+
+## 32. rn 项目中有什么写的全局性组件？

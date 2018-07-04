@@ -267,10 +267,31 @@ for (let i = 1; i <= 5; i++) {
   }, i * 1000);
 }
 
-let 声明只属于作用域块。`for`循环头部的`let i`不只是为for循环本身声明了一个`i`，而是为循环的每一次迭代都重新声明了一个新的`i`。这意味着loop迭代内部创建的闭包封闭的是每次迭代中的变量，就像期望的那样。
+// or
 
-或者;
+for (var i = 1; i <= 5; i++) {
+  (function(j) {
+    setTimeout(function() {
+      console.log(j);
+    }, j * 1000);
+  })(i);
+}
 
+// or
+
+for (var i = 1; i <= 5; i++) {
+  let j = i;
+  setTimeout(function timer() {
+    console.log(j);
+  }, j * 1000);
+}
+```
+
+let 声明只属于作用域块。`for`循环头部的`let i`不只是为 for 循环本身声明了一个`i`，而是为循环的每一次迭代都重新声明了一个新的`i`。这意味着 loop 迭代内部创建的闭包封闭的是每次迭代中的变量，就像期望的那样。
+
+或者
+
+```js
 for (var i = 1; i <= 5; i++) {
   (function(j) {
     setTimeout(function timer() {
@@ -278,10 +299,10 @@ for (var i = 1; i <= 5; i++) {
     }, j * 1000);
   })(i);
 }
+```
 
 在迭代内使用 IIFE 会为每个迭代都生成一个新的作用域，使得延迟函数的回调可以将新的
 作用域封闭在每个迭代内部，每个迭代中都会含有一个具有正确值的变量供我们访问。
-```
 
 ## 3. JavaScript 的数据类型有哪些？如何准确的检测数据类型？
 
@@ -331,6 +352,7 @@ slice():
 ## 5. 以下代码执行结果是什么？
 
 - 1
+
   ```js
   var foo = 1,
     bar = 2,
@@ -347,7 +369,9 @@ slice():
   console.log(bar); // 2 由于函数作用域对全局作用域的隐藏，所以只有在test函数内部，bar=5,并不能影响到全局中的bar
   console.log(j); // undefined  test(10)函数调用的时候，是函数内部的参数j接收到了10，但是它也是函数作用域内的变量，并不会改变全局作用域中的j。
   ```
+
   > 这个题目还有一个类似的题目：这个考察的是，数组和对象都是引用复制
+
   ```js
   var j = [1, 2, 3];
   test = function(j) {
@@ -356,18 +380,56 @@ slice():
   test(j);
   console.log(j); // [1,2,3,4],因为test(j)中的j是对[1,2,3]的引用复制给function(j)中的j,而在test函数内部，通过引用改变的是[1,2,3]这是数组本身，所以console.log(j); 为 [1,2,3,4]
   ```
+
 - 2
 
   ```js
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 5; i++) {
     window.setTimeout(function() {
-      console.log(i); // 每隔100ms输出一个10
-    }, 100);
+      console.log(i); // 
+    }, 1000);
   }
-  console.log(i); // 10
+  console.log("i=" + i); // 先输出“i=5”,然后再隔1s后输出一个5个5
   ```
 
-- 3
+  只有
+
+  ```js
+  for (var i = 0; i < 5; i++) {
+    window.setTimeout(function() {
+      console.log(i);
+    }, i * 1000); // 只有i*1000才会每隔1S输出一个
+  }
+  ```
+
+  > "i=5" </br>
+  > 5</br>
+  > 5</br>
+  > 5</br>
+  > 5</br>
+  > 5</br>
+
+  > setTimeout </br>
+  > 语法: `var timeoutID = scope.setTimeout(function[, delay, param1, param2,...]);` `var timeoutID = scope.setTimeout(code[, delay]);`
+  >
+  > - function 是你想要在 delay 毫秒之后执行的函数。
+  > - delay (可选) 延迟的毫秒数 (一秒等于 1000 毫秒)，函数的调用会在该延迟之后发生。如果省略该参数，delay 取默认值 0。实际的延迟时间可能会比 delay 值长，原因请查看 Reasons for delays longer than specified。
+  > - param1, ..., paramN (可选) 附加参数，一旦定时器到期，它们会作为参数传递给 function 或 执行字符串（setTimeout 参数中的 code）
+  >
+  > ```js
+  > for (var i = 0; i < 5; i++) {
+  >   window.setTimeout(
+  >     function(j) {
+  >       console.log(i + j); // 每隔100ms输出一个13
+  >     },
+  >     100,
+  >     8
+  >   );
+  > }
+  > console.log("i=" + i); // 5
+  > ```
+
+* 3
 
   ```js
   var length = 10;
@@ -405,11 +467,11 @@ obj.inner.print(); //300
 var func = obj.inner.print;
 func(); //100
 
-(obj.inner.print)(); //300
+obj.inner.print(); //300
 
 (obj.inner.print = obj.inner.print)(); //100
 
-问题：第一个和第三个有什么区别？第三个和第四个有什么区别？
+// 问题：第一个和第三个有什么区别？第三个和第四个有什么区别？
 ```
 
 1.第一个和第三个没有区别，运行的都是 obj.inner.print()，里面的 this 指向 obj.inner.num
@@ -519,13 +581,10 @@ function() {
 
   JavaScript 都是单线程的，单线程就意味着，所有任务需要排队，前一个任务结束，才会执行后一个任务。如果前一个任务耗时很长，后一个任务就不得不一直等着。如果排队是因为计算量大，CPU 忙不过来，倒也算了，但是很多时候 CPU 是闲着的，因为 IO 设备（输入输出设备）很慢（比如 Ajax 操作从网络读取数据），不得不等着结果出来，再往下执行。
   JavaScript 语言的设计者意识到，这时主线程完全可以不管 IO 设备，挂起处于等待中的任务，先运行排在后面的任务。等到 IO 设备返回了结果，再回过头，把挂起的任务继续执行下去。于是，所有任务可以分成两种，一种是同步任务（synchronous），另一种是异步任务（asynchronous）。同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；异步任务指的是，不进入主线程、而进入"任务队列"（task queue）的任务，只有"任务队列"通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。具体来说，异步执行的运行机制如下。（同步执行也是如此，因为它可以被视为没有异步任务的异步执行。）
-
-  ```
   （1）所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。
   （2）主线程之外，还存在一个"任务队列"（task queue）。只要异步任务有了运行结果，就在"任务队列"之中放置一个事件。
   （3）一旦"执行栈"中的所有同步任务执行完毕，系统就会读取"任务队列"，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。
   （4）主线程不断重复上面的第三步。
-  ```
 
   > 一段 js 代码（里面可能包含一些 setTimeout、鼠标点击、ajax 等事件），从上到下开始执行，遇到 setTimeout、鼠标点击等事件，异步执行它们，此时并不会影响代码主体继续往下执行(当线程中没有执行任何同步代码的前提下才会执行异步代码)，一旦异步事件执行完，回调函数返回，将它们按次序加到执行队列中,加入到队列中，只是在确定额  的时间候调用，但是并不一定立马执行。
 
@@ -1419,7 +1478,25 @@ alert(cat1.species); // 动物
 
 ## 42. let const var 的区别？
 
-`const obj = {a: 1};`那么 a 还能赋值为其他值吗？为什么？
+| 声明方式 | 变量提升 | 作用域 | 初始值 | 重复定义                          |
+| -------- | -------- | ------ | ------ | --------------------------------- |
+| var      | 是       | 函数级 | 不必须 | 允许                              |
+| let      | 否       | 块级   | 不必须 | 不允许                            |
+| const    | 否       | 块级   | 必须   |  复合类型的变量可以，其他并不可以 |
+
+> `const`对于复合类型的变量，变量名不指向数据，而是指向数据所在的地址。
+
+Q：为什么 const 一旦声明常量，就必须立即初始化，不能留到以后再赋值？
+
+Q： `const obj = {a: 1};`那么 a 还能赋值为其他值吗？为什么？
+
+> A: </br>obj.a = 2;这是完全正确的。因为`const`对于复合类型的变量，变量名不指向数据，而是指向数据所在的地址。</br>
+> 常量 obj 存储的是一个地址，指向一个对象。不可变的只是这个地址，即不能把 obj 指向另一个地址，但对象本身是可变的，所以依然可以为其添加新属性。
+
+Q: 有什么办法可以让`const obj = {a: 1};`的值不可变？
+
+> A: </br>如果真的想讲对象冻结，应该使用 `Object.freeze` 方法。
+> `const foo = Object.freeze({}); foo.prop= 123;` // 不起作用
 
 ## 43. 写一个函数，实现对象的深度拷贝。
 
@@ -1479,4 +1556,341 @@ function findMax(str) {
     console.log(`${key} copied is ${map[key]}`);
   }
 }
+```
+
+## 45. 一个列表很长，如何自己实现一个滚动条？
+
+- css 方式
+
+```js
+<div style="width:260px;height:120px; overflow:scroll; border:1px solid;">
+  这里是你要显示的内容,当内容很多时，会出现滚动条。这个属性定义溢出元素内容区的内容会如何处理。如果值为
+  scroll，不论是否需要，用户代理都会提供一种滚动机制。因此，有可能即使元素框中可以放下所有内容也会出现滚动条。
+</div>
+```
+
+- js 方式
+
+通过鼠标的按下事件（onmousedown）和 JS 滚轮事件(mousewheel-非火狐/DOMMouseScroll-火狐浏览器)来改变 top 即可。
+
+下面是一个具体的实现:
+
+```html
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>标题</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    body {
+      height: 2000px;
+    }
+
+    .box1 {
+      width: 320px;
+      height: 400px;
+      background: #ccc;
+      overflow: hidden;
+      overflow-y: scroll;
+      margin: 20px 0 0 100px;
+    }
+
+    .con1 {
+      font-size: 18px;
+    }
+
+    #out {
+      width: 320px;
+      height: 400px;
+      background: url(bg1.png) 0 0 repeat-x;
+      position: absolute;
+      left: 500px;
+      top: 20px;
+      overflow: hidden;
+    }
+
+    #con {
+      width: 280px;
+      padding: 5px;
+      font-size: 18px;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+    }
+
+    #box {
+      width: 30px;
+      height: 400px;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    #drag {
+      width: 30px;
+      height: 53px;
+      /* background: url(icon2.png) 0 0 no-repeat; */
+      background-color: slategray;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box1">
+    <p class="con1">据新华社电中航工业、国机集团等8家央企6日在京签约，在重要项目、科技转化等相关领域开展重组合作整合，这将成为央企间产业联合协作的新典范，也将开启央企间产业重组合作整合的新阶段。 相关合作内容包括：中航工业和国机集团共同发展八万吨模锻压机项目；中航工业将房地产业务全部划转保利集团，中核建设和中国一重在高温气冷堆主设备制造领域合作，兵器工业、兵器装备、中国国新对北方公司进行股权重组。
+      国务院国资委主任肖亚庆在6日参加中央企业产业合作座谈会上表示，下一步，国资委政策将加码推动央企产业重组步伐，通过业务整合、资产重组、股权合作、资产置换、无偿划转、协议转让、战略联盟、联合开发等多途径，加快央企间产业重组合作整合。
+      肖亚庆同时清晰地勾勒出国企改革兼并重组“路线图”：通过产业重组，在突破关键技术、掌握核心资源，打造知名品牌等方面，实现产业重组合作“一加一大于二”的效果。肖亚庆同时透露，目前部分央企在牵头技术创新战略联盟、设立创新投资基金、构建创新孵化平台等方面，取得了重大突破。据统计，央企牵头国家及地方技术创新联盟141个，50多家中央企业共发起和参与基金179只，构建面向社会的创新孵化平台57个，创业创新平台27个。
+      “此次集中签约，意味着央企重组的重心开始向资本、项目、产业板块等内部要素转移。”中国企业研究院首席研究员李锦说，未来，央企间产业重组合作整合将被更快地推进，央企内部的各种要素将被再次优化。
+    </p>
+  </div>
+
+  <div id="out">
+    <div id="con">据新华社电中航工业、国机集团等8家央企6日在京签约，在重要项目、科技转化等相关领域开展重组合作整合，这将成为央企间产业联合协作的新典范，也将开启央企间产业重组合作整合的新阶段。 相关合作内容包括：中航工业和国机集团共同发展八万吨模锻压机项目；中航工业将房地产业务全部划转保利集团，中核建设和中国一重在高温气冷堆主设备制造领域合作，兵器工业、兵器装备、中国国新对北方公司进行股权重组。
+      国务院国资委主任肖亚庆在6日参加中央企业产业合作座谈会上表示，下一步，国资委政策将加码推动央企产业重组步伐，通过业务整合、资产重组、股权合作、资产置换、无偿划转、协议转让、战略联盟、联合开发等多途径，加快央企间产业重组合作整合。
+      肖亚庆同时清晰地勾勒出国企改革兼并重组“路线图”：通过产业重组，在突破关键技术、掌握核心资源，打造知名品牌等方面，实现产业重组合作“一加一大于二”的效果。肖亚庆同时透露，目前部分央企在牵头技术创新战略联盟、设立创新投资基金、构建创新孵化平台等方面，取得了重大突破。据统计，央企牵头国家及地方技术创新联盟141个，50多家中央企业共发起和参与基金179只，构建面向社会的创新孵化平台57个，创业创新平台27个。
+      “此次集中签约，意味着央企重组的重心开始向资本、项目、产业板块等内部要素转移。”中国企业研究院首席研究员李锦说，未来，央企间产业重组合作整合将被更快地推进，央企内部的各种要素将被再次优化。
+    </div>
+    <div id="box">
+      <p id="drag"></p>
+    </div>
+  </div>
+  <script>
+    var out = document.getElementById('out');
+    var con = document.getElementById('con');
+    var box = document.getElementById('box');
+    var drag = document.getElementById('drag');
+    drag.onmousedown = function (ev) {
+      var e = ev || window.event;
+      if (e.preventDefault) {
+        e.preventDefault();
+      } else {
+        e.returnValue = false;
+      };
+      var d_bkt = e.clientY - drag.offsetTop;
+      document.onmousemove = function (ev) {
+        var e = ev || window.event;
+        var top = e.clientY - d_bkt;
+        if (top <= 0) {
+          top = 0;
+        };
+        if (top >= box.clientHeight - drag.clientHeight) {
+          top = box.clientHeight - drag.clientHeight;
+        };
+        var scale = top / (box.clientHeight - drag.clientHeight);
+        var cony = scale * (con.clientHeight - out.clientHeight);
+        drag.style.top = top + 'px';
+        con.style.top = -cony + 'px';
+        console.log(top);
+      }
+      document.onmouseup = function () {
+        document.onmousemove = null;
+      }
+    }
+    var str = window.navigator.userAgent.toLowerCase();
+    if (str.indexOf('firefox') != -1) {//火狐浏览器
+      out.addEventListener('DOMMouseScroll', function (e) {
+        e.preventDefault();//阻止窗口默认的滚动事件
+        if (e.detail < 0) {
+          var t = con.offsetTop + 20;
+          if (t >= 0) {
+            t = 0;
+          };
+          if (t <= -(con.clientHeight - out.clientHeight)) {
+            t = -(con.clientHeight - out.clientHeight);
+          };
+          var scale = t / (con.clientHeight - out.clientHeight);
+          var top = scale * (box.clientHeight - drag.clientHeight);
+          con.style.top = t + 'px';
+          drag.style.top = -top + 'px';
+        };
+        if (e.detail > 0) {
+          var t = con.offsetTop - 20;
+          if (t >= 0) {
+            t = 0;
+          };
+          if (t <= -(con.clientHeight - out.clientHeight)) {
+            t = -(con.clientHeight - out.clientHeight);
+          };
+          var scale = t / (con.clientHeight - out.clientHeight);
+          var top = scale * (box.clientHeight - drag.clientHeight);
+          con.style.top = t + 'px';
+          drag.style.top = -top + 'px';
+        };
+      }, false);
+    } else {//非火狐浏览器
+      out.onmousewheel = function (ev) {
+        var e = ev || window.event;
+        if (e.preventDefault) {
+          e.preventDefault();
+        } else {
+          e.returnValue = false;
+        };
+        if (e.wheelDelta > 0) {
+          var t = con.offsetTop + 20;
+          if (t >= 0) {
+            t = 0;
+          };
+          if (t <= -(con.clientHeight - out.clientHeight)) {
+            t = -(con.clientHeight - out.clientHeight);
+          };
+          var scale = t / (con.clientHeight - out.clientHeight);
+          var top = scale * (box.clientHeight - drag.clientHeight);
+          con.style.top = t + 'px';
+          drag.style.top = -top + 'px';
+        };
+        if (e.wheelDelta < 0) {
+          var t = con.offsetTop - 20;
+          if (t >= 0) {
+            t = 0;
+          };
+          if (t <= -(con.clientHeight - out.clientHeight)) {
+            t = -(con.clientHeight - out.clientHeight);
+          };
+          var scale = t / (con.clientHeight - out.clientHeight);
+          var top = scale * (box.clientHeight - drag.clientHeight);
+          con.style.top = t + 'px';
+          drag.style.top = -top + 'px';
+        };
+      }
+    };
+  </script>
+</body>
+
+</html>
+```
+
+## 46. 简单点的，一个`div`方块如何移动？css3 方式，js 方式呢？用 js 如何实现 1s 动一下的效果?
+
+- CSS3 的动画效果:animation
+
+> animation-name 规定需要绑定到选择器的 keyframe 名称</br>
+> animation-duration 规定完成动画所花费的时间，以秒或毫秒计</br>
+> animation-timing-function 规定动画的速度曲线</br>
+> animation-delay 规定在动画开始之前的延迟</br>
+> animation-iteration-count 规定动画应该播放的次数</br>
+> animation-direction 规定是否应该轮流反向播放动画。</br>
+
+- js 方式实现
+
+```html
+<html>
+<head>
+<style>
+    .container {
+      border: 1px solid red;
+      width: 100px;
+      height: 100px;
+      position: relative;
+    }
+</style>
+ <script>
+    function init() {
+      var div = document.getElementsByClassName("container")[0];
+      for (var i = 0; i < 11; i++) {
+        (function (j) {
+          setTimeout(function () {
+            div.style.top = j * 10 + 'px';
+            div.style.left = j * 10 + 'px';
+          }, j * 1000);
+        })(i);
+      }
+
+    }
+  </script>
+</head>
+<body>
+<div class="container">
+    一个可以移动的方框
+</div>
+</body>
+</html>
+```
+
+## 47. 页面上一个可以触摸的方块，如何让其跟着这手指的移动而移动？手机触屏事件了解多少？
+
+### 手机触屏事件
+
+| 事件        | 动作含义                                                                                        |
+| ----------- | ----------------------------------------------------------------------------------------------- |
+| touchstart  | 当手指触摸屏幕时候触发，即使已经有一个手指放在屏幕上也会触发。                                  |
+| touchmove   | 当手指在屏幕上滑动的时候连续地触发。在这个事件发生期间，调用 preventDefault()事件可以阻止滚动。 |
+| touchend    | 当手指从屏幕上离开的时候触发                                                                    |
+| touchcancel | 当系统停止跟踪触摸的时候触发                                                                    |
+
+### 如何跟随手指移动？
+
+利用这些事件，event.touches[0].clientX，有触摸点的位置，就可以进行位置的移动。
+
+## 48. 定时有几种方式？
+
+- setTimeout
+
+> 设定一个定时器，在指定时间后执行一段代码。</br> > `let timeoutId = setTimeout(func,delay,param1,param2,……);`
+>
+> - timeoutId：为此定时器的 id，此 id 可以传入 clearTimeout（）来取消这次定时器
+> - func：为指定时间后执行的函数
+> - delay：是延迟的毫秒数。如果省略的话，默认取值 0。
+> - param：向延迟函数传递而外的参数，IE9 以上支持
+
+- setInterval
+
+  > 以给定的时间间隔重复执行一个函数。</br>`var intervalID = window.setInterval(func, delay[, param1, param2, ...]);`</br>
+  > 其参数和 setTimeout 相同
+
+- setImmediate
+  > 该方法用来把一些需要长时间运行的操作放在一个回调函数里,在浏览器完成后面的其他语句后,就立刻执行这个回调函数。类似 setTimeout(func, 0)
+
+## 49. 如何用原生来实现 promise.all()?
+
+```js
+function PromiseM() {
+  this.status = "pending";
+  this.msg = "";
+  var that = this;
+  var process = arguments[0];
+  process(function() {
+    that.status = 'resolve';
+    that.msg =arguments[0];
+  }, function() {
+    that.status = 'reject';
+    that.msg =arguments[0];
+  });
+  return this;
+}
+PromiseM.prototype.then = function() {
+  if(this.status == 'resolve') {
+    arguments[0](this.msg);
+  } 
+  if(this.status == 'reject' && arguments[1]) {
+    arguments[1](this.msg);
+  }
+}
+
+// 测试用例
+
+var p = new PromiseM(function(resolve, reject) {
+  resolve("123");
+});
+
+p.then(
+  function(success) {
+    console.log(success);
+    console.log("success");
+  },
+  function() {
+    console.log("fail！");
+  }
+);
 ```
