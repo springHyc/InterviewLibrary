@@ -508,3 +508,9 @@ Promise.resolve(1)
 ## 48. 定时有几种方式？
 
 ## 49. 如何用原生来实现 promise.all()?
+
+## 50. 如何实现一下 Object.create()?
+
+## 51. js 的路由是如何实现的？
+
+location 是 javascript 里边管理地址栏的内置对象，比如 location.href 就管理页面的 url，用 location.href=url 就可以直接将页面重定向 url。而 location.hash 则可以用来获取或设置页面的标签值。

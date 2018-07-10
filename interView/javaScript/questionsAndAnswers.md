@@ -1114,7 +1114,16 @@ function foo(a, b, ...rest) {}
 
 ### 模块化
 
-es6 有 import 和 export 运算符来实现了
+es6 有 import 和 export 运算符来实现了.
+
+你在模块中的所有声明相对于模块而言都是寄存在本地的。如果你希望公开在模块中声明的内容，并让其它模块加以使用，你一定要导出这些功能。想要导出模块的功能有很多方法，其中最简单的方式是添加export关键字。你可以导出所有的最外层函数、类以及var、let或const声明的变量。
+
+
+> 模块与脚本还是有两点区别
+
+> * “在ES6模块中，无论你是否加入“use strict;”语句，默认情况下模块都是在严格模式下运行。”
+> 摘录来自: InfoQ 中文站. “深入浅出ES6。” iBooks.
+> * “在模块中你可以使用import和export关键字。”
 
 ## 25. 箭头函数相比于普通函数的优点？
 
@@ -1894,3 +1903,44 @@ p.then(
   }
 );
 ```
+
+## 50. 如何实现一下 Object.create()?
+
+`Object.create(parent)`主要完成了三件事情：
+* 创建一个对象
+* 继承指定父对象
+* 为新对象扩展新属性
+
+何时使用create: 希望在创建对象时就提前指定继承的父对象，并同时扩展新属性时。
+
+```js
+Object.mycreate = function(parent,props) {
+  var obj = new Object();
+  Object.setPrototypeOf(obj,parent);
+  Object.defineProperties(obj,props);
+  return obj;
+}
+
+// 用法
+
+var father={bal:1000,car:"=b="}
+var hmm=Object.mycreate(father,{//create调用的也是defineproperty
+  phone:{//默认为false
+    value:"肾6s",
+    writable:true,
+    enumertable:true,
+    configurable:true.
+  },
+});
+
+```
+
+## 51. js 的路由是如何实现的？
+
+location 是 javascript 里边管理地址栏的内置对象，比如 location.href 就管理页面的 url，用 location.href=url 就可以直接将页面重定向 url。而 location.hash 则可以用来获取或设置页面的标签值。
+
+* #后的字符
+在第一个#后面出现的任何字符，都会被浏览器解读为位置标识符。这意味着，这些字符都不会被发送到服务器端。
+
+* window.hash
+hash 属性是一个可读可写的字符串，该字符串是 URL 的锚部分（从 # 号开始的部分）。

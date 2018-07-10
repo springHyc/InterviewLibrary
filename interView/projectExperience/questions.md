@@ -217,3 +217,7 @@ componentDidMount() {
 > App.js:38 E 2
 
 ## 32. rn 项目中有什么写的全局性组件？
+
+## 33. jsx 是什么？
+
+## 34. AMD 与 CMD 区别
