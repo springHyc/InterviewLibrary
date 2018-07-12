@@ -95,3 +95,28 @@ function dd(arr) {
 >
 
 然后问一个延伸问题：[0,1,2,3,...9999]这样的一个数组，如何打乱它？
+
+## 2. 实现一下冒泡排序算法。
+
+```js
+function maopao(arr) {
+  var len = arr.length,
+    j,
+    tempValue;
+  while (len > 0) {
+    for (j = 0; j < len - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        tempValue = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = tempValue;
+      }
+    }
+    len--;
+  }
+  return arr;
+}
+```
+
+## 3. 怎么判断一个链表成环？
+
+> 后项指针的哈希表（把所有的指针放到一个 map 中，如果其中一个指针已经出现在 map 中，那么就可以确定已经成环了。）

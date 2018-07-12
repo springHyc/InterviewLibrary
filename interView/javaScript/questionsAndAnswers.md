@@ -1254,6 +1254,8 @@ Promise.all([Promise1(), Promise2()]).then(function() {
 "333";
 ```
 
+
+
 ## 32. 下面代码运行的结果是什么？
 
 ```js
@@ -1289,6 +1291,8 @@ console.log(res);
 
 ## 34. 下面代码输出什么？ ？
 
+### 题目1
+
 ```js
 Promise.resolve(1)
   .then(x => x + 1)
@@ -1304,6 +1308,88 @@ Promise.resolve(1)
 结果是：
 
 2
+
+### 题目2
+
+```js
+setTimeout(() => {
+  console.log(1);
+}, 0);
+
+new Promise(resolve => {
+  console.log(2);
+  resolve();
+  console.log(3);4
+}).then(() => {
+  console.log(4);
+});
+
+console.log(5);
+```
+
+结果是：
+2 3 5 4 1
+
+### 题目3
+
+```js
+var p1 = new Promise(function(resolve, reject) {
+  setTimeout(() =>reject(new Error('p1 中failure')) , 3000);
+})
+
+var p2 = new Promise(function(resolve, reject){
+  setTimeout(() => resolve(p1), 1000);
+});
+var p3 = new Promise(function(resolve, reject) {
+  resolve(2);
+});
+var p4 = new Promise(function(resolve, reject) {
+  reject(new Error('error  in  p4'));
+});
+
+1. p3.then(re => console.log(re));
+2. p4.catch(error => console.log(error));
+
+3. p2.then(null,re => console.log(re));
+4. p2.catch(re => console.log(re));
+```
+
+打印的顺序是：2， "error  in  p4 "这是立即打印出来的。
+
+而3S后会打印出两个'p1 中failure'。
+
+如果3直接写成`p2.then(re => console.log(re));`是会报错，说没有捕捉到错误。
+
+### 题目4
+
+```js
+var p1 = Promise.resolve(1);
+var p2 = new Promise(resolve => {
+  setTimeout(() => resolve(2), 100);
+});
+var v3 = 3;
+var p4 = new Promise((resolve, reject) => {
+  setTimeout(() => reject("oops"), 10);
+});
+
+var p5 = new Promise(resolve => {
+  setTimeout(() => resolve(5), 0);
+});
+var p1 = Promise.resolve(1);
+Promise.race([v3,p1,p2,p4,p5]).then(val => console.log(val));// 3
+Promise.race([p1,v3,p2,p4,p5]).then(val => console.log(val)); // 1
+Promise.race([p1,p2,p4,p5]).then(val => console.log(val)); // 1
+Promise.race([p2,p4,p5]).then(val => console.log(val));//5
+
+// 这些的打印顺序是什么？
+Promise.race([v3,p1,p2,p4,p5]).then(val => console.log(val));
+Promise.race([p1,v3,p2,p4,p5]).then(val => console.log(val));
+Promise.race([p1,p2,p4,p5]).then(val => console.log(val));
+Promise.race([p2,p4,p5]).then(val => console.log(val));
+
+Promise.resolve(6).then(re => console.log(re)); // 6
+```
+打印顺序是：6 3 1 1 5
 
 ## 35. 说一下对 Promise 的理解
 
@@ -1527,7 +1613,7 @@ function deepCopy(p, c) {
 
   for (var i in p ){
     if(typeOf p[i] === 'object') {
-      var c[i] = p[i].constructor == 'Array' ? [] : {};
+      var c[i] = p[i].constructor == Array ? [] : {};
       deepCopy(c[i], p[i]);
     } else {
       c[i] = p[i];
@@ -1944,3 +2030,93 @@ location 是 javascript 里边管理地址栏的内置对象，比如 location.h
 
 * window.hash
 hash 属性是一个可读可写的字符串，该字符串是 URL 的锚部分（从 # 号开始的部分）。
+
+## 52. 对 websocket 的理解？
+
+WebSocket 协议在2008年诞生，2011年成为国际标准。所有浏览器都已经支持了。
+
+WebSocket 是一个持久化的协议，是基于http协议来完成一部分握手。
+
+Websocket 握手中多了:
+Upgrade: websocket
+Connection: Upgrade
+这就是WebSocket的核心，告诉服务器是一个WebSocket协议。
+
+> ajax轮询和long poll 都是不断的建立http连接，等待服务端处理，可以体现http协议的一个特点：被动性（服务器端不能主动联系客户端，只能客户端发起）。
+> * ajax轮询</br>
+    ajax轮询的原理特别简单。让浏览器隔个几秒就发送一次请求，询问服务器是否有新信息。
+> * long poll</br>
+    long poll 其实原理跟 ajax轮询 差不多，都是采用轮询的方式，不过采取的是阻塞模型（一直打电话，没收到就不挂电话），也就是说，客户端发起连接后，如果没消息，就一直不返回Response给客户端。直到有消息才返回，返回完之后，客户端再次建立连接，周而复始。
+
+### 特点
+
+* 服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话，属于服务器推送技术的一种。
+* 建立在 TCP 协议之上，服务器端的实现比较容易。
+* 与 HTTP 协议有着良好的兼容性。默认端口也是80和443，并且握手阶段采用 HTTP 协议，因此握手时不容易屏蔽，能通过各种 HTTP 代理服务器。
+- 数据格式比较轻量，性能开销小，通信高效。
+- 可以发送文本，也可以发送二进制数据。
+- 没有同源限制，客户端可以与任意服务器通信。
+- 协议标识符是ws（如果加密，则为wss），服务器网址就是 URL。
+
+  ![ws和wss](../images/ws.png)
+
+### 使用
+
+主要是的是`webSocket.onmessage`属性，用于指定接收服务器数据后的回调函数。`webSocket.send()`方法，可用于向服务器发送数据。
+
+### 参考
+
+* [websocket原理](https://www.cnblogs.com/fuqiang88/p/5956363.html)
+
+## 53. 对 Pure functions（纯函数）的理解？
+
+纯函数是满足如下条件的函数：
+- 相同输入总是会返回相同的输出。
+- 不产生副作用。
+- 不依赖于外部状态。
+
+## 54. js 单线程的理解？
+
+JS的单线程是指一个浏览器进程中只有一个JS的执行线程，同一时刻内只会有一段代码在执行。
+
+作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。
+
+## 55. 如何用 promise 和 setTimeout 实现一个 delay 函数，`.then` 里面可以正常完成 promise 的一些后续操作？
+
+```js
+// delay函数是这样的
+delay(1000).then();
+```
+
+> 当时没有想好，但是知道肯定要返回一个promise，不然没有办法`.then`下去。
+> 其实也是主要没有理解好promise。
+
+实现方法如下：
+
+```js
+function delay(delayTime) {
+  return new Promise(function(resolve, reject){
+      setTimeout(resolve, delayTime);
+  })
+}
+delay(1000).then( function () {
+  console.log('0：执行成功！');
+});
+
+delay(2000).then(function () {
+  console.log('1：执行成功！');
+  return delay(1000);
+}).then(function() {
+  console.log('2：执行失败！');
+});
+```
+
+## 56. array、null、object 数据如何判断？
+
+typeof方法判断`array、null、object`类型的数据，都会返回`object`。
+
+设变量为`i` ,那么`i== null`为true,则i 为null;
+i.constructor.name 如果是`Array`则为数组，如果是`Object`则是简单的object类型数据。
+
+还可以`b.constructor == Array`来进行是否是数组的判断；
+还可以`b.constructor == Object`来进行是否是对象的判断；

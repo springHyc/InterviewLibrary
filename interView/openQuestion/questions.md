@@ -13,28 +13,7 @@
 
 ## 2. 实现一下冒泡排序算法。
 
-```js
-function maopao(arr) {
-  var len = arr.length,
-    j,
-    tempValue;
-  while (len > 0) {
-    for (j = 0; j < len - 1; j++) {
-      if (arr[j] > arr[j + 1]) {
-        tempValue = arr[j];
-        arr[j] = arr[j + 1];
-        arr[j + 1] = tempValue;
-      }
-    }
-    len--;
-  }
-  return arr;
-}
-```
-
 ## 3. 怎么判断一个链表成环？
-
-> 后项指针的哈希表
 
 ## 4. 结合编译原理，简述一下下面代码是怎么做的？（语言精粹这本书）
 
@@ -42,3 +21,5 @@ function maopao(arr) {
 let b = { c: "2" };
 let a = [1, 2, 3, b];
 ```
+
+## 4. 有两个数组，a1 和 a2 都是排序好的，如何将其合并为一个数组，并且是有序的（剑指 offer）（Qunar.com）

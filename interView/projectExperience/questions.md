@@ -220,4 +220,24 @@ componentDidMount() {
 
 ## 33. jsx 是什么？
 
+---
+
+Qunar.com
+
 ## 34. AMD 与 CMD 区别
+
+## 35. 手势密码的使用什么关键组件来开发的？
+
+## 36. 数据是怎么存储的？
+
+## 37. react-native 使用 redux 有没有进行存储，使用的第三方库是什么？
+
+## 38. UI 库中的 theme 主题是怎么实现的？
+
+## 39. 是怎么传到 createAPP 中的？
+
+## 40. react-native 在 iOS 和 Android 上有什么区别？具体体现在哪儿？
+
+## 41. 查看文件功能是怎么实现的？
+
+---

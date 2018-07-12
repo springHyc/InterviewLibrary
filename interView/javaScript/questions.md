@@ -463,6 +463,8 @@ console.log(res);
 
 ## 34. 下面代码输出什么？ ？
 
+### 题目 1
+
 ```js
 Promise.resolve(1)
   .then(x => x + 1)
@@ -473,6 +475,70 @@ Promise.resolve(1)
   .then(x => x + 1)
   .then(x => console.log(x))
   .catch(console.error);
+```
+
+### 题目 2
+
+```js  Qunar.com
+setTimeout(() => {
+  console.log(1);
+}, 0);
+
+new Promise(resolve => {
+  console.log(2);
+  resolve();
+  console.log(3);
+}).then(() => {
+  console.log(4);
+});
+
+console.log(5);
+```
+
+### 题目 3
+
+```js
+var p1 = new Promise(function(resolve, reject) {
+  setTimeout(() =>reject(new Error('p1 中failure')) , 3000);
+})
+
+var p2 = new Promise(function(resolve, reject){
+  setTimeout(() => resolve(p1), 1000);
+});
+var p3 = new Promise(function(resolve, reject) {
+  resolve(2);
+});
+var p4 = new Promise(function(resolve, reject) {
+  reject(new Error('error  in  p4'));
+});
+
+1. p3.then(re => console.log(re)); //?
+2. p4.catch(error => console.log(error));//?
+
+3. p2.then(null,re => console.log(re));//?
+4. p2.catch(re => console.log(re));//?
+```
+
+### 题目 4
+
+```js
+var p1 = Promise.resolve(1);
+var p2 = new Promise(resolve => {
+  setTimeout(() => resolve(2), 100);
+});
+var v3 = 3;
+var p4 = new Promise((resolve, reject) => {
+  setTimeout(() => reject("oops"), 10);
+});
+
+var p5 = new Promise(resolve => {
+  setTimeout(() => resolve(5), 0);
+});
+var p1 = Promise.resolve(1);
+Promise.race([v3, p1, p2, p4, p5]).then(val => console.log(val)); //?
+Promise.race([p1, v3, p2, p4, p5]).then(val => console.log(val)); // ?
+Promise.race([p1, p2, p4, p5]).then(val => console.log(val)); // ?
+Promise.race([p2, p4, p5]).then(val => console.log(val)); //?
 ```
 
 ## 35. 说一下对 Promise 的理解？
@@ -509,8 +575,77 @@ Promise.resolve(1)
 
 ## 49. 如何用原生来实现 promise.all()?
 
+---
+
+Qunar.com
+
 ## 50. 如何实现一下 Object.create()?
 
 ## 51. js 的路由是如何实现的？
 
-location 是 javascript 里边管理地址栏的内置对象，比如 location.href 就管理页面的 url，用 location.href=url 就可以直接将页面重定向 url。而 location.hash 则可以用来获取或设置页面的标签值。
+## 52. 对 websocket 的理解？
+
+## 53. 对 Pure functions（纯函数）的理解？
+
+## 54. js 单线程的理解？
+
+## 55. 如何用 promise 和 setTimeout 实现一个 delay 函数，`.then` 里面可以正常完成 promise 的一些后续操作？
+
+```js
+// delay函数是这样的
+delay(1000).then();
+```
+
+## 56. array、null、object 数据如何判断？
+
+## 57. 写出下列代码的执行结果
+
+1.
+
+```js
+var a = 1;
+b = function(x) {
+  x && a(--x);
+};
+alert(a); // ? 1
+```
+
+2.
+
+```js
+if (!("a" in window)) {
+  var a = 2;
+}
+alert(a); // undefined
+```
+
+3.
+
+```js
+function a() {
+  return 1;
+}
+var a;
+alert(a); // 显示function a () {return 1;}
+```
+
+4.
+
+```js
+function a() {
+  return 1;
+}
+var a = 1 && 2;
+alert(a); // 2
+```
+
+5.
+
+```js
+function a() {
+  alert(this); // 全局对象window
+}
+a.apply(null);
+```
+
+---

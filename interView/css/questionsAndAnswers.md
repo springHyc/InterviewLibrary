@@ -102,7 +102,13 @@
 | [:not(_selector_)](http://www.w3school.com.cn/cssref/selector_not.asp)                            | :not(p)               | 选择非 <p> 元素的每个元素。                         | 3   |
 | [::selection](http://www.w3school.com.cn/cssref/selector_selection.asp)                           | ::selection           | 选择被用户选取的元素部分。                          | 3   |
 
-## 3. css 盒模型是什么？
+## 3. 描述一下 CSS 的优先级规则
+
+- 内联样式>id 选择器> 伪类（：nth-child()）> 属性选择器> 类选择器> 元素选择器（div\p）> 通用选择器（\*)
+
+* !important 规则例外，该样式声明会覆盖 CSS 中任何其他的声明。
+
+## 4. css 盒模型是什么？
 
 盒模型的组成：由里向外是：content、padding、border、margin。
 
@@ -115,7 +121,7 @@
 
 而在 IE 模型中盒模型的宽高是内容(content)+填充(padding)+边框(border)的总宽高。
 
-## 4. 实现 div 的动画移动
+## 5. 实现 div 的动画移动
 
 使用 css3 的动画 animation 和@keyframes 来实现 div 的移动。
 
@@ -144,7 +150,7 @@
 </html
 ```
 
-## 5. css 模块化是什么？
+## 6. css 模块化是什么？
 
 css 模块化就是所有的类名都只有局部作用域的 css 文件。
 
@@ -156,7 +162,7 @@ css 模块化就是所有的类名都只有局部作用域的 css 文件。
 > 第一，彻底抛弃 css,使用 js 或 json 来写样式，例如：[Radium](https://github.com/FormidableLabs/radium)，[jsxstyle](https://github.com/smyte/jsxstyle)，[react-style](https://github.com/js-next/react-style) 属于这一类。
 > 第二, 依旧使用旧的 css,使用 js 来管理样式依赖，代表是[css-modules](https://github.com/css-modules/css-modules)
 
-## 6. 如何实现一个三列布局，中间固定，两边自适应？
+## 7. 如何实现一个三列布局，中间固定，两边自适应？
 
 ```js
 <header>
@@ -211,7 +217,57 @@ css 模块化就是所有的类名都只有局部作用域的 css 文件。
 >    }
 > ```
 
-## 7. 通过 html img 标签设置图片和通过 div 背景图设置图片，两种设置图片的方式有什么优劣？
+同样可以完成中间自适应，两边固定的布局：
+
+```html
+<body class="container">
+  <div class="item left"> 100px宽</div>
+  <div class="item center"> 自适应</div>
+  <div class="item right"> 100px宽</div>
+</body>
+
+<style>
+    .container {
+      border: 1px solid black;
+      width: 100vw;
+      height: 100vh;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .item {
+      border: 1px solid red;
+      height: 100%;
+
+    }
+
+    .center {
+      flex: 1;
+    }
+
+    .left,
+    .right {
+      width: 100px;
+    }
+  </style>
+```
+
+> 在上一段代码的基础上更改一下即可完成中间固定，两边自适应
+
+> ```css
+> .center {
+>   width: 100px;
+> }
+>
+> .left,
+> .right {
+>   flex: 1;
+> }
+> ```
+
+## 8. 通过 html img 标签设置图片和通过 div 背景图设置图片，两种设置图片的方式有什么优劣？
 
 - 占位符
   `<img>` 标签定义 HTML 页面中的图像。从技术上讲，图片并不会插入 HTML 页面中，而是链接到 HTML 页面上。img 标签的作用是为被引用的图像创建占位符。
@@ -227,7 +283,7 @@ css 模块化就是所有的类名都只有局部作用域的 css 文件。
 
 > 以前整理的文件中有
 
-## 8. 实现一下一个 div 的居中。如果不适用 flex 布局怎么做？
+## 9. 实现一下一个 div 的居中。如果不适用 flex 布局怎么做？
 
 ```js
 <header>
@@ -248,7 +304,7 @@ css 模块化就是所有的类名都只有局部作用域的 css 文件。
 > 必须有 width,`margin: 0 auto`才有效果；
 > `top: calc(50% - 50px); position: relative;`是可以上下居中
 
-## 9. 普通的实现一下两个`<div>`横着排列？
+## 10. 普通的实现一下两个`<div>`横着排列？
 
 ```js
 <header>
@@ -271,4 +327,86 @@ css 模块化就是所有的类名都只有局部作用域的 css 文件。
   <div class="item"></div>
   <div class="item"></div>
 </div>
+```
+
+## 11. 请写出你所知道的清除浮动的方法（代码）
+
+- `clear :both`
+- `overflow:auto`
+
+## 12. 如何实现一个两栏 布局，左边是 100px 宽，右边自定义？（flex 和非 flex 各实现一个）
+
+### flex 布局
+
+```html
+<head>
+  <style>
+    .container {
+      border: 1px solid black;
+      width: 100vw;
+      height: 100vh;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .item {
+      border: 1px solid red;
+      height: 100%;
+    }
+
+    .left {
+      width: 100px;
+    }
+
+    .right {
+      flex: 1;
+    }
+  </style>
+</head>
+
+<body class="container">
+  <div class="item left"> 100px宽</div>
+  <div class="item right"> 自适应</div>
+</body>
+```
+
+非 flex 布局方式
+
+```html
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>test.html</title>
+  <style>
+    .container {
+      border: 1px solid black;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .item {
+      border: 1px solid red;
+      height: 100%;
+    }
+
+    .left {
+      float: left;
+      width: 100px;
+    }
+
+    .right {
+      margin: 0 0 0 100px;
+    }
+  </style>
+</head>
+
+<body class="container">
+  <div class="item left"> 100px宽</div>
+  <div class="item right"> 自适应</div>
+</body>
+
+</html>
 ```

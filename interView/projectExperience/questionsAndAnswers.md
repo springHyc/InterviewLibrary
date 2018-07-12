@@ -295,3 +295,30 @@ CMD 规范的实现代表是 sea.js；CMD 推崇依赖就近
 #### commonjs vs es6module
 
 - ES6 在编译时就能确定模块的依赖关系 而 CommonJS 只能在运行时确定模块的依赖关系。
+
+## 35. 手势密码的使用什么关键组件来开发的？
+
+PanResponder
+
+## 36. 数据是怎么存储的？
+
+采用的 0-8 的 9 个数字来存储的
+
+## 37. react-native 使用 redux 有没有进行存储，使用的第三方库是什么？
+
+采用的是第三方库：redux-storage
+
+## 38. UI 库中的 theme 主题是怎么实现的？
+
+添加默认主题只需要在项目的根目录所在文件`App.js`中使用`createTheme()`方法创建主题,然后将创建的主题通过`ThemeProvider`装饰器传递给整个 APP 的子元素，我们通过改变`ThemeProvider`的`theme`属性的值来改变主题
+
+## 39. 是怎么传到 createAPP 中的？
+
+## 40. react-native 在 iOS 和 Android 上有什么区别？具体体现在哪儿？
+
+- UI 适配采取不同的方案，印象最深刻的有 `zIndex` 属性，在 iOS 上没问题，但是在 Android 上却显示不出来。
+- 底层架构
+
+## 41. 查看文件功能是怎么实现的？
+
+在安卓和 iOS 上各自实现了一个有文件路径、文件标题、文件类型的打开文件的功能。
