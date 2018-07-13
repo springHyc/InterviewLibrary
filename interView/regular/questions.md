@@ -12,33 +12,6 @@ var string = "seregesbgfsert";
 
 ## 2. 写一个函数验证手机号合法性
 
-```js
-var num = "15010585812";
-/^1\d{10}$/.test(num);
-
-// 目前手机号码的范围是
-/^1[3|4|5|7|8][0-9]{9}$/;
-```
-
 ## 3. 写一个函数，将 URL 参数转换为对象返回
-
-```js
-function fn(url) {
-  var obj = {};
-  var params = url.match(/([\?|&|]\w*=\w*)/g).map(str => str.slice(1));
-  params.map(item => {
-    var arr = item.split("=");
-    obj[arr[0]] = arr[1];
-  });
-  return obj;
-}
-var url = "http://www.baidu.com/login?username=hehe&password=123456";
-console.log(fn(url));
-// 结果
-{
-  password: "123456",
-  username: "hehe"
-}
-```
 
 // -------------------打印分界线-----------------------

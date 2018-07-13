@@ -220,9 +220,7 @@ obj.say()
 // ----箭头函数中的this----
 ```
 
-## 1. 字符
-
-串实现倒序
+## 1. 字符串实现倒序
 
 > 个人答案
 
@@ -306,7 +304,7 @@ for (var i = 1; i <= 5; i++) {
 
 ## 3. JavaScript 的数据类型有哪些？如何准确的检测数据类型？
 
-object null undefined string number Boolean
+object null undefined string number Boolean 还有es6新增的symbol，主要特征是唯一性
 
 ## 4. 以下代码执行结果分别是什么？
 

@@ -58,55 +58,6 @@
 
 ## 23. 你们用的版本 react 是什么版本？有关注过 16.0 有什么新特性吗？
 
-最近使用的是 16.0 的版本。
-
-16.0 的新特性有：
-
-- Components can now return arrays and strings from render.
-- Improved error handling with introduction of "error boundaries". Error boundaries are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of the component tree that crashed.
-
-  > 通过引入“错误边界”改进了错误处理。 错误边界是 React 组件，可以在其子组件树中的任何位置捕获 JavaScript 错误，记录这些错误并显示回退 UI，而不是崩溃的组件树。 - 翻译
-
-  > 什么是 Error Boundaries?
-  > 单一组件内部错误，不应该导致整个应用报错并显示空白页，而 Error Boundaries 解决的就是这个问题。
-  > Error Boundaries 的实现
-  > 需要在组件中定义个新的生命周期函数——componentDidCatch(error, info)
-
-  ```js
-  class ErrorBoundary extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = { hasError: false };
-    }
-
-    componentDidCatch(error, info) {
-      // Display fallback UI
-      this.setState({ hasError: true });
-      // You can also log the error to an error reporting service
-      logErrorToMyService(error, info);
-    }
-
-    render() {
-      if (this.state.hasError) {
-        // You can render any custom fallback UI
-        return <h1>Something went wrong.</h1>;
-      }
-      return this.props.children;
-    }
-  }
-
-  // 上述的ErrorBoundary就是一个“错误边界”，然后我们可以这样来使用它：
-
-  <ErrorBoundary>
-    <MyWidget />
-  </ErrorBoundary>;
-  ```
-
-  > Erro Boundaries 本质上也是一个组件，通过增加了新的生命周期函数 componentDidCatch 使其变成了一个新的组件，这个特殊组件可以捕获其子组件树中的 js 错误信息，输出错误信息或者在报错条件下，显示默认错误页。
-  > **注意一个 Error Boundaries 只能捕获其子组件中的 js 错误，而不能捕获其组件本身的错误和非子组件中的 js 错误。**
-
-## 24. rn 中父子组件之前的通信方式是怎么样？除了 props 还知道什么其他的通信方式吗？
-
 ## 25. 说一下 react 的生命周期;shouldUpdate 生命周期中有什么比较数据的好的方法吗？
 
 生命周期图；
