@@ -267,6 +267,47 @@ https 是比 http 更加安全的网络协议，可以说 HTTPS = HTTP + SSL。H
 - http 的连接很简单，是无状态的；HTTPS 协议是由 SSL+HTTP 协议构建的可进行加密传输、身份认证的网络协议，比 http 协议安全。
 - HTTP 无需证书，而 HTTPS 需要 CA 机构 wosign 的颁发的 SSL 证书
 
+## 13. 一个原生的`<input>`标签都有些什么事件？在浏览器上 onchange 什么时候触发？
+
+### onchange 是怎么触发的？
+
+当 input 捕获到焦点后，系统储存当前值，当 input 焦点离开后，判断当前值与之前存储的值是否不等，如果为 true 则触发 onchange 事件。非 ie 敲回车也可以实现触发
+
+## 14. 原生的变化如何监听？怎么知道 input 框的值是改变了？
+
+在`<input>`上添加一个属性`defaultValue`,用来做对比，或者将原始值记录下来。
+
+## 15. html 原生事件
+
+### Keyboard 事件
+
+| 属性       | 值     | 描述                   |
+| ---------- | ------ | ---------------------- |
+| onkeydown  | script | 在用户按下按键时触发。 |
+| onkeypress | script | 在用户敲击按钮时触发。 |
+| onkeyup    | script | 当用户释放按键时触发。 |
+
+### Mouse 事件
+
+| 属性         | 值     | 描述                                           |
+| ------------ | ------ | ---------------------------------------------- |
+| onclick      | script | 元素上发生鼠标点击时触发。                     |
+| ondblclick   | script | 元素上发生鼠标双击时触发。                     |
+| ondrag       | script | 元素被拖动时运行的脚本。                       |
+| ondragend    | script | 在拖动操作末端运行的脚本。                     |
+| ondragenter  | script | 当元素元素已被拖动到有效拖放区域时运行的脚本。 |
+| ondragleave  | script | 当元素离开有效拖放目标时运行的脚本。           |
+| ondragover   | script | 当元素在有效拖放目标上正在被拖动时运行的脚本。 |
+| ondragstart  | script | 在拖动操作开端运行的脚本。                     |
+| ondrop       | script | 当被拖元素正在被拖放时运行的脚本。             |
+| onmousedown  | script | 当元素上按下鼠标按钮时触发。                   |
+| onmousemove  | script | 当鼠标指针移动到元素上时触发。                 |
+| onmouseout   | script | 当鼠标指针移出元素时触发。                     |
+| onmouseover  | script | 当鼠标指针移动到元素上时触发。                 |
+| onmouseup    | script | 当在元素上释放鼠标按钮时触发。                 |
+| onmousewheel | script | 当鼠标滚轮正在被滚动时运行的脚本。             |
+| onscroll     | script | 当元素滚动条被滚动时运行的脚本。               |
+
 ## 17. http 缓存的原理，怎么进行的？
 
 缓存缓存，就是把需要的东西存起来，不需要每次都去请求。主要目的减小服务器压力，放到客户端上来讲，还利于节省流量，还能流畅的把 UI 显示出来，提高了用户体验。对于 Http 缓存来讲，主要的就是校验缓存的有效性，也就是新鲜度。
@@ -282,3 +323,49 @@ https 是比 http 更加安全的网络协议，可以说 HTTPS = HTTP + SSL。H
 ## 18. CDN 了解吗？
 
 内容分发网络。CDN 系统能够实时地根据网络流量和各节点的连接、负载状况以及到用户的距离和响应时间等综合信息将用户的请求重新导向离用户最近的服务节点上。其目的是使用户可就近取得所需内容，解决 Internet 网络拥挤的状况，提高用户访问网站的响应速度。
+
+## 19. HTML5 的新特性（或者说 HTML5 有代表性的标签）
+
+### HTML5 提供了新的元素来创建更好的页面结构：
+
+| 标签       | 描述                              |
+| ---------- | --------------------------------- |
+| <article>  | 定义页面独立的内容区域。          |
+| <aside>    | 定义页面的侧边栏内容。            |
+| <header>   | 定义了文档的头部区域              |
+| <footer>   | 定义 section 或 document 的页脚。 |
+| <mark>     | 定义带有记号的文本。              |
+| <nav>      | 定义导航链接的部分。              |
+| <progress> | 定义任何类型的任务的进度。        |
+| <time>     | 定义日期或时间。                  |
+
+### HTML5 Canvas
+
+HTML5 <canvas> 元素用于图形的绘制，通过脚本 (通常是 JavaScript)来完成.
+
+<canvas> 标签只是图形容器，您必须使用脚本来绘制图形。
+
+### HTML5 拖放
+
+`<img draggable="true">`
+
+### HTML5 地理定位
+
+Geolocation API 用于获得用户的地理位置。
+
+### HTML5 Audio(音频)、Video(视频)
+
+### HTML5 语义元素
+
+![html5](../images/html5.png)
+
+### HTML5 Web 存储
+
+- localStorage
+- sessionStorage
+
+> [参考](https://blog.csdn.net/chandoudeyuyi/article/details/69206236)
+
+## 20. 写一个选择器，完成从 DOM 中获取所有`<a>`中包含`163.com`的链接筛选出来。
+
+> 其实考察的是如何自己实现`$`符号，使用的是`document.queryElementAll(a[href*=163.com])`。这个很可能是不对的。

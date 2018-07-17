@@ -267,6 +267,58 @@ css 模块化就是所有的类名都只有局部作用域的 css 文件。
 > }
 > ```
 
+## 8. 如何完成下面的样式？
+
+![](../images/css-box-shadow.png)
+
+```html
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>test.html</title>
+  <style>
+    .container {
+      width: 100vw;
+      height: 100vh;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .item {
+      width: 200px;
+      height: 200px;
+      border-radius: 100px;
+      box-shadow: 0 0 0 50px rgb(124, 122, 122);
+      background-color: rgb(70, 64, 54);
+    }
+
+    .item2 {
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      box-shadow: 0 0 0 25px rgb(31, 25, 25);
+      position: relative;
+      top: 75px;
+      left: 75px;
+      background-color: black;
+    }
+
+  </style>
+</head>
+
+<body class="container">
+  <div class="item">
+    <div class="item2"></div>
+  </div>
+</body>
+
+</html>
+```
+
 ## 8. 通过 html img 标签设置图片和通过 div 背景图设置图片，两种设置图片的方式有什么优劣？
 
 - 占位符
