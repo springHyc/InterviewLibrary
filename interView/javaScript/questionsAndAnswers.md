@@ -302,9 +302,20 @@ for (var i = 1; i <= 5; i++) {
 在迭代内使用 IIFE 会为每个迭代都生成一个新的作用域，使得延迟函数的回调可以将新的
 作用域封闭在每个迭代内部，每个迭代中都会含有一个具有正确值的变量供我们访问。
 
-## 3. JavaScript 的数据类型有哪些？如何准确的检测数据类型？
+## 3. JavaScript 的基本数据类型有哪些？如何准确的检测数据类型？
 
-object null undefined string number Boolean 还有es6新增的symbol，主要特征是唯一性
+string number Boolean null undefined object    还有es6新增的symbol，主要特征是唯一性
+
+> 继续问：typeof的返回值都有哪些？
+> string number Boolean object undefined object function 还有array也会返回object `typeof Symbol()`返回的是"symbol"
+
+> 继续问：为什么es6推出了Symbol?它的作用是什么？（搜狗）
+> 是全新的，第七种原始数据类型。被创建后不能改变，并且是唯一的。</br>
+> Q: 为什么推出？</br>
+> A: Symbol的目的就是为了实现一个唯一不重复不可变的值，任何一个Symbol都是唯一的，不会和其他任何Symbol相等。很多时候我们需要用到唯一不重复的值，但是每次创建的值很大可能会被重复 => 创建了Symbol类型。</br>
+> Q:它的作用是什么？</br>
+> A: 提供一个唯一不重复不可变的值。
+
 
 ## 4. 以下代码执行结果分别是什么？
 
@@ -1139,7 +1150,10 @@ es6 有 import 和 export 运算符来实现了.
 
 for-of 通过方法调用(遍历器方法)来实现集合的遍历。数组、Maps、Sets 以及其他我们讨论过的对象之间有个共同点：有迭代器方法。
 
-> 另外一种解释
+> 另外一种解释</br>
+for-of工作原理：迭代器(iterator)有一个next方法，for循环会不断调用这个iterator.next方法来获取下一个值,直到返回值中的 done属性为true的时候结束循环。
+
+> 另外一种解释</br>
 > JavaScript 原有的表示“ 集合” 的数据结构， 主要是数组（ Array） 和对象（ Object）， ES6 又添加了 Map 和 Set。 这样就有了四种数据集合， 用户还可以组合使用它们， 定义自己的数据结构， 比如数组的成员是 Map， Map 的成员是对象。 这样就需要一种统一的接口机制， 来处理所有不同的数据结构。
 > 遍历器（ Iterator） 就是这样一种机制。 它是一种接口， 为各种不同的数据结构提供统一的访问机制。 任何数据结构只要部署 Iterator 接口， 就可以完成遍历操作（ 即依次处理该数据结构的所有成员）。
 > Iterator 的作用有三个：
@@ -1165,6 +1179,11 @@ for-of 用于遍历数组更好
 使用 for in 会遍历数组所有的可枚举属性，包括原型。所以**for-in 用于遍历对象更好**。
 
 记住，for in 遍历的是数组的索引（即键名），而 for of 遍历的是数组元素值。
+
+> for-in遍历数组的坏处？
+> * `for-in`赋给index的值不是实际的数字，而是字符串“0”、“1”、“2”，此时很可能在无意之间进行字符串算数计算，例如：“2” + 1 == “21”，这给编码过程带来极大的不便。
+> * 作用于数组的for-in循环体除了遍历数组元素外，还会遍历自定义属性。举个例子，如果你的数组中有一个可枚举属性myArray.name，循环将额外执行一次，遍历到名为“name”的索引。就连数组原型链上的属性都能被访问到。
+> * 在某些情况下，这段代码可能按照随机顺序遍历数组元素
 
 ## 29. 简述 arguments 的作用，在 es6 中更好的替代方案是什么?
 
@@ -1593,23 +1612,51 @@ Q: 有什么办法可以让`const obj = {a: 1};`的值不可变？
 
 ## 43. 写一个函数，实现对象的深度拷贝。
 
-```js
-// 实现对象的浅拷贝
+### 浅拷贝
 
-function copy(p,c) {
+浅拷贝只复制指向某个对象的指针，而不复制对象本身，新旧对象还是共享同一块内存。
+
+![shallow-copy](../images/shallowCopy.png)
+
+* for循环方式
+
+```js
+function shallowCopy(p,c) {
   var c = c || {};
   for (var i = 0; i<p.length; i ++) {
     c[i] = p[i];
   }
-  c.uber = p;
   return c;
 }
 
-// 对象的深拷贝
+```
+
+* es6
+
+```js
+Object.assign(); //也能实现对象的浅拷贝
+```
+
+
+### 深拷贝
+
+深拷贝会另外创造一个一模一样的对象，新对象跟原对象不共享内存，修改新对象不会改到原对象。
+
+![deep-copy](../images/deepCopy.png)
+
+* for循环方式
+
+```js
 function deepCopy(p, c) {
   var c = c || {};
 
-  for (var i in p ){
+  for (var i in p ){ // 这会有问题，如果是数组的话，遍历会有问题。所以要确定这个对象不是数组，数组的拷贝有很多种方式。
+  // 另外还可能出现相互引用的对象导致死循环的情况
+
+    var prop = p[i];// p.a = p的情况
+    if(prop === c) {
+      continue;
+    }
     if(typeOf p[i] === 'object') {
       var c[i] = p[i].constructor == Array ? [] : {};
       deepCopy(c[i], p[i]);
@@ -1617,12 +1664,23 @@ function deepCopy(p, c) {
       c[i] = p[i];
     }
   }
-  c.uber = p;
   return c;
 }
-
-Object.create(); //也是对象的深拷贝
 ```
+
+* 对于对象是json安全的，可以使用json序列化的方式
+
+```js
+// 对于对象是json安全的，可以使用
+var newObj = JSON.parse(JSON.stringify(someobj));
+```
+
+* 很热门的函数库lodash，也有提供_.cloneDeep用来做 Deep Copy
+
+> 实现数组的拷贝
+> const a1=[1,2];
+> 1. const a2=a1.concat();
+> 2. const a3 = a1.slice();
 
 ## 44. 给一个字符串，找到里面重复最多的字符？
 
@@ -2118,3 +2176,82 @@ i.constructor.name 如果是`Array`则为数组，如果是`Object`则是简单�
 
 还可以`b.constructor == Array`来进行是否是数组的判断；
 还可以`b.constructor == Object`来进行是否是对象的判断；
+
+## 58. 写出下面的值？
+
+```js
+var a = {};
+var b = {};
+var c = {a: 1};
+var d[a] = 1;
+d[b] = 1;
+d[c] // 1
+```
+> 原因：
+> **在对象中属性名永远都是字符串。**如果使用string以外的其他值作为属性名，那么它首先会被转化为一个字符串。
+> ```js
+>  var obj = {};
+>  obj[true] = "foo";
+>  obj[3] = "bar";
+>
+>  //等价于
+>  obj["true"] = "foo";
+>  obj["3"] = "bar";
+>  obj["[object Object]"] = "baz";
+> ```
+> obj.toString() // "[object Object]",所有对象的`toString()`的值都是`"[object Object]"`
+
+> 备注：
+> `.a` - 属性访问值
+> `["a"]` - 键访问
+> 二者是等价的。
+
+## 58. es6 中的 Map 结构
+
+### 1. es6 为什么推出 Map 结构？
+
+JavaScript 的对象（object）本质上就是键值对的集合（Hash 结构），但是只能用字符串作为键。这就给它的使用带来了很大的限制。
+
+## 59. 说一说 es5 中 object 是如何存储的？
+
+```js
+var name = "hehe";
+var age = 27;
+var job;
+var arr = [1, 2, 3, 4];
+var obj = { name: "hehe", age: 27 };
+```
+
+这些都是如何存储的？
+
+![值的存储](../images/object-store.png)
+
+
+## 60. 判断是否是回文
+
+>如果给定的字符串是回文，返回true，反之，返回false。
+>如果一个字符串忽略标点符号、大小写和空格，正着读和反着读一模一样，那么这个字符串就是palindrome(回文)。
+
+>注意你需要去掉字符串多余的标点符号和空格，然后把字符串转化成小写来验证此字符串是否为回文。
+
+```
+function palindrome(str) {
+  // Good luck!
+  str = str.toLowerCase();
+  var array = str.split("");
+
+  var array1 = array.filter(function(ch) {
+    return 'A'<=ch && ch <= 'z' || 1<=ch && ch <=9;
+  });
+
+  var re = true;
+  for(var i=0, len = array1.length; i<=Math.floor(len/2); i++){
+    if(array1[i] != array1[len-i-1]){
+      re = false;
+    }
+  }
+  return re;
+}
+
+palindrome("eye");
+```

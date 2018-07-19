@@ -649,3 +649,27 @@ a.apply(null);
 ```
 
 ---
+
+sougou.com
+
+## 58. es6 中的 Map 结构
+
+### 1. es6 为什么推出 Map 结构？
+
+## 59. 说一说 es5 中 object 是如何存储的？
+
+```js
+var name = "hehe";
+var age = 27;
+var job;
+var arr = [1, 2, 3, 4];
+var obj = { name: "hehe", age: 27 };
+```
+
+这些都是  如何存储的？
+
+---
+
+百度-17 年上半年
+
+## 60. 判断是否是回文

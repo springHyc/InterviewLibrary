@@ -711,3 +711,130 @@ p span {
 | opacity(%)                                       | 转化图像的透明程度。                                                                                                                                                                          |
 
 ## 20. 有个场景：国家发生灾难后，需要将该页面做成灰白色，如何实现？
+
+## 21. css 中@import 和`<link rel="stylesheet" href="xxx.css">`有什么区别？
+
+### 共同点
+
+- link 和@import 都是可以用来引入 css 样式的方法。
+
+### 不同点
+
+- 应用方式不同
+  - link(外部引用):<link rel="stylesheet" href="xxx.css" type="text/css" / >
+  - @import(导入式):@import url(xxx.css);
+- 放置的位置不同
+
+  - link 一般放在 head 标签中
+  - @import 必须放在`<style type="text/css">`标签中
+
+    ```css
+    <style type="text/css">  
+      @import "jisuan.css";  
+    </style>
+    ```
+
+- 加载方式不同
+  - ink 会和 dom 结构一同加载渲染
+  - @import 只能能 dom 结构加载完成以后才能渲染页面
+- 当使用 Javascript 控制 DOM 去改变样式的时候，只能使用 link 方式，因为 @import 只有 CSS ，不是 DOM 可以控制的
+- 兼容性不同
+  - link 是在 xhtml 的标签，兼容 IE 各个版本
+  - @import 是 css2.1 时提出来的，只能在 IE6 以上进行解析。
+
+## 22. 实现一个 img 图片旋转的方法？
+
+- transform: rotate(30deg);
+- CSS3 动画 @keyframes
+
+---
+
+百度-17 年上半年
+
+## 23.固定区域内一个图片实现上下垂直居中，图片高度不固定，但是图片高度小于固定区域的高度。
+
+- flex 布局解决方法
+
+```js
+<div class="container">
+  <img src="http://img4.imgtn.bdimg.com/it/u=2075750630,4216747848&fm=23&gp=0.jpg" />
+</div>
+```
+
+```css
+.container {
+  width: 300px;
+  height: 300px;
+  border: 1px solid rebeccapurple;
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+```
+
+![flex.png](http://upload-images.jianshu.io/upload_images/2041009-d8fc1d765a8fa705.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+> 这个方法的不好处就在于，使用了`flex`，CSS3 中的新增属性，各浏览器的支持程度不一样。
+
+![flex支持程度](../images/flex-zc.png)
+
+- 设置为单元格的方式
+
+```js
+<div class="container">
+  <img src="http://img4.imgtn.bdimg.com/it/u=2075750630,4216747848&fm=23&gp=0.jpg" />
+</div>
+```
+
+```css
+.container {
+  width: 300px;
+  height: 300px;
+  border: 1px solid rebeccapurple;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+```
+
+![cell.png](../images/cell.png)
+
+> 这种方式除了 IE6\IE7 之外，其他主流浏览器中基本上实现了图片的垂直居中对齐。
+
+- 利用定位来实现垂直居中 - 兼容 IE5.5\6\7\8\9\10 firefox chrome
+  在支持 display 为 table-cell 的浏览器中依然用 vertical-align:middle 来实现，在 IE5.5\IE6\IE7 中利用定位来实现垂直居中。
+
+```js
+<div class="container">
+  <p>
+    <img src="http://img4.imgtn.bdimg.com/it/u=2075750630,4216747848&fm=23&gp=0.jpg" />
+  </p>
+</div>
+```
+
+```css
+.container {
+  border: 1px dashed #ccc;
+  height: 300px;
+  width: 300px;
+  overflow: hidden;
+  display: table-cell;
+  vertical-align: middle;
+  *position: relative;
+}
+
+p {
+  *position: absolute;
+  *top: 50%;
+  width: 100%;
+  text-align: center;
+}
+img {
+  *position: relative;
+  *top: -50%;
+}
+```
+
+> `*`： 一般\*的属性作用于:IE6、IE7
