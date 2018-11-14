@@ -307,7 +307,8 @@ for (var i = 1; i <= 5; i++) {
 string number Boolean null undefined object    还有es6新增的symbol，主要特征是唯一性
 
 > 继续问：typeof的返回值都有哪些？
-> string number Boolean object undefined object function 还有array也会返回object `typeof Symbol()`返回的是"symbol"
+> string number boolean object undefined object(和上面是一一对应的) function 还有array也会返回object `typeof Symbol()`返回的是"symbol"
+> typeof(null) // "object",检测`null`的方式是`my_value === null`
 
 > 继续问：为什么es6推出了Symbol?它的作用是什么？（搜狗）
 > 是全新的，第七种原始数据类型。被创建后不能改变，并且是唯一的。</br>
@@ -2255,3 +2256,8 @@ function palindrome(str) {
 
 palindrome("eye");
 ```
+
+## 62. JavaScript 如何判断一个对象是空的？
+
+* 第一种： `const isEmptyObject = obj => Object.getOwnPropertyNames(obj).length === 0`
+* 第二种： `Object.keys(obj).length == 0`
