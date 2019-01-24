@@ -1575,7 +1575,7 @@ Cat.prototype = new Animal();
 // 原来，任何一个prototype对象都有一个constructor属性，指向它的构造函数。
 // 如果没有"Cat.prototype = new Animal();"这一行，Cat.prototype.constructor是指向Cat的；
 // 加了这一行以后，Cat.prototype.constructor指向Animal。
-Cat.prototype.constructor = Cat;
+Cat.prototype.constructor = Cat; //？是否需要？
 var cat1 = new Cat("大毛", "黄色");
 alert(cat1.species); // 动物
 ```
@@ -1637,8 +1637,6 @@ function shallowCopy(p,c) {
 ```js
 Object.assign(); //也能实现对象的浅拷贝
 ```
-
-
 ### 深拷贝
 
 深拷贝会另外创造一个一模一样的对象，新对象跟原对象不共享内存，修改新对象不会改到原对象。
@@ -2024,7 +2022,7 @@ function PromiseM() {
 PromiseM.prototype.then = function() {
   if(this.status == 'resolve') {
     arguments[0](this.msg);
-  } 
+  }
   if(this.status == 'reject' && arguments[1]) {
     arguments[1](this.msg);
   }
@@ -2261,3 +2259,55 @@ palindrome("eye");
 
 * 第一种： `const isEmptyObject = obj => Object.getOwnPropertyNames(obj).length === 0`
 * 第二种： `Object.keys(obj).length == 0`
+
+## 63. js 的作用域是什么？作用域是什么时候确定的？
+
+## 64. setTimeout 和 promise 的区别？宏任务和微任务是什么？有什么区别？
+
+宏任务队列可以有多个，微任务队列只有一个。
+
+宏任务：script（全局任务）, setTimeout, setInterval, setImmediate, I/O, UI rendering.
+微任务：process.nextTick, Promise, Object.observer, MutationObserver.
+
+取一个宏任务来执行。执行完毕后，下一步。
+取一个微任务来执行，执行完毕后，再取一个微任务来执行。直到微任务队列为空，执行下一步。
+更新 UI 渲染。
+
+写出下面的执行结果：
+
+```js
+console.log("1");
+
+setTimeout(function() {
+  console.log("2");
+  new Promise(function(resolve) {
+    console.log("3");
+    resolve();
+  }).then(function() {
+    console.log("4");
+  });
+});
+
+new Promise(function(resolve) {
+  console.log("5");
+  resolve();
+}).then(function() {
+  console.log("6");
+});
+
+setTimeout(function() {
+  console.log("7");
+
+  new Promise(function(resolve) {
+    console.log("8");
+    resolve();
+  }).then(function() {
+    console.log("9");
+  });
+});
+```
+
+结果是：
+1 5 6 2 3 4 7 8 9
+
+## 65. 构造函数是什么？new 的时候都去做了什么？

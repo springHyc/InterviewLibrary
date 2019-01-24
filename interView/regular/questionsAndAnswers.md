@@ -13,7 +13,7 @@ var string = "seregesbgfsert";
 > 个人答案
 
 ```shell
-> str.replace(/(\w{4})/g, "$1 ");
+> string.replace(/(\w{4})/g, "$1 ");
 < "wefe trsb dfrh y"
 ```
 
@@ -27,22 +27,23 @@ var num = "15010585812";
 /^1[3|4|5|7|8][0-9]{9}$/;
 ```
 
-## 3. 写一个函数，将 URL 参数转换为对象返回
+## 3. 写一个函数，将 URL 参数转换为对象返回（考虑参数有小数点的情况）
 
 ```js
 function fn(url) {
   var obj = {};
-  var params = url.match(/([\?|&|]\w*=\w*)/g).map(str => str.slice(1));
+  var params = url.match(/([\?|&|]\w*=[\w\.]*)/g).map(str => str.slice(1));
   params.map(item => {
     var arr = item.split("=");
     obj[arr[0]] = arr[1];
   });
   return obj;
 }
-var url = "http://www.baidu.com/login?username=hehe&password=123456";
+var url = "http://www.baidu.com/login?username=hehe&password=123456&num=12.4";
 console.log(fn(url));
 // 结果
 {
+  num: "12.4",
   password: "123456",
   username: "hehe"
 }

@@ -408,6 +408,34 @@ main();
 
 ## 30. 实现一个动物类，动物有吃饭，吼叫的方法，有眼睛、鼻子属性。动物类有子类：猫和狗。猫的叫声是喵喵，猫的眼睛是蓝色的，狗得见叫声是汪汪，狗的眼睛是棕色的。请用代码实现上述描述。
 
+## 32. 下面代码运行的结果是什么？
+
+```js
+let obj = {
+  fun1: () => {
+    console.log("111");
+  },
+  fun2: () => {
+    this.fun1();
+  }
+};
+
+obj.fun2();
+```
+
+## 33. 下面代码会输出什么？
+
+```js
+let arr = [1, 2, 3, 4];
+let it1 = arr[Symbol.iterator](); // 遍历器接口
+let res = it1.next();
+console.log(res);
+```
+
+---
+
+下面部分考察的是 `setTimeout` 与 `promise`
+
 ## 31. 下面的执行结果是什么？
 
 ```js
@@ -437,30 +465,6 @@ Promise.all([Promise1(), Promise2()]).then(function() {
 });
 ```
 
-## 32. 下面代码运行的结果是什么？
-
-```js
-let obj = {
-  fun1: () => {
-    console.log("111");
-  },
-  fun2: () => {
-    this.fun1();
-  }
-};
-
-obj.fun2();
-```
-
-## 33. 下面代码会输出什么？
-
-```js
-let arr = [1, 2, 3, 4];
-let it1 = arr[Symbol.iterator](); // 遍历器接口
-let res = it1.next();
-console.log(res);
-```
-
 ## 34. 下面代码输出什么？ ？
 
 ### 题目 1
@@ -479,7 +483,8 @@ Promise.resolve(1)
 
 ### 题目 2
 
-```js  Qunar.com
+```js
+// Qunar.com
 setTimeout(() => {
   console.log(1);
 }, 0);
@@ -543,7 +548,13 @@ Promise.race([p2, p4, p5]).then(val => console.log(val)); //?
 
 ## 35. 说一下对 Promise 的理解？
 
+## 40. promise 能够一直.then 下去的原因？
+
+## 49. 如何用原生来实现 promise.all()?
+
 ## 36. 回调地狱的缺点？
+
+---
 
 ## 37. 一个列表中给每项添加点击事件，如何添加？当列表有一万项的时候怎么添加？（事件委托是什么）做过的项目中 react-native 中的表格是怎么添加点击事件的？
 
@@ -552,8 +563,6 @@ Promise.race([p2, p4, p5]).then(val => console.log(val)); //?
 ## 39. 继承有几种方式？写一下
 
 // -------------------打印分界线-----------------------
-
-## 40. promise 能够一直.then 下去的原因？
 
 ## 41. 有一个场景，我们有很多以前的代码，都是回调函数的形式写的。如何将 callback 形式的回调函数转化为 promise 的调用方式？
 
@@ -572,8 +581,6 @@ Promise.race([p2, p4, p5]).then(val => console.log(val)); //?
 ## 47. 页面上一个可以触摸的方块，如何让其跟着这手指的移动而移动？手机触屏事件了解多少？
 
 ## 48. 定时有几种方式？
-
-## 49. 如何用原生来实现 promise.all()?
 
 ---
 
@@ -677,3 +684,11 @@ var obj = { name: "hehe", age: 27 };
 ## 61. 为什么`for-in`不适合遍历数组？
 
 ## 62. JavaScript 如何判断一个对象是空的？
+
+---
+
+## 63. js 的作用域是什么？作用域是什么时候确定的？
+
+## 64. setTimeout 和 promise 的区别？宏任务和微任务是什么？有什么区别？
+
+## 65. 构造函数是什么？new 的时候都去做了什么？
