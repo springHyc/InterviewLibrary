@@ -1,0 +1,13 @@
+{
+  "name": "interviewlibrary",
+  "version": "1.0.0",
+  "description": "前端面试库",
+  "author": "Hehe",
+  "license": "ISC",
+  "devDependencies": {
+    "gitbook-plugin-multipart": "^0.3.0"
+  },
+  "dependencies": {
+    "gitbook": "^3.2.3"
+  }
+}
