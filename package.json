@@ -8,6 +8,6 @@
     "gitbook-plugin-multipart": "^0.3.0"
   },
   "dependencies": {
-    "gitbook": "^2.6.9"
+    "gitbook": "^3.2.3"
   }
 }
