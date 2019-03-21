@@ -1186,6 +1186,17 @@ for-of 用于遍历数组更好
 > * 作用于数组的for-in循环体除了遍历数组元素外，还会遍历自定义属性。举个例子，如果你的数组中有一个可枚举属性myArray.name，循环将额外执行一次，遍历到名为“name”的索引。就连数组原型链上的属性都能被访问到。
 > * 在某些情况下，这段代码可能按照随机顺序遍历数组元素
 
+```js
+var list = [{name: "hehe", age: 12}, {name: "zz", age: 34}];
+for(var item of list){
+  console.log(`${item.name} is ${item.age} years old.`)
+}
+
+for(var index in list){
+  console.log(`${list[index].name} is ${list[index].age} years old.`)
+}
+```
+
 ## 29. 简述 arguments 的作用，在 es6 中更好的替代方案是什么?
 
 不定参数和默认参数
@@ -1649,16 +1660,16 @@ Object.assign(); //也能实现对象的浅拷贝
 function deepCopy(p, c) {
   var c = c || {};
 
-  for (var i in p ){ // 这会有问题，如果是数组的话，遍历会有问题。所以要确定这个对象不是数组，数组的拷贝有很多种方式。
+  for (var i in p ){// 这会有问题，如果是数组的话，遍历会有问题。所以要确定这个对象不是数组，数组的拷贝有很多种方式。
   // 另外还可能出现相互引用的对象导致死循环的情况
 
     var prop = p[i];// p.a = p的情况
     if(prop === c) {
       continue;
     }
-    if(typeOf p[i] === 'object') {
-      var c[i] = p[i].constructor == Array ? [] : {};
-      deepCopy(c[i], p[i]);
+    if(typeof p[i] === 'object') {
+      c[i] = p[i].constructor == Array ? [] : {};
+      deepCopy(p[i], c[i]);
     } else {
       c[i] = p[i];
     }
