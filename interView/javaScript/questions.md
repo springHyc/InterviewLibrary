@@ -692,3 +692,13 @@ var obj = { name: "hehe", age: 27 };
 ## 64. setTimeout 和 promise 的区别？宏任务和微任务是什么？有什么区别？
 
 ## 65. 构造函数是什么？new 的时候都去做了什么？
+
+## 66. String 和 string 有什么区别？
+
+String 是构造函数，而"string"是变量的一种类型
+
+```js
+typeof String; // "function"
+typeof string; // "undefined"
+typeof "string"; // "string"
+```

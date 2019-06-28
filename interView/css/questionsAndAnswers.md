@@ -838,3 +838,25 @@ img {
 ```
 
 > `*`： 一般\*的属性作用于:IE6、IE7
+
+### 错误做法：
+
+* 1.    div : position: relative; img :     position: absolute;这种方式只能实现左右居中，不能上下居中。
+
+```css
+.container {
+    position: relative;
+}
+
+// 只能实现左右居中，上下不行
+img {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+```
+
