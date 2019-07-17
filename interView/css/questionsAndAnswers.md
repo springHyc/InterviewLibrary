@@ -6,33 +6,32 @@
 
 ```html
 <div class="container">
-  <div  class="item left">left: width: 100px</div>
-  <div  class="item center ">中间宽度自定义</div>
-  <div  class="item right ">right width: 100px</div>
+    <div class="item left">left: width: 100px</div>
+    <div class="item center ">中间宽度自定义</div>
+    <div class="item right ">right width: 100px</div>
 </div>
 
 <style>
-  .container {
-    height: 100px;
-    border: 1px solid #000;
-  }
-  .item {
-    height: 100%;
-    border: 1px solid red;
-  }
-  .left{
-    float: left;
-    width: 100px;
-  }
-  .center {
-    margin: 0 100px;
-    width: auto;
-  }
-  .right {
-    float: right;
-    width: 100px;
-  }
-
+    .container {
+        height: 100px;
+        border: 1px solid #000;
+    }
+    .item {
+        height: 100%;
+        border: 1px solid red;
+    }
+    .left {
+        float: left;
+        width: 100px;
+    }
+    .center {
+        margin: 0 100px;
+        width: auto;
+    }
+    .right {
+        float: right;
+        width: 100px;
+    }
 </style>
 ```
 
@@ -44,9 +43,9 @@
 
 ```html
 <div class="container">
-  <div  class="item left">left: width: 100px</div>
-  <div  class="item right ">right width: 100px</div>
-  <div  class="item center ">中间宽度自定义</div>
+    <div class="item left">left: width: 100px</div>
+    <div class="item right ">right width: 100px</div>
+    <div class="item center ">中间宽度自定义</div>
 </div>
 ```
 
@@ -82,7 +81,7 @@
 | [:lang(_language_)](http://www.w3school.com.cn/cssref/selector_lang.asp)                          | p:lang(it)            | 选择带有以 "it" 开头的 lang 属性值的每个 <p> 元素。 | 2   |
 | [_element1_~_element2_](http://www.w3school.com.cn/cssref/selector_gen_sibling.asp)               | p~ul                  | 选择前面有 <p> 元素的每个 <ul> 元素。               | 3   |
 | [[_attribute_^=_value_\]](http://www.w3school.com.cn/cssref/selector_attr_begin.asp)              | a[src^="https"]       | 选择其 src 属性值以 "https" 开头的每个 <a> 元素。   | 3   |
-| [[_attribute_$=_value_\]](http://www.w3school.com.cn/cssref/selector_attr_end.asp)                | a[src$=".pdf"]        | 选择其 src 属性以 ".pdf" 结尾的所有 <a> 元素。      | 3   |
+| [[_attribute_\$=_value_\]](http://www.w3school.com.cn/cssref/selector_attr_end.asp)               | a[src$=".pdf"]        | 选择其 src 属性以 ".pdf" 结尾的所有 <a> 元素。      | 3   |
 | [[*attribute\*\*=*value\*\]](http://www.w3school.com.cn/cssref/selector_attr_contain.asp)         | a[src*="abc"]         | 选择其 src 属性中包含 "abc" 子串的每个 <a> 元素。   | 3   |
 | [:first-of-type](http://www.w3school.com.cn/cssref/selector_first-of-type.asp)                    | p:first-of-type       | 选择属于其父元素的首个 <p> 元素的每个 <p> 元素。    | 3   |
 | [:last-of-type](http://www.w3school.com.cn/cssref/selector_last-of-type.asp)                      | p:last-of-type        | 选择属于其父元素的最后 <p> 元素的每个 <p> 元素。    | 3   |
@@ -104,9 +103,9 @@
 
 ## 3. 描述一下 CSS 的优先级规则
 
-- 内联样式>id 选择器> 伪类（：nth-child()）> 属性选择器> 类选择器> 元素选择器（div\p）> 通用选择器（\*)
+-   内联样式>id 选择器> 伪类（：nth-child()）> 属性选择器> 类选择器> 元素选择器（div\p）> 通用选择器（\*)
 
-* !important 规则例外，该样式声明会覆盖 CSS 中任何其他的声明。
+*   !important 规则例外，该样式声明会覆盖 CSS 中任何其他的声明。
 
 ## 4. css 盒模型是什么？
 
@@ -221,49 +220,48 @@ css 模块化就是所有的类名都只有局部作用域的 css 文件。
 
 ```html
 <body class="container">
-  <div class="item left"> 100px宽</div>
-  <div class="item center"> 自适应</div>
-  <div class="item right"> 100px宽</div>
+    <div class="item left">100px宽</div>
+    <div class="item center">自适应</div>
+    <div class="item right">100px宽</div>
 </body>
 
 <style>
     .container {
-      border: 1px solid black;
-      width: 100vw;
-      height: 100vh;
+        border: 1px solid black;
+        width: 100vw;
+        height: 100vh;
 
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
     }
 
     .item {
-      border: 1px solid red;
-      height: 100%;
-
+        border: 1px solid red;
+        height: 100%;
     }
 
     .center {
-      flex: 1;
+        flex: 1;
     }
 
     .left,
     .right {
-      width: 100px;
+        width: 100px;
     }
-  </style>
+</style>
 ```
 
 > 在上一段代码的基础上更改一下即可完成中间固定，两边自适应
 
 > ```css
 > .center {
->   width: 100px;
+>     width: 100px;
 > }
 >
 > .left,
 > .right {
->   flex: 1;
+>     flex: 1;
 > }
 > ```
 
@@ -273,63 +271,60 @@ css 模块化就是所有的类名都只有局部作用域的 css 文件。
 
 ```html
 <html>
+    <head>
+        <meta charset="utf-8" />
+        <title>test.html</title>
+        <style>
+            .container {
+                width: 100vw;
+                height: 100vh;
 
-<head>
-  <meta charset="utf-8">
-  <title>test.html</title>
-  <style>
-    .container {
-      width: 100vw;
-      height: 100vh;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+            }
 
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-    }
+            .item {
+                width: 200px;
+                height: 200px;
+                border-radius: 100px;
+                box-shadow: 0 0 0 50px rgb(124, 122, 122);
+                background-color: rgb(70, 64, 54);
+            }
 
-    .item {
-      width: 200px;
-      height: 200px;
-      border-radius: 100px;
-      box-shadow: 0 0 0 50px rgb(124, 122, 122);
-      background-color: rgb(70, 64, 54);
-    }
+            .item2 {
+                width: 50px;
+                height: 50px;
+                border-radius: 25px;
+                box-shadow: 0 0 0 25px rgb(31, 25, 25);
+                position: relative;
+                top: 75px;
+                left: 75px;
+                background-color: black;
+            }
+        </style>
+    </head>
 
-    .item2 {
-      width: 50px;
-      height: 50px;
-      border-radius: 25px;
-      box-shadow: 0 0 0 25px rgb(31, 25, 25);
-      position: relative;
-      top: 75px;
-      left: 75px;
-      background-color: black;
-    }
-
-  </style>
-</head>
-
-<body class="container">
-  <div class="item">
-    <div class="item2"></div>
-  </div>
-</body>
-
+    <body class="container">
+        <div class="item">
+            <div class="item2"></div>
+        </div>
+    </body>
 </html>
 ```
 
 ## 8. 通过 html img 标签设置图片和通过 div 背景图设置图片，两种设置图片的方式有什么优劣？
 
-- 占位符
-  `<img>` 标签定义 HTML 页面中的图像。从技术上讲，图片并不会插入 HTML 页面中，而是链接到 HTML 页面上。img 标签的作用是为被引用的图像创建占位符。
+-   占位符
+    `<img>` 标签定义 HTML 页面中的图像。从技术上讲，图片并不会插入 HTML 页面中，而是链接到 HTML 页面上。img 标签的作用是为被引用的图像创建占位符。
 
-  background-image 作为背景，在图片没有加载的时候或者加载失败的时候，不会有图片的占位标记，不会出现红叉。
+    background-image 作为背景，在图片没有加载的时候或者加载失败的时候，不会有图片的占位标记，不会出现红叉。
 
-- 加载时间
-  `img`是写在 HTML 里的是以 HTML 插入 img 标签的形式存在，CSS 图片背景是等结构加载完成后再去加载的。
-- 是否为内容
-  非内容的图片写在 css 里，内容的图片就写在 HTML 里。
+-   加载时间
+    `img`是写在 HTML 里的是以 HTML 插入 img 标签的形式存在，CSS 图片背景是等结构加载完成后再去加载的。
+-   是否为内容
+    非内容的图片写在 css 里，内容的图片就写在 HTML 里。
 
 ## 8. 实现一下一个 div 的居中。如果不适用 flex 布局怎么做？
 
@@ -383,8 +378,8 @@ css 模块化就是所有的类名都只有局部作用域的 css 文件。
 
 ## 11. 请写出你所知道的清除浮动的方法（代码）
 
-- `clear :both`
-- `overflow:auto`
+-   `clear :both`
+-   `overflow:auto`
 
 ## 12. 如何实现一个两栏 布局，左边是 100px 宽，右边自定义？（flex 和非 flex 各实现一个）
 
@@ -392,35 +387,35 @@ css 模块化就是所有的类名都只有局部作用域的 css 文件。
 
 ```html
 <head>
-  <style>
-    .container {
-      border: 1px solid black;
-      width: 100vw;
-      height: 100vh;
+    <style>
+        .container {
+            border: 1px solid black;
+            width: 100vw;
+            height: 100vh;
 
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-    }
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
 
-    .item {
-      border: 1px solid red;
-      height: 100%;
-    }
+        .item {
+            border: 1px solid red;
+            height: 100%;
+        }
 
-    .left {
-      width: 100px;
-    }
+        .left {
+            width: 100px;
+        }
 
-    .right {
-      flex: 1;
-    }
-  </style>
+        .right {
+            flex: 1;
+        }
+    </style>
 </head>
 
 <body class="container">
-  <div class="item left"> 100px宽</div>
-  <div class="item right"> 自适应</div>
+    <div class="item left">100px宽</div>
+    <div class="item right">自适应</div>
 </body>
 ```
 
@@ -428,38 +423,36 @@ css 模块化就是所有的类名都只有局部作用域的 css 文件。
 
 ```html
 <html>
+    <head>
+        <meta charset="utf-8" />
+        <title>test.html</title>
+        <style>
+            .container {
+                border: 1px solid black;
+                width: 100vw;
+                height: 100vh;
+            }
 
-<head>
-  <meta charset="utf-8">
-  <title>test.html</title>
-  <style>
-    .container {
-      border: 1px solid black;
-      width: 100vw;
-      height: 100vh;
-    }
+            .item {
+                border: 1px solid red;
+                height: 100%;
+            }
 
-    .item {
-      border: 1px solid red;
-      height: 100%;
-    }
+            .left {
+                float: left;
+                width: 100px;
+            }
 
-    .left {
-      float: left;
-      width: 100px;
-    }
+            .right {
+                margin: 0 0 0 100px;
+            }
+        </style>
+    </head>
 
-    .right {
-      margin: 0 0 0 100px;
-    }
-  </style>
-</head>
-
-<body class="container">
-  <div class="item left"> 100px宽</div>
-  <div class="item right"> 自适应</div>
-</body>
-
+    <body class="container">
+        <div class="item left">100px宽</div>
+        <div class="item right">自适应</div>
+    </body>
 </html>
 ```
 
@@ -467,91 +460,91 @@ css 模块化就是所有的类名都只有局部作用域的 css 文件。
 
 > 其实这道题目考察的也就是屏幕自适应如何实现。在以前我只知道 flex 布局以及@media 媒体查询，其实还有很多种不同的实现方式。
 
-- 流式布局
-- 固定宽度做法
-- 响应式做法
-- 设置 viewport 进行缩放
-- rem 能等比例适配所有屏幕
+-   流式布局
+-   固定宽度做法
+-   响应式做法
+-   设置 viewport 进行缩放
+-   rem 能等比例适配所有屏幕
 
 ### 详细介绍
 
-- 流式布局
+-   流式布局
 
-  在页面中的布局是：宽度适用百分比，高度使用 px 来固定。
+    在页面中的布局是：宽度适用百分比，高度使用 px 来固定。
 
-  缺点：</br>在大屏幕的手机下显示效果会变成有些页面元素宽度被拉的很长，但是高度还是和原来一样，实际显示非常的不协调，往往只有几个尺寸的手机下看到的效果是令人满意的。
+    缺点：</br>在大屏幕的手机下显示效果会变成有些页面元素宽度被拉的很长，但是高度还是和原来一样，实际显示非常的不协调，往往只有几个尺寸的手机下看到的效果是令人满意的。
 
-- 固定宽度做法
+-   固定宽度做法
 
-  还有一种是固定页面宽度的做法，早期有些网站把页面设置成 320 的宽度，超出部分留白，这样做视觉，前端都挺开心，视觉在也不用被流式布局限制自己的设计灵感了，前端也不用在搞坑爹的流式布局。
+    还有一种是固定页面宽度的做法，早期有些网站把页面设置成 320 的宽度，超出部分留白，这样做视觉，前端都挺开心，视觉在也不用被流式布局限制自己的设计灵感了，前端也不用在搞坑爹的流式布局。
 
-  缺点：</br>在大屏幕手机下两边是留白的，还有一个就是大屏幕手机下看起来页面会特别小，操作的按钮也很小，手机淘宝首页起初是这么做的。
+    缺点：</br>在大屏幕手机下两边是留白的，还有一个就是大屏幕手机下看起来页面会特别小，操作的按钮也很小，手机淘宝首页起初是这么做的。
 
-- 响应式做法
+-   响应式做法
 
-  分别为不同的屏幕分辨率定义布局，同时，在每个布局中，应用流式布局的理念，即页面元素宽度随着窗口调整而自动适配。
+    分别为不同的屏幕分辨率定义布局，同时，在每个布局中，应用流式布局的理念，即页面元素宽度随着窗口调整而自动适配。
 
-  媒体查询+流式布局。通常使用 @media 媒体查询 和网格系统 (Grid System) 配合相对布局单位进行布局，实际上就是综合响应式、流动等上述技术通过 CSS 给单一网页不同设备返回不同样式的技术统称。
+    媒体查询+流式布局。通常使用 @media 媒体查询 和网格系统 (Grid System) 配合相对布局单位进行布局，实际上就是综合响应式、流动等上述技术通过 CSS 给单一网页不同设备返回不同样式的技术统称。
 
-  缺点：</br>1. 媒体查询是有限的，也就是可以枚举出来的，只能适应主流的宽高;</br>2. 要匹配足够多的屏幕大小，工作量不小，设计也需要多个版本。
+    缺点：</br>1. 媒体查询是有限的，也就是可以枚举出来的，只能适应主流的宽高;</br>2. 要匹配足够多的屏幕大小，工作量不小，设计也需要多个版本。
 
-- 设置 viewport 进行缩放
+-   设置 viewport 进行缩放
 
-  以 320 宽度为基准，进行缩放，最大缩放为 `320*1.3 = 416`。
+    以 320 宽度为基准，进行缩放，最大缩放为 `320*1.3 = 416`。
 
-  缺点：</br>使用过程中反应缩放会导致有些页面元素会糊的情况。
+    缺点：</br>使用过程中反应缩放会导致有些页面元素会糊的情况。
 
-- rem 能等比例适配所有屏幕
+-   rem 能等比例适配所有屏幕
 
-  上面说过 rem 是通过根元素进行适配的，网页中的根元素指的是 html 我们通过设置 html 的字体大小就可以控制 rem 的大小。
+    上面说过 rem 是通过根元素进行适配的，网页中的根元素指的是 html 我们通过设置 html 的字体大小就可以控制 rem 的大小。
 
-  根元素的大小为 1rem。
+    根元素的大小为 1rem。
 
 ## 14. css3 有代表性的新特性？
 
-- css3 边框（Borders）
+-   css3 边框（Borders）
 
-  用 CSS3，你可以创建圆角边框，添加阴影框
+    用 CSS3，你可以创建圆角边框，添加阴影框
 
-- css3 背景
+-   css3 背景
 
-  CSS3 中包含几个新的背景属性，提供更大背景元素控制，可以实现多背景。
+    CSS3 中包含几个新的背景属性，提供更大背景元素控制，可以实现多背景。
 
-- css3 渐变
+-   css3 渐变
 
-  - 线性渐变
-  - 径向渐变
+    -   线性渐变
+    -   径向渐变
 
-- css3 文本效果
+-   css3 文本效果
 
-  - text-justify（ 规定当 text-align 设置为 "justify" 时所使用的对齐方法。）
-  - text-outline（规定文本的轮廓。）
-  - text-overflow（规定当文本溢出包含元素时发生的事情。）
-  - text-shadow（向文本添加阴影。）
-  - text-wrap（规定文本的换行规则。）
+    -   text-justify（ 规定当 text-align 设置为 "justify" 时所使用的对齐方法。）
+    -   text-outline（规定文本的轮廓。）
+    -   text-overflow（规定当文本溢出包含元素时发生的事情。）
+    -   text-shadow（向文本添加阴影。）
+    -   text-wrap（规定文本的换行规则。）
 
-- CSS3 字体
+-   CSS3 字体
 
-  使用 CSS3，网页设计师可以使用他/她喜欢的任何字体。
+    使用 CSS3，网页设计师可以使用他/她喜欢的任何字体。
 
-  @font-face
+    @font-face
 
-- CSS3 转换和变形
+-   CSS3 转换和变形
 
-  - 2D 新转换属性
-  - 3D 转换属性
+    -   2D 新转换属性
+    -   3D 转换属性
 
-- CSS3 过渡
+-   CSS3 过渡
 
-  CSS3 中，我们为了添加某种效果可以从一种样式转变到另一个的时候，无需使用 Flash 动画或 JavaScript。
+    CSS3 中，我们为了添加某种效果可以从一种样式转变到另一个的时候，无需使用 Flash 动画或 JavaScript。
 
-- CSS3 动画
+-   CSS3 动画
 
-  要创建 CSS3 动画，你需要了解@keyframes 规则。@keyframes 规则是创建动画。 @keyframes 规则内指定一个 CSS 样式和动画将逐步从目前的样式更改为新的样式。
+    要创建 CSS3 动画，你需要了解@keyframes 规则。@keyframes 规则是创建动画。 @keyframes 规则内指定一个 CSS 样式和动画将逐步从目前的样式更改为新的样式。
 
-- CSS3 伸缩布局盒模型(弹性盒) flexbox
+-   CSS3 伸缩布局盒模型(弹性盒) flexbox
 
-- CSS3 多媒体查询@media
+-   CSS3 多媒体查询@media
 
 ## 15. 如何实现动画效果？
 
@@ -570,18 +563,18 @@ css 模块化就是所有的类名都只有局部作用域的 css 文件。
 
 ### 伪元素和伪类的区别？
 
-- 伪元素修改为以::开头；伪类以:开头
-- 伪类与伪元素的本质区别就是是否抽象创造了新元素
-- 伪元素在一个选择器中只能出现一次，并且只能出现在末尾
+-   伪元素修改为以::开头；伪类以:开头
+-   伪类与伪元素的本质区别就是是否抽象创造了新元素
+-   伪元素在一个选择器中只能出现一次，并且只能出现在末尾
 
 ### 相同
 
-- 伪类与伪元素都是用于向选择器加特殊效果
-- 伪类与伪元素优先级分别与类、标签优先级相同
+-   伪类与伪元素都是用于向选择器加特殊效果
+-   伪类与伪元素优先级分别与类、标签优先级相同
 
 ### 详细介绍
 
-- 什么是伪类
+-   什么是伪类
 
 ```html
 <p>
@@ -596,7 +589,7 @@ css 模块化就是所有的类名都只有局部作用域的 css 文件。
 
 ```css
 em:first-child {
-  color: red;
+    color: red;
 }
 ```
 
@@ -612,12 +605,10 @@ em:first-child {
     <em>is a text</em>
 </p>
 
-em.first-child {
-    color: red;
-}
+em.first-child { color: red; }
 ```
 
-- 什么是伪元素
+-   什么是伪元素
 
 现在我想让这个段落的第一个字母变红</br>
 怎么做呢</br>
@@ -625,7 +616,7 @@ em.first-child {
 
 ```css
 p::first-letter {
-  color: red;
+    color: red;
 }
 ```
 
@@ -641,7 +632,7 @@ p::first-letter {
 
 ```css
 p span {
-  color: red;
+    color: red;
 }
 ```
 
@@ -716,36 +707,36 @@ p span {
 
 ### 共同点
 
-- link 和@import 都是可以用来引入 css 样式的方法。
+-   link 和@import 都是可以用来引入 css 样式的方法。
 
 ### 不同点
 
-- 应用方式不同
-  - link(外部引用):<link rel="stylesheet" href="xxx.css" type="text/css" / >
-  - @import(导入式):@import url(xxx.css);
-- 放置的位置不同
+-   应用方式不同
+    -   link(外部引用):<link rel="stylesheet" href="xxx.css" type="text/css" / >
+    -   @import(导入式):@import url(xxx.css);
+-   放置的位置不同
 
-  - link 一般放在 head 标签中
-  - @import 必须放在`<style type="text/css">`标签中
+    -   link 一般放在 head 标签中
+    -   @import 必须放在`<style type="text/css">`标签中
 
-    ```css
-    <style type="text/css">  
-      @import "jisuan.css";  
-    </style>
-    ```
+        ```css
+        <style type="text/css">
+          @import "jisuan.css";
+        </style>
+        ```
 
-- 加载方式不同
-  - ink 会和 dom 结构一同加载渲染
-  - @import 只能能 dom 结构加载完成以后才能渲染页面
-- 当使用 Javascript 控制 DOM 去改变样式的时候，只能使用 link 方式，因为 @import 只有 CSS ，不是 DOM 可以控制的
-- 兼容性不同
-  - link 是在 xhtml 的标签，兼容 IE 各个版本
-  - @import 是 css2.1 时提出来的，只能在 IE6 以上进行解析。
+-   加载方式不同
+    -   ink 会和 dom 结构一同加载渲染
+    -   @import 只能能 dom 结构加载完成以后才能渲染页面
+-   当使用 Javascript 控制 DOM 去改变样式的时候，只能使用 link 方式，因为 @import 只有 CSS ，不是 DOM 可以控制的
+-   兼容性不同
+    -   link 是在 xhtml 的标签，兼容 IE 各个版本
+    -   @import 是 css2.1 时提出来的，只能在 IE6 以上进行解析。
 
 ## 22. 实现一个 img 图片旋转的方法？
 
-- transform: rotate(30deg);
-- CSS3 动画 @keyframes
+-   transform: rotate(30deg);
+-   CSS3 动画 @keyframes
 
 ---
 
@@ -753,24 +744,24 @@ p span {
 
 ## 23.固定区域内一个图片实现上下垂直居中，图片高度不固定，但是图片高度小于固定区域的高度。
 
-- flex 布局解决方法
+-   flex 布局解决方法
 
 ```js
-<div class="container">
-  <img src="http://img4.imgtn.bdimg.com/it/u=2075750630,4216747848&fm=23&gp=0.jpg" />
+<div class='container'>
+    <img src='http://img4.imgtn.bdimg.com/it/u=2075750630,4216747848&fm=23&gp=0.jpg' />
 </div>
 ```
 
 ```css
 .container {
-  width: 300px;
-  height: 300px;
-  border: 1px solid rebeccapurple;
-  margin: 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+    width: 300px;
+    height: 300px;
+    border: 1px solid rebeccapurple;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 ```
 
@@ -780,22 +771,22 @@ p span {
 
 ![flex支持程度](../images/flex-zc.png)
 
-- 设置为单元格的方式
+-   设置为单元格的方式
 
 ```js
-<div class="container">
-  <img src="http://img4.imgtn.bdimg.com/it/u=2075750630,4216747848&fm=23&gp=0.jpg" />
+<div class='container'>
+    <img src='http://img4.imgtn.bdimg.com/it/u=2075750630,4216747848&fm=23&gp=0.jpg' />
 </div>
 ```
 
 ```css
 .container {
-  width: 300px;
-  height: 300px;
-  border: 1px solid rebeccapurple;
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;
+    width: 300px;
+    height: 300px;
+    border: 1px solid rebeccapurple;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
 }
 ```
 
@@ -803,45 +794,64 @@ p span {
 
 > 这种方式除了 IE6\IE7 之外，其他主流浏览器中基本上实现了图片的垂直居中对齐。
 
-- 利用定位来实现垂直居中 - 兼容 IE5.5\6\7\8\9\10 firefox chrome
-  在支持 display 为 table-cell 的浏览器中依然用 vertical-align:middle 来实现，在 IE5.5\IE6\IE7 中利用定位来实现垂直居中。
+-   利用定位来实现垂直居中 - 兼容 IE5.5\6\7\8\9\10 firefox chrome
+    在支持 display 为 table-cell 的浏览器中依然用 vertical-align:middle 来实现，在 IE5.5\IE6\IE7 中利用定位来实现垂直居中。
 
 ```js
-<div class="container">
-  <p>
-    <img src="http://img4.imgtn.bdimg.com/it/u=2075750630,4216747848&fm=23&gp=0.jpg" />
-  </p>
+<div class='container'>
+    <p>
+        <img src='http://img4.imgtn.bdimg.com/it/u=2075750630,4216747848&fm=23&gp=0.jpg' />
+    </p>
 </div>
 ```
 
 ```css
 .container {
-  border: 1px dashed #ccc;
-  height: 300px;
-  width: 300px;
-  overflow: hidden;
-  display: table-cell;
-  vertical-align: middle;
-  *position: relative;
+    border: 1px dashed #ccc;
+    height: 300px;
+    width: 300px;
+    overflow: hidden;
+    display: table-cell;
+    vertical-align: middle;
+    *position: relative;
 }
 
 p {
-  *position: absolute;
-  *top: 50%;
-  width: 100%;
-  text-align: center;
+    *position: absolute;
+    *top: 50%;
+    width: 100%;
+    text-align: center;
 }
 img {
-  *position: relative;
-  *top: -50%;
+    *position: relative;
+    *top: -50%;
 }
 ```
 
 > `*`： 一般\*的属性作用于:IE6、IE7
 
+-   transform 的方式
+
+```
+.container {
+    border: 1px solid;
+    width: 400px;
+    height: 400px;
+    position: absolute;
+}
+
+img {
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+```
+
 ### 错误做法：
 
-* 1.    div : position: relative; img :     position: absolute;这种方式只能实现左右居中，不能上下居中。
+-   1.
+    div : position: relative; img : position: absolute;这种方式只能实现左右居中，不能上下居中。
 
 ```css
 .container {
@@ -857,6 +867,4 @@ img {
     top: 0;
     bottom: 0;
 }
-
 ```
-

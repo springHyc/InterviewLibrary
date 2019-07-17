@@ -10,26 +10,26 @@
 // code 1
 var length = 10;
 function fn() {
-  alert(this.length);
+    alert(this.length);
 }
 var obj = {
-  length: 5,
-  method: function() {
-    fn();
-  }
+    length: 5,
+    method: function() {
+        fn();
+    }
 };
 obj.method(); // ？
 
 // code 2
 var num = 100;
 var obj = {
-  num: 200,
-  inner: {
-    num: 300,
-    print: function() {
-      console.log(this.num);
+    num: 200,
+    inner: {
+        num: 300,
+        print: function() {
+            console.log(this.num);
+        }
     }
-  }
 };
 
 obj.inner.print(); //？
@@ -43,7 +43,7 @@ obj.inner.print(); //？
 
 // code 3
 function foo() {
-  console.log(this.a);
+    console.log(this.a);
 }
 var obj2 = { a: 42, foo: foo };
 var obj1 = { a: 2, obj2: obj2 };
@@ -53,7 +53,7 @@ var obj3 = { a: 2 };
 foo.call(obj3); // ？
 
 var bar = function() {
-  foo.call(obj3);
+    foo.call(obj3);
 };
 bar(); // ？
 setTimeout(bar, 100); // ？
@@ -67,19 +67,19 @@ obj4.foo.call(obj2); // ？
 
 // code 4
 function foo() {
-  console.log(this.a);
+    console.log(this.a);
 }
 var obj = {
-  a: 2,
-  foo: foo
+    a: 2,
+    foo: foo
 };
-var a = "oops, global";
+var a = 'oops, global';
 setTimeout(obj.foo, 100); // ？
 obj.foo(); // ？
 
 // code 5 (new绑定)
 function foo(a) {
-  this.a = a;
+    this.a = a;
 }
 var bar = new foo(2);
 console.log(bar.a); // ？
@@ -100,7 +100,7 @@ console.log(bar.a); // ？
 // code 6
 
 function foo() {
-  console.log(this.a);
+    console.log(this.a);
 }
 
 var a = 2;
@@ -113,7 +113,7 @@ foo.apply(undefined); // ？
 // code 7 箭头函数
 
 function foo() {
-  return a => console.log(this.a);
+    return a => console.log(this.a);
 }
 
 var obj1 = { a: 2 };
@@ -128,9 +128,9 @@ bar.call(obj2); // ？
 
 ```js
 for (var i = 1; i <= 5; i++) {
-  setTimeout(function() {
-    console.log(i);
-  }, i * 1000);
+    setTimeout(function() {
+        console.log(i);
+    }, i * 1000);
 }
 ```
 
@@ -140,130 +140,130 @@ for (var i = 1; i <= 5; i++) {
 
 ## 4. 以下代码执行结果分别是什么？
 
-- 3 + "3"
-- "23" > "3"
-- var b = true && 2;
-- "abc123".slice(2, -1)
-- "abc123".substring(2, -1)
+-   3 + "3"
+-   "23" > "3"
+-   var b = true && 2;
+-   "abc123".slice(2, -1)
+-   "abc123".substring(2, -1)
 
 ## 5. 以下代码执行结果是什么？
 
-- 1
+-   1
 
-  ```js
-  var foo = 1,
-    bar = 2,
-    j,
-    test;
-  test = function(j) {
-    j = 5;
-    var bar = 5;
-    foo = 5;
-  };
-  test(10);
-  console.log(foo); //
-  console.log(bar); //
-  console.log(j); //
-  ```
-
-- 2
-
-  ```js
-  for (var i = 0; i < 10; i++) {
-    window.setTimeout(function() {
-      console.log(i); // 
-    }, 100);
-  }
-  console.log(i); //
-  ```
-
-- 3
-
-  ```js
-  var length = 10;
-  function fn() {
-    alert(this.length);
-  }
-  var obj = {
-    length: 5,
-    method: function() {
-      fn();
-    }
-  };
-  obj.method(); //？
-  ```
-
-- 4
-
-  ```js
-  function Foo() {
-    this.value = 42;
-  }
-  Foo.prototype = {
-    method: function() {
-      return true;
-    }
-  };
-  function Bar() {
-    var value = 1;
-    return {
-      method: function() {
-        return value;
-      }
+    ```js
+    var foo = 1,
+        bar = 2,
+        j,
+        test;
+    test = function(j) {
+        j = 5;
+        var bar = 5;
+        foo = 5;
     };
-  }
-  Foo.prototype = new Bar();
-  console.log(Foo.prototype.constructor); //
-  console.log(Foo.prototype instanceof Bar); //
-  var test = new Foo();
-  console.log(test instanceof Foo); //
-  console.log(test instanceof Bar); //
-  console.log(test.method()); //
-  ```
+    test(10);
+    console.log(foo); //
+    console.log(bar); //
+    console.log(j); //
+    ```
 
-- 5
+-   2
 
-  ```js
-  if (!("sina" in window)) {
-    var sina = 1;
-  }
-  console.log("sina:", sina); //
-  ```
+    ```js
+    for (var i = 0; i < 10; i++) {
+        window.setTimeout(function() {
+            console.log(i); // 
+        }, 100);
+    }
+    console.log(i); //
+    ```
 
-  > 考察： 声明的提升
+-   3
 
-- 6
+    ```js
+    var length = 10;
+    function fn() {
+        alert(this.length);
+    }
+    var obj = {
+        length: 5,
+        method: function() {
+            fn();
+        }
+    };
+    obj.method(); //？
+    ```
 
-  ```js
-  var t1 = new Date().getTime();
-  var timer1 = setTimeout(function() {
-    clearTimeout(timer1);
-    console.info("实际执行延迟时间：", new Date().getTime() - t1, "ms"); //
-  }, 500);
-  ```
+-   4
 
-  > 需要查看`setTimeout`的运行机制。考察：异步运行机制。
+    ```js
+    function Foo() {
+        this.value = 42;
+    }
+    Foo.prototype = {
+        method: function() {
+            return true;
+        }
+    };
+    function Bar() {
+        var value = 1;
+        return {
+            method: function() {
+                return value;
+            }
+        };
+    }
+    Foo.prototype = new Bar();
+    console.log(Foo.prototype.constructor); //
+    console.log(Foo.prototype instanceof Bar); //
+    var test = new Foo();
+    console.log(test instanceof Foo); //
+    console.log(test instanceof Bar); //
+    console.log(test.method()); //
+    ```
 
-- 7
+-   5
 
-  ```js
-  function SINA() {
-    return 1;
-  }
-  var SINA;
-  console.log(typeof SINA); //
-  ```
+    ```js
+    if (!('sina' in window)) {
+        var sina = 1;
+    }
+    console.log('sina:', sina); //
+    ```
 
-  > 考察： 重复声明
+    > 考察： 声明的提升
 
-- 8
+-   6
+
+    ```js
+    var t1 = new Date().getTime();
+    var timer1 = setTimeout(function() {
+        clearTimeout(timer1);
+        console.info('实际执行延迟时间：', new Date().getTime() - t1, 'ms'); //
+    }, 500);
+    ```
+
+    > 需要查看`setTimeout`的运行机制。考察：异步运行机制。
+
+-   7
+
+    ```js
+    function SINA() {
+        return 1;
+    }
+    var SINA;
+    console.log(typeof SINA); //
+    ```
+
+    > 考察： 重复声明
+
+-   8
 
 ```js
 var sinaNews = {
-  name: "sinNewsName",
-  test: function() {
-    console.log("this.name:", this.name, "//");
-  }
+    name: 'sinNewsName',
+    test: function() {
+        console.log('this.name:', this.name, '//');
+    }
 };
 setTimeout(sinaNews.test, 500); //
 ```
@@ -275,10 +275,10 @@ setTimeout(sinaNews.test, 500); //
 ## 7. 要给羡慕所有的 li 元素保定 click 时间，在鼠标点击每个 li 的时候 alert 该 li 里面的内容；且在鼠标离开外部 ul 元素范围的时候弹出一个 alert 提示、（实现时请注意代码执行小路及浏览器兼容性，不要使用现成的框架库，用原生 js 编写完成）
 
 ```js
-<ul id="ulItem">
-  <li>内容1</li>
-  ......此处省略1000+个li对象(注：不要使用循环绑定，如果使用循环绑定1000+的绑定事件会很慢)......
-  <li>内容n</li>
+<ul id='ulItem'>
+    <li>内容1</li>
+    ......此处省略1000+个li对象(注：不要使用循环绑定，如果使用循环绑定1000+的绑定事件会很慢)......
+    <li>内容n</li>
 </ul>
 ```
 
@@ -294,12 +294,12 @@ a = 3; //?
 
 ```js
 function foo() {
-  "use strict";
-  console.log(this.a);
+    'use strict';
+    console.log(this.a);
 }
 
 function bar() {
-  console.log(this.a);
+    console.log(this.a);
 }
 
 var a = "this is a 'a'";
@@ -316,7 +316,7 @@ alert(a);
 a();
 var a = 3;
 function a() {
-  alert(10);
+    alert(10);
 }
 alert(a);
 a = 6;
@@ -328,7 +328,7 @@ alert(a);
 a();
 var a = 3;
 var a = function() {
-  alert(10);
+    alert(10);
 };
 alert(a);
 a = 6;
@@ -362,13 +362,13 @@ name1 == name2; //?
 
 ## 19. 请说明下列方法功能：
 
-- push
-- pop
-- shift
-- unshift
-- sort
-- reverse
-- splice
+-   push
+-   pop
+-   shift
+-   unshift
+-   sort
+-   reverse
+-   splice
 
 ## 20. apply 和 call 的作用和区别?
 
@@ -379,9 +379,9 @@ name1 == name2; //?
 ```js
 var a = 1;
 function main() {
-  alert(a);
-  var a = 2;
-  alert(this.a);
+    alert(a);
+    var a = 2;
+    alert(this.a);
 }
 main();
 ```
@@ -412,12 +412,12 @@ main();
 
 ```js
 let obj = {
-  fun1: () => {
-    console.log("111");
-  },
-  fun2: () => {
-    this.fun1();
-  }
+    fun1: () => {
+        console.log('111');
+    },
+    fun2: () => {
+        this.fun1();
+    }
 };
 
 obj.fun2();
@@ -440,28 +440,28 @@ console.log(res);
 
 ```js
 function Promise1() {
-  return new Promise(function(resolve, reject) {
-    for (let i = 0; i < 2; i++) {
-      console.log("111");
-    }
-    resolve(true);
-  });
+    return new Promise(function(resolve, reject) {
+        for (let i = 0; i < 2; i++) {
+            console.log('111');
+        }
+        resolve(true);
+    });
 }
 function Promise2() {
-  return new Promise(function(resolve, reject) {
-    for (let i = 0; i < 2; i++) {
-      console.log("222");
-    }
-    resolve(true);
-  });
+    return new Promise(function(resolve, reject) {
+        for (let i = 0; i < 2; i++) {
+            console.log('222');
+        }
+        resolve(true);
+    });
 }
 
 setTimeout(function() {
-  console.log("333");
+    console.log('333');
 }, 0); // 这是是会执行的。考察的是异步执行，js的任务队列
 
 Promise.all([Promise1(), Promise2()]).then(function() {
-  console.log("All Done!");
+    console.log('All Done!');
 });
 ```
 
@@ -471,14 +471,14 @@ Promise.all([Promise1(), Promise2()]).then(function() {
 
 ```js
 Promise.resolve(1)
-  .then(x => x + 1)
-  .then(x => {
-    throw new Error("my error");
-  })
-  .catch(() => 1)
-  .then(x => x + 1)
-  .then(x => console.log(x))
-  .catch(console.error);
+    .then(x => x + 1)
+    .then(x => {
+        throw new Error('my error');
+    })
+    .catch(() => 1)
+    .then(x => x + 1)
+    .then(x => console.log(x))
+    .catch(console.error);
 ```
 
 ### 题目 2
@@ -486,15 +486,15 @@ Promise.resolve(1)
 ```js
 // Qunar.com
 setTimeout(() => {
-  console.log(1);
+    console.log(1);
 }, 0);
 
 new Promise(resolve => {
-  console.log(2);
-  resolve();
-  console.log(3);
+    console.log(2);
+    resolve();
+    console.log(3);
 }).then(() => {
-  console.log(4);
+    console.log(4);
 });
 
 console.log(5);
@@ -529,15 +529,15 @@ var p4 = new Promise(function(resolve, reject) {
 ```js
 var p1 = Promise.resolve(1);
 var p2 = new Promise(resolve => {
-  setTimeout(() => resolve(2), 100);
+    setTimeout(() => resolve(2), 100);
 });
 var v3 = 3;
 var p4 = new Promise((resolve, reject) => {
-  setTimeout(() => reject("oops"), 10);
+    setTimeout(() => reject('oops'), 10);
 });
 
 var p5 = new Promise(resolve => {
-  setTimeout(() => resolve(5), 0);
+    setTimeout(() => resolve(5), 0);
 });
 var p1 = Promise.resolve(1);
 Promise.race([v3, p1, p2, p4, p5]).then(val => console.log(val)); //?
@@ -612,7 +612,7 @@ delay(1000).then();
 ```js
 var a = 1;
 b = function(x) {
-  x && a(--x);
+    x && a(--x);
 };
 alert(a); // ? 1
 ```
@@ -620,8 +620,8 @@ alert(a); // ? 1
 2.
 
 ```js
-if (!("a" in window)) {
-  var a = 2;
+if (!('a' in window)) {
+    var a = 2;
 }
 alert(a); // undefined
 ```
@@ -630,7 +630,7 @@ alert(a); // undefined
 
 ```js
 function a() {
-  return 1;
+    return 1;
 }
 var a;
 alert(a); // 显示function a () {return 1;}
@@ -640,7 +640,7 @@ alert(a); // 显示function a () {return 1;}
 
 ```js
 function a() {
-  return 1;
+    return 1;
 }
 var a = 1 && 2;
 alert(a); // 2
@@ -650,7 +650,7 @@ alert(a); // 2
 
 ```js
 function a() {
-  alert(this); // 全局对象window
+    alert(this); // 全局对象window
 }
 a.apply(null);
 ```
@@ -666,11 +666,11 @@ sougou.com
 ## 59. 说一说 es5 中 object 是如何存储的？
 
 ```js
-var name = "hehe";
+var name = 'hehe';
 var age = 27;
 var job;
 var arr = [1, 2, 3, 4];
-var obj = { name: "hehe", age: 27 };
+var obj = { name: 'hehe', age: 27 };
 ```
 
 这些都是  如何存储的？
@@ -700,5 +700,7 @@ String 是构造函数，而"string"是变量的一种类型
 ```js
 typeof String; // "function"
 typeof string; // "undefined"
-typeof "string"; // "string"
+typeof 'string'; // "string"
 ```
+
+## 67. es6 和 commonjs 的 import 有什么区别?
