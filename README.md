@@ -45,5 +45,5 @@
 `gitbook build`
 `git add -f _book`
 `git commit -m 'Update the page of project'`
-`git subtree push --prefix _book origin gh-pages
+`git subtree push --prefix _book origin gh-pages`
 ```
