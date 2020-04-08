@@ -40,9 +40,6 @@
 
 > 上传个人主页的命令
 > `gitbook build`
-
 > `git add -f _book`
-
 > `git commit -m 'Change the page of project'`
-
 > `git subtree push --prefix _book origin gh-pages`

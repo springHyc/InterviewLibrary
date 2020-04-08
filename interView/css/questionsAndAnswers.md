@@ -868,3 +868,34 @@ img {
     bottom: 0;
 }
 ```
+
+## 24. 如何实现下图的布局？
+
+![image.png](https://upload-images.jianshu.io/upload_images/2041009-05dd361d4117558c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+-   采用 flex 布局
+
+```js
+<div>
+    <item>1</item>
+    <item>2</item>
+    <div>
+        <item>3</item>
+    </div>
+</div>
+```
+
+如果是这面这种 html 结构，该怎办？
+
+```js
+<div>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+</div>
+```
+
+![image.png](https://upload-images.jianshu.io/upload_images/2041009-6dc3e363e5d3a7ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+> 知识点：
+> ![flex布局下margin:auto的神奇用法](https://mmbiz.qpic.cn/mmbiz_gif/zewrLkrYfsMO4odSUjyFiafZ3GCa003TKH2uwD7kOczZQibyOwwNbZ4F4iaibLbRRCr4chdgcc0pQIUlhcCyGuCanA/640?wx_fmt=gif&wxfrom=5&wx_lazy=1)

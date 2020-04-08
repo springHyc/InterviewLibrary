@@ -317,6 +317,9 @@ string number Boolean null undefined object    还有es6新增的symbol，主要
 > Q:它的作用是什么？</br>
 > A: 提供一个唯一不重复不可变的值。
 
+> 备注：</br>
+> typeof 是一个一元运算，放在一个运算数之前，运算数可以是任意类型。它返回值是一个字符串，该字符串说明运算数的类型。
+
 
 ## 4. 以下代码执行结果分别是什么？
 
@@ -2321,4 +2324,39 @@ setTimeout(function() {
 结果是：
 1 5 6 2 3 4 7 8 9
 
-## 65. 构造函数是什么？new 的时候都去做了什么？
+## 65. 构造函数是什么？new 的时候都去做了什么
+
+## 68. js的顶级对象是什么
+
+## 69. instanceof是做什么的? Array instanceof Object是什么？Array是谁new出来的
+
+`instanceof`运算符是用来测试一个对象在其原型链中是否存在一个构造函数的`prototype`属性。
+语法：
+
+// object: 要检测的对象
+// constructor: 某个构造函数
+object instanceod constructor
+
+```js
+var a=new Array();
+alert(a instanceof Array); // true，
+同时 alert(a instanceof Object) //也会返回 true;
+这是因为 Array 是 object 的子类。
+```
+另外，更重的一点是 instanceof 可以在继承关系中用来判断一个实例是否属于它的父类型。
+
+```js
+function Foo(){} 
+Foo.prototype = new Aoo();//JavaScript 原型继承 
+var foo = new Foo(); 
+console.log(foo instanceof Foo)//true 
+console.log(foo instanceof Aoo)//true
+```
+
+Q: function 的 arguments instanceof Array // false
+
+## 70. 高阶函数是什么
+
+把函数作为参数传入，这样的函数称为高阶函数，函数式编程就是指这种高度抽象的编程范式。
+
+es6的迭代器、filter、forEach、map等都是高阶函数。

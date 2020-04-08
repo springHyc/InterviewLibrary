@@ -8,33 +8,32 @@
 
 ```html
 <div class="container">
-  <div  class="item left">left: width: 100px</div>
-  <div  class="item center ">中间宽度自定义</div>
-  <div  class="item right ">right width: 100px</div>
+    <div class="item left">left: width: 100px</div>
+    <div class="item center ">中间宽度自定义</div>
+    <div class="item right ">right width: 100px</div>
 </div>
 
 <style>
-  .container {
-    height: 100px;
-    border: 1px solid #000;
-  }
-  .item {
-    height: 100%;
-    border: 1px solid red;
-  }
-  .left{
-    float: left;
-    width: 100px;
-  }
-  .center {
-    margin: 0 100px;
-    width: auto;
-  }
-  .right {
-    float: right;
-    width: 100px;
-  }
-
+    .container {
+        height: 100px;
+        border: 1px solid #000;
+    }
+    .item {
+        height: 100%;
+        border: 1px solid red;
+    }
+    .left {
+        float: left;
+        width: 100px;
+    }
+    .center {
+        margin: 0 100px;
+        width: auto;
+    }
+    .right {
+        float: right;
+        width: 100px;
+    }
 </style>
 ```
 
@@ -118,3 +117,7 @@
 百度-17 年上半年
 
 ## 23.固定区域内一个图片实现上下垂直居中，图片高度不固定，但是图片高度小于固定区域的高度。
+
+## 24. 如何实现下图的布局？
+
+![image.png](https://upload-images.jianshu.io/upload_images/2041009-05dd361d4117558c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)

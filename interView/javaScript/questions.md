@@ -1,3 +1,4 @@
+<!-- prettier-ignore-start -->
 # JavaScript
 
 > 该文档存放的只是 HTML 部分的问题，其中答案部分放在对应目录下的 questionsAndAnswers.md 文件中，答案部分也只是个人所做的答案，可能存在不正确的地方，欢迎大家共同讨论，找出一个完美的答案。希望大家能够多学一点知识，能够对面试有所有帮助。
@@ -124,7 +125,7 @@ bar.call(obj2); // ？
 
 ## 1. 字符串实现倒序
 
-## 2. 下面这段代码的执行结果是什么？
+## 2. 下面这段代码的执行结果是什么
 
 ```js
 for (var i = 1; i <= 5; i++) {
@@ -138,17 +139,17 @@ for (var i = 1; i <= 5; i++) {
 
 ## 3. JavaScript 的数据类型有哪些？如何准确的检测数据类型？symbol 是什么？有什么作用？
 
-## 4. 以下代码执行结果分别是什么？
+## 4. 以下代码执行结果分别是什么
 
--   3 + "3"
--   "23" > "3"
--   var b = true && 2;
--   "abc123".slice(2, -1)
--   "abc123".substring(2, -1)
+- 3 + "3"
+- "23" > "3"
+- var b = true && 2;
+- "abc123".slice(2, -1)
+- "abc123".substring(2, -1)
 
-## 5. 以下代码执行结果是什么？
+## 5. 以下代码执行结果是什么
 
--   1
+- 1
 
     ```js
     var foo = 1,
@@ -166,7 +167,7 @@ for (var i = 1; i <= 5; i++) {
     console.log(j); //
     ```
 
--   2
+- 2
 
     ```js
     for (var i = 0; i < 10; i++) {
@@ -177,7 +178,7 @@ for (var i = 1; i <= 5; i++) {
     console.log(i); //
     ```
 
--   3
+- 3
 
     ```js
     var length = 10;
@@ -193,7 +194,7 @@ for (var i = 1; i <= 5; i++) {
     obj.method(); //？
     ```
 
--   4
+- 4
 
     ```js
     function Foo() {
@@ -221,7 +222,7 @@ for (var i = 1; i <= 5; i++) {
     console.log(test.method()); //
     ```
 
--   5
+- 5
 
     ```js
     if (!('sina' in window)) {
@@ -232,7 +233,7 @@ for (var i = 1; i <= 5; i++) {
 
     > 考察： 声明的提升
 
--   6
+- 6
 
     ```js
     var t1 = new Date().getTime();
@@ -244,7 +245,7 @@ for (var i = 1; i <= 5; i++) {
 
     > 需要查看`setTimeout`的运行机制。考察：异步运行机制。
 
--   7
+- 7
 
     ```js
     function SINA() {
@@ -256,7 +257,7 @@ for (var i = 1; i <= 5; i++) {
 
     > 考察： 重复声明
 
--   8
+- 8
 
 ```js
 var sinaNews = {
@@ -703,4 +704,12 @@ typeof string; // "undefined"
 typeof 'string'; // "string"
 ```
 
-## 67. es6 和 commonjs 的 import 有什么区别?
+## 67. es6 和 commonjs 的 import 有什么区别
+
+## 68. js的顶级对象是什么
+
+## 69. instanceof是做什么的? Array instanceof Object是什么？Array是谁new出来的
+
+## 70. 高阶函数是什么
+
+<!-- prettier-ignore-end -->
