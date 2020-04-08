@@ -120,3 +120,7 @@ function maopao(arr) {
 ## 3. 怎么判断一个链表成环？
 
 > 后项指针的哈希表（把所有的指针放到一个 map 中，如果其中一个指针已经出现在 map 中，那么就可以确定已经成环了。）
+
+## 5. 前端性能调优
+
+[24条调优方案](https://segmentfault.com/a/1190000022205291?utm_source=weekly&utm_medium=email&utm_campaign=SegmentFault%20%E7%B2%BE%E9%80%89%E6%AF%8F%E5%91%A8%E7%B2%BE%E9%80%89%E4%B8%A8%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6%E8%BF%90%E8%A1%8C%E6%97%B6%E6%80%A7%E8%83%BD%E5%A4%A7%E6%B5%8B%E8%AF%84%E4%B8%A8%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%2024%20%E6%9D%A1%E5%BB%BA%E8%AE%AE)
