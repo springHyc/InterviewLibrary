@@ -47,3 +47,7 @@
 `git commit -m 'Update the page of project'`
 `git subtree push --prefix _book origin gh-pages`
 ```
+
+## 开发规则
+
+只允许在 master 分支修改与提交!
