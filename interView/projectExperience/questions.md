@@ -53,8 +53,8 @@
 
 ## 22. react-native 对于手机版本有要求吗?ios8 有什么特点吗？
 
--   Android >= 4.1 (API 16)
--   iOS >= 7.0
+- Android >= 4.1 (API 16)
+- iOS >= 7.0
 
 ## 23. 你们用的版本 react 是什么版本？有关注过 16.0 有什么新特性吗？
 
@@ -72,8 +72,8 @@ shouldComponentUpdate 生命周期默认返回 true。
 
 react 在发展的不同阶段提供两套官方方案：
 
--   PureRenderMin
--   PureComponent
+- PureRenderMin
+- PureComponent
 
 ### PureRenderMin
 
@@ -93,11 +93,11 @@ class Example extends React.Component {
 在 React 15.3.0 版本发布的针对 ES6 而增加的一个组件基类：React.PureComponent。这明显对 ES6 方式创建的组件更加友好。
 
 ```js
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from "react";
 class Example extends PureComponent {
-    render() {
-        // ...
-    }
+  render() {
+    // ...
+  }
 }
 ```
 
@@ -107,7 +107,7 @@ class Example extends PureComponent {
 
 ```js
 state = {
-    value: { foo: 'bar' }
+  value: { foo: "bar" },
 };
 ```
 
@@ -117,12 +117,12 @@ state = {
 
 ## 26. 说一下 redux
 
--   使用 `react-redux` 中的`<Provider>`来绑定全局的一个 store;
--   使用 `react-redux` 中的`connect`来创建容器组件。
+- 使用 `react-redux` 中的`<Provider>`来绑定全局的一个 store;
+- 使用 `react-redux` 中的`connect`来创建容器组件。
 
 ## 27. redux 是在哪儿监听数据的？怎么监听的？
 
--   使用`redux-saga/effects`中的`takeLates`来监听最新的 action 以及`redux-saga`中的`createSagaMiddleware`来创建监听
+- 使用`redux-saga/effects`中的`takeLates`来监听最新的 action 以及`redux-saga`中的`createSagaMiddleware`来创建监听
 
 ## 29. 涉及到 react-native 打包的问题。
 
@@ -203,26 +203,26 @@ Qunar.com
 
 ```jsx
 class App extends React.Component {
-    state = { val: 0 };
+  state = { val: 0 };
 
-    componentDidMount() {
-        this.setState({ val: this.state.val + 1 });
-        console.log(this.state.val);
+  componentDidMount() {
+    this.setState({ val: this.state.val + 1 });
+    console.log(this.state.val);
 
-        this.setState({ val: this.state.val + 1 });
-        console.log(this.state.val);
+    this.setState({ val: this.state.val + 1 });
+    console.log(this.state.val);
 
-        setTimeout(_ => {
-            this.setState({ val: this.state.val + 1 });
-            console.log(this.state.val);
+    setTimeout((_) => {
+      this.setState({ val: this.state.val + 1 });
+      console.log(this.state.val);
 
-            this.setState({ val: this.state.val + 1 });
-            console.log(this.state.val);
-        }, 0);
-    }
+      this.setState({ val: this.state.val + 1 });
+      console.log(this.state.val);
+    }, 0);
+  }
 
-    render() {
-        return <div>{this.state.val}</div>;
-    }
+  render() {
+    return <div>{this.state.val}</div>;
+  }
 }
 ```
