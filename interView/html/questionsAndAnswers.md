@@ -310,6 +310,8 @@ GET 和 POST 本质上就是 TCP 链接，并无差别。但是由于 HTTP 的�
 
 > [详细](https://blog.csdn.net/badmoonc/article/details/82289252)
 
+> ![](../images/axios-jsonp.png)
+
 - 代理
   通过后端去调用。
   www.baidu.com/index.html 需要调用 www.sina.com/server.php，可以写一个接口 www.baidu.com/server.php，由这个接口在后端去调用 www.sina.com/server.php 并拿到返回值，然后再返回给 index.html
