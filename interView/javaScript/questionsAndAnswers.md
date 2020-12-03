@@ -238,7 +238,7 @@ reverseString("hello");
 
 ```js
 for (var i = 1; i <= 5; i++) {
-  setTimeout(function() {
+  setTimeout(function () {
     console.log(i);
   }, i * 1000);
 }
@@ -268,8 +268,8 @@ for (let i = 1; i <= 5; i++) {
 // or
 
 for (var i = 1; i <= 5; i++) {
-  (function(j) {
-    setTimeout(function() {
+  (function (j) {
+    setTimeout(function () {
       console.log(j);
     }, j * 1000);
   })(i);
@@ -291,7 +291,7 @@ let 声明只属于作用域块。`for`循环头部的`let i`不只是为 for �
 
 ```js
 for (var i = 1; i <= 5; i++) {
-  (function(j) {
+  (function (j) {
     setTimeout(function timer() {
       console.log(j);
     }, j * 1000);
@@ -304,22 +304,21 @@ for (var i = 1; i <= 5; i++) {
 
 ## 3. JavaScript 的基本数据类型有哪些？如何准确的检测数据类型？
 
-string number Boolean null undefined object    还有es6新增的symbol，主要特征是唯一性
+string number Boolean null undefined object 还有 es6 新增的 symbol，主要特征是唯一性
 
-> 继续问：typeof的返回值都有哪些？
-> string number boolean object undefined object(和上面是一一对应的) function 还有array也会返回object `typeof Symbol()`返回的是"symbol"
+> 继续问：typeof 的返回值都有哪些？
+> string number boolean object undefined object(和上面是一一对应的) function 还有 array 也会返回 object `typeof Symbol()`返回的是"symbol"
 > typeof(null) // "object",检测`null`的方式是`my_value === null`
 
-> 继续问：为什么es6推出了Symbol?它的作用是什么？（搜狗）
+> 继续问：为什么 es6 推出了 Symbol?它的作用是什么？（搜狗）
 > 是全新的，第七种原始数据类型。被创建后不能改变，并且是唯一的。</br>
 > Q: 为什么推出？</br>
-> A: Symbol的目的就是为了实现一个唯一不重复不可变的值，任何一个Symbol都是唯一的，不会和其他任何Symbol相等。很多时候我们需要用到唯一不重复的值，但是每次创建的值很大可能会被重复 => 创建了Symbol类型。</br>
+> A: Symbol 的目的就是为了实现一个唯一不重复不可变的值，任何一个 Symbol 都是唯一的，不会和其他任何 Symbol 相等。很多时候我们需要用到唯一不重复的值，但是每次创建的值很大可能会被重复 => 创建了 Symbol 类型。</br>
 > Q:它的作用是什么？</br>
 > A: 提供一个唯一不重复不可变的值。
 
 > 备注：</br>
 > typeof 是一个一元运算，放在一个运算数之前，运算数可以是任意类型。它返回值是一个字符串，该字符串说明运算数的类型。
-
 
 ## 4. 以下代码执行结果分别是什么？
 
@@ -371,7 +370,7 @@ slice():
     bar = 2,
     j,
     test;
-  test = function(j) {
+  test = function (j) {
     j = 5;
     var bar = 5;
     console.log(bar); // 5
@@ -387,7 +386,7 @@ slice():
 
   ```js
   var j = [1, 2, 3];
-  test = function(j) {
+  test = function (j) {
     j.push(4);
   };
   test(j);
@@ -398,7 +397,7 @@ slice():
 
   ```js
   for (var i = 0; i < 5; i++) {
-    window.setTimeout(function() {
+    window.setTimeout(function () {
       console.log(i); // 
     }, 1000);
   }
@@ -409,7 +408,7 @@ slice():
 
   ```js
   for (var i = 0; i < 5; i++) {
-    window.setTimeout(function() {
+    window.setTimeout(function () {
       console.log(i);
     }, i * 1000); // 只有i*1000才会每隔1S输出一个
   }
@@ -432,7 +431,7 @@ slice():
   > ```js
   > for (var i = 0; i < 5; i++) {
   >   window.setTimeout(
-  >     function(j) {
+  >     function (j) {
   >       console.log(i + j); // 每隔100ms输出一个13
   >     },
   >     100,
@@ -451,9 +450,9 @@ slice():
   }
   var obj = {
     length: 5,
-    method: function() {
+    method: function () {
       fn();
-    }
+    },
   };
   obj.method(); // 10 , 对fn间接引用，调用这个函数会应用默认的绑定规则
   ```
@@ -469,10 +468,10 @@ var obj = {
   num: 200,
   inner: {
     num: 300,
-    print: function() {
+    print: function () {
       console.log(this.num);
-    }
-  }
+    },
+  },
 };
 
 obj.inner.print(); //300
@@ -533,16 +532,16 @@ function() {
     this.value = 42;
   }
   Foo.prototype = {
-    method: function() {
+    method: function () {
       return true;
-    }
+    },
   };
   function Bar() {
     var value = 1;
     return {
-      method: function() {
+      method: function () {
         return value;
-      }
+      },
     };
   }
   Foo.prototype = new Bar();
@@ -582,7 +581,7 @@ function() {
 
   ```js
   var t1 = new Date().getTime();
-  var timer1 = setTimeout(function() {
+  var timer1 = setTimeout(function () {
     clearTimeout(timer1);
     console.info("实际执行延迟时间：", new Date().getTime() - t1, "ms"); // 500+ms
   }, 500);
@@ -619,9 +618,9 @@ function() {
 ```js
 var sinaNews = {
   name: "sinNewsName",
-  test: function() {
+  test: function () {
     console.log("this.name:", this.name, "//");
-  }
+  },
 };
 setTimeout(sinaNews.test, 500); // "this.name:  //"
 ```
@@ -636,7 +635,7 @@ setTimeout(sinaNews.test, 500); // "this.name:  //"
 function deleteCopy(arr) {
   var map = {};
   var newarr = [];
-  arr.forEach(item => {
+  arr.forEach((item) => {
     if (!map[JSON.stringify(item)]) {
       newarr.push(item);
       map[JSON.stringify(item)] = 1;
@@ -711,7 +710,7 @@ a();
 alert(a);
 a();
 var a = 3;
-var a = function() {
+var a = function () {
   // 函数表达式
   alert(10);
 };
@@ -755,7 +754,7 @@ var a;
 alert(a);
 a();
 a = 3;
-a = function() {
+a = function () {
   // 函数表达式
   alert(10);
 };
@@ -773,7 +772,7 @@ a();
 
 ```js
 //函数表达式，和变量声明同等
-var a = function() {
+var a = function () {
   alert(10);
 };
 //函数声明，优于变量声明
@@ -877,7 +876,7 @@ DOM 级事件处理 2
 - 第三种， jQuery 的方式来添加
 
 ```js
-$("#div").on("click", function() {
+$("#div").on("click", function () {
   alert("成功");
 });
 ```
@@ -1129,14 +1128,13 @@ function foo(a, b, ...rest) {}
 
 es6 有 import 和 export 运算符来实现了.
 
-你在模块中的所有声明相对于模块而言都是寄存在本地的。如果你希望公开在模块中声明的内容，并让其它模块加以使用，你一定要导出这些功能。想要导出模块的功能有很多方法，其中最简单的方式是添加export关键字。你可以导出所有的最外层函数、类以及var、let或const声明的变量。
-
+你在模块中的所有声明相对于模块而言都是寄存在本地的。如果你希望公开在模块中声明的内容，并让其它模块加以使用，你一定要导出这些功能。想要导出模块的功能有很多方法，其中最简单的方式是添加 export 关键字。你可以导出所有的最外层函数、类以及 var、let 或 const 声明的变量。
 
 > 模块与脚本还是有两点区别
 
-> * “在ES6模块中，无论你是否加入“use strict;”语句，默认情况下模块都是在严格模式下运行。”
-> 摘录来自: InfoQ 中文站. “深入浅出ES6。” iBooks.
-> * “在模块中你可以使用import和export关键字。”
+> - “在 ES6 模块中，无论你是否加入“use strict;”语句，默认情况下模块都是在严格模式下运行。”
+>   摘录来自: InfoQ 中文站. “深入浅出 ES6。” iBooks.
+> - “在模块中你可以使用 import 和 export 关键字。”
 
 ## 25. 箭头函数相比于普通函数的优点？
 
@@ -1155,7 +1153,7 @@ es6 有 import 和 export 运算符来实现了.
 for-of 通过方法调用(遍历器方法)来实现集合的遍历。数组、Maps、Sets 以及其他我们讨论过的对象之间有个共同点：有迭代器方法。
 
 > 另外一种解释</br>
-for-of工作原理：迭代器(iterator)有一个next方法，for循环会不断调用这个iterator.next方法来获取下一个值,直到返回值中的 done属性为true的时候结束循环。
+> for-of 工作原理：迭代器(iterator)有一个 next 方法，for 循环会不断调用这个 iterator.next 方法来获取下一个值,直到返回值中的 done 属性为 true 的时候结束循环。
 
 > 另外一种解释</br>
 > JavaScript 原有的表示“ 集合” 的数据结构， 主要是数组（ Array） 和对象（ Object）， ES6 又添加了 Map 和 Set。 这样就有了四种数据集合， 用户还可以组合使用它们， 定义自己的数据结构， 比如数组的成员是 Map， Map 的成员是对象。 这样就需要一种统一的接口机制， 来处理所有不同的数据结构。
@@ -1184,19 +1182,23 @@ for-of 用于遍历数组更好
 
 记住，for in 遍历的是数组的索引（即键名），而 for of 遍历的是数组元素值。
 
-> for-in遍历数组的坏处？
-> * `for-in`赋给index的值不是实际的数字，而是字符串“0”、“1”、“2”，此时很可能在无意之间进行字符串算数计算，例如：“2” + 1 == “21”，这给编码过程带来极大的不便。
-> * 作用于数组的for-in循环体除了遍历数组元素外，还会遍历自定义属性。举个例子，如果你的数组中有一个可枚举属性myArray.name，循环将额外执行一次，遍历到名为“name”的索引。就连数组原型链上的属性都能被访问到。
-> * 在某些情况下，这段代码可能按照随机顺序遍历数组元素
+> for-in 遍历数组的坏处？
+>
+> - `for-in`赋给 index 的值不是实际的数字，而是字符串“0”、“1”、“2”，此时很可能在无意之间进行字符串算数计算，例如：“2” + 1 == “21”，这给编码过程带来极大的不便。
+> - 作用于数组的 for-in 循环体除了遍历数组元素外，还会遍历自定义属性。举个例子，如果你的数组中有一个可枚举属性 myArray.name，循环将额外执行一次，遍历到名为“name”的索引。就连数组原型链上的属性都能被访问到。
+> - 在某些情况下，这段代码可能按照随机顺序遍历数组元素
 
 ```js
-var list = [{name: "hehe", age: 12}, {name: "zz", age: 34}];
-for(var item of list){
-  console.log(`${item.name} is ${item.age} years old.`)
+var list = [
+  { name: "hehe", age: 12 },
+  { name: "zz", age: 34 },
+];
+for (var item of list) {
+  console.log(`${item.name} is ${item.age} years old.`);
 }
 
-for(var index in list){
-  console.log(`${list[index].name} is ${list[index].age} years old.`)
+for (var index in list) {
+  console.log(`${list[index].name} is ${list[index].age} years old.`);
 }
 ```
 
@@ -1250,7 +1252,7 @@ console.log(cat.eye, cat.howl());
 
 ```js
 function Promise1() {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     for (let i = 0; i < 2; i++) {
       console.log("111");
     }
@@ -1258,7 +1260,7 @@ function Promise1() {
   });
 }
 function Promise2() {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     for (let i = 0; i < 2; i++) {
       console.log("222");
     }
@@ -1266,11 +1268,11 @@ function Promise2() {
   });
 }
 
-setTimeout(function() {
+setTimeout(function () {
   console.log("333");
 }, 0); // 这是是会执行的。考察的是异步执行，js的任务队列
 
-Promise.all([Promise1(), Promise2()]).then(function() {
+Promise.all([Promise1(), Promise2()]).then(function () {
   console.log("All Done!");
 });
 ```
@@ -1286,8 +1288,6 @@ Promise.all([Promise1(), Promise2()]).then(function() {
 "333";
 ```
 
-
-
 ## 32. 下面代码运行的结果是什么？
 
 ```js
@@ -1297,7 +1297,7 @@ let obj = {
   },
   fun2: () => {
     this.fun1();
-  }
+  },
 };
 
 obj.fun2(); // 报错 this不是指向obj的，而是指向undefined ，箭头函数的this是指向外部作用域的
@@ -1323,17 +1323,17 @@ console.log(res);
 
 ## 34. 下面代码输出什么？ ？
 
-### 题目1
+### 题目 1
 
 ```js
 Promise.resolve(1)
-  .then(x => x + 1)
-  .then(x => {
+  .then((x) => x + 1)
+  .then((x) => {
     throw new Error("my error");
   })
   .catch(() => 1)
-  .then(x => x + 1)
-  .then(x => console.log(x))
+  .then((x) => x + 1)
+  .then((x) => console.log(x))
   .catch(console.error);
 ```
 
@@ -1341,17 +1341,18 @@ Promise.resolve(1)
 
 2
 
-### 题目2
+### 题目 2
 
 ```js
 setTimeout(() => {
   console.log(1);
 }, 0);
 
-new Promise(resolve => {
+new Promise((resolve) => {
   console.log(2);
   resolve();
-  console.log(3);4
+  console.log(3);
+  4;
 }).then(() => {
   console.log(4);
 });
@@ -1362,7 +1363,7 @@ console.log(5);
 结果是：
 2 3 5 4 1
 
-### 题目3
+### 题目 3
 
 ```js
 var p1 = new Promise(function(resolve, reject) {
@@ -1386,17 +1387,17 @@ var p4 = new Promise(function(resolve, reject) {
 4. p2.catch(re => console.log(re));
 ```
 
-打印的顺序是：2， "error  in  p4 "这是立即打印出来的。
+打印的顺序是：2， "error in p4 "这是立即打印出来的。
 
-而3S后会打印出两个'p1 中failure'。
+而 3S 后会打印出两个'p1 中 failure'。
 
-如果3直接写成`p2.then(re => console.log(re));`是会报错，说没有捕捉到错误。
+如果 3 直接写成`p2.then(re => console.log(re));`是会报错，说没有捕捉到错误。
 
-### 题目4
+### 题目 4
 
 ```js
 var p1 = Promise.resolve(1);
-var p2 = new Promise(resolve => {
+var p2 = new Promise((resolve) => {
   setTimeout(() => resolve(2), 100);
 });
 var v3 = 3;
@@ -1404,23 +1405,24 @@ var p4 = new Promise((resolve, reject) => {
   setTimeout(() => reject("oops"), 10);
 });
 
-var p5 = new Promise(resolve => {
+var p5 = new Promise((resolve) => {
   setTimeout(() => resolve(5), 0);
 });
 var p1 = Promise.resolve(1);
-Promise.race([v3,p1,p2,p4,p5]).then(val => console.log(val));// 3
-Promise.race([p1,v3,p2,p4,p5]).then(val => console.log(val)); // 1
-Promise.race([p1,p2,p4,p5]).then(val => console.log(val)); // 1
-Promise.race([p2,p4,p5]).then(val => console.log(val));//5
+Promise.race([v3, p1, p2, p4, p5]).then((val) => console.log(val)); // 3
+Promise.race([p1, v3, p2, p4, p5]).then((val) => console.log(val)); // 1
+Promise.race([p1, p2, p4, p5]).then((val) => console.log(val)); // 1
+Promise.race([p2, p4, p5]).then((val) => console.log(val)); //5
 
 // 这些的打印顺序是什么？
-Promise.race([v3,p1,p2,p4,p5]).then(val => console.log(val));
-Promise.race([p1,v3,p2,p4,p5]).then(val => console.log(val));
-Promise.race([p1,p2,p4,p5]).then(val => console.log(val));
-Promise.race([p2,p4,p5]).then(val => console.log(val));
+Promise.race([v3, p1, p2, p4, p5]).then((val) => console.log(val));
+Promise.race([p1, v3, p2, p4, p5]).then((val) => console.log(val));
+Promise.race([p1, p2, p4, p5]).then((val) => console.log(val));
+Promise.race([p2, p4, p5]).then((val) => console.log(val));
 
-Promise.resolve(6).then(re => console.log(re)); // 6
+Promise.resolve(6).then((re) => console.log(re)); // 6
 ```
+
 打印顺序是：6 3 1 1 5
 
 ## 35. 说一下对 Promise 的理解
@@ -1462,27 +1464,27 @@ promise 的好处：
 ## 36. 回调地狱的缺点？
 
 ```js
-fs.readdir(source, function(err, files) {
+fs.readdir(source, function (err, files) {
   if (err) {
     console.log("Error finding files: " + err);
   } else {
-    files.forEach(function(filename, fileIndex) {
+    files.forEach(function (filename, fileIndex) {
       console.log(filename);
-      gm(source + filename).size(function(err, values) {
+      gm(source + filename).size(function (err, values) {
         if (err) {
           console.log("Error identifying file size: " + err);
         } else {
           console.log(filename + " : " + values);
           aspect = values.width / values.height;
           widths.forEach(
-            function(width, widthIndex) {
+            function (width, widthIndex) {
               height = Math.round(width / aspect);
               console.log(
                 "resizing " + filename + "to " + height + "x" + height
               );
               this.resize(width, height).write(
                 dest + "w" + width + "_" + filename,
-                function(err) {
+                function (err) {
                   if (err) console.log("Error writing file: " + err);
                 }
               );
@@ -1521,7 +1523,7 @@ fs.readdir(source, function(err, files) {
 ```js
 document.getElementById("contaniner").addEventListener(
   "click",
-  function(e) {
+  function (e) {
     var target = e.target;
     if (target.tagName == "LI") {
       alert(target.innerText);
@@ -1633,44 +1635,47 @@ Q: 有什么办法可以让`const obj = {a: 1};`的值不可变？
 
 ![shallow-copy](../images/shallowCopy.png)
 
-* for循环方式
+- for 循环方式
 
 ```js
-function shallowCopy(p,c) {
+function shallowCopy(p, c) {
   var c = c || {};
-  for (var i = 0; i<p.length; i ++) {
+  for (var i = 0; i < p.length; i++) {
     c[i] = p[i];
   }
   return c;
 }
-
 ```
 
-* es6
+- es6
 
 ```js
 Object.assign(); //也能实现对象的浅拷贝
 ```
+
 ### 深拷贝
+
+> 这类题目的发问方式又很多，除了“模拟 JAVA 中的克隆接口”、“JavaScript 实现原型模式”以外，它更常见、更友好的发问形式是“请实现 JS 中的深拷贝”。
 
 深拷贝会另外创造一个一模一样的对象，新对象跟原对象不共享内存，修改新对象不会改到原对象。
 
 ![deep-copy](../images/deepCopy.png)
 
-* for循环方式
+- for 循环方式
 
 ```js
 function deepCopy(p, c) {
   var c = c || {};
 
-  for (var i in p ){// 这会有问题，如果是数组的话，遍历会有问题。所以要确定这个对象不是数组，数组的拷贝有很多种方式。
-  // 另外还可能出现相互引用的对象导致死循环的情况
+  for (var i in p) {
+    // 这会有问题，如果是数组的话，遍历会有问题。所以要确定这个对象不是数组，数组的拷贝有很多种方式。
+    // 另外还可能出现相互引用的对象导致死循环的情况
 
-    var prop = p[i];// p.a = p的情况
-    if(prop === c) {
+    var prop = p[i]; // p.a = p的情况
+    if (prop === c) {
       continue;
     }
-    if(typeof p[i] === 'object') {
+    if (typeof p[i] === "object") {
       c[i] = p[i].constructor == Array ? [] : {};
       deepCopy(p[i], c[i]);
     } else {
@@ -1681,17 +1686,18 @@ function deepCopy(p, c) {
 }
 ```
 
-* 对于对象是json安全的，可以使用json序列化的方式
+- 对于对象是 json 安全的，可以使用 json 序列化的方式
 
 ```js
 // 对于对象是json安全的，可以使用
 var newObj = JSON.parse(JSON.stringify(someobj));
 ```
 
-* 很热门的函数库lodash，也有提供_.cloneDeep用来做 Deep Copy
+- 很热门的函数库 lodash，也有提供\_.cloneDeep 用来做 Deep Copy
 
 > 实现数组的拷贝
 > const a1=[1,2];
+>
 > 1. const a2=a1.concat();
 > 2. const a3 = a1.slice();
 
@@ -1740,198 +1746,206 @@ function findMax(str) {
 下面是一个具体的实现:
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html>
-
-<head>
-  <meta charset="utf-8">
-  <title>标题</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    body {
-      height: 2000px;
-    }
-
-    .box1 {
-      width: 320px;
-      height: 400px;
-      background: #ccc;
-      overflow: hidden;
-      overflow-y: scroll;
-      margin: 20px 0 0 100px;
-    }
-
-    .con1 {
-      font-size: 18px;
-    }
-
-    #out {
-      width: 320px;
-      height: 400px;
-      background: url(bg1.png) 0 0 repeat-x;
-      position: absolute;
-      left: 500px;
-      top: 20px;
-      overflow: hidden;
-    }
-
-    #con {
-      width: 280px;
-      padding: 5px;
-      font-size: 18px;
-      position: absolute;
-      left: 0px;
-      top: 0px;
-    }
-
-    #box {
-      width: 30px;
-      height: 400px;
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-
-    #drag {
-      width: 30px;
-      height: 53px;
-      /* background: url(icon2.png) 0 0 no-repeat; */
-      background-color: slategray;
-      position: absolute;
-      left: 0px;
-      top: 0px;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="box1">
-    <p class="con1">据新华社电中航工业、国机集团等8家央企6日在京签约，在重要项目、科技转化等相关领域开展重组合作整合，这将成为央企间产业联合协作的新典范，也将开启央企间产业重组合作整合的新阶段。 相关合作内容包括：中航工业和国机集团共同发展八万吨模锻压机项目；中航工业将房地产业务全部划转保利集团，中核建设和中国一重在高温气冷堆主设备制造领域合作，兵器工业、兵器装备、中国国新对北方公司进行股权重组。
-      国务院国资委主任肖亚庆在6日参加中央企业产业合作座谈会上表示，下一步，国资委政策将加码推动央企产业重组步伐，通过业务整合、资产重组、股权合作、资产置换、无偿划转、协议转让、战略联盟、联合开发等多途径，加快央企间产业重组合作整合。
-      肖亚庆同时清晰地勾勒出国企改革兼并重组“路线图”：通过产业重组，在突破关键技术、掌握核心资源，打造知名品牌等方面，实现产业重组合作“一加一大于二”的效果。肖亚庆同时透露，目前部分央企在牵头技术创新战略联盟、设立创新投资基金、构建创新孵化平台等方面，取得了重大突破。据统计，央企牵头国家及地方技术创新联盟141个，50多家中央企业共发起和参与基金179只，构建面向社会的创新孵化平台57个，创业创新平台27个。
-      “此次集中签约，意味着央企重组的重心开始向资本、项目、产业板块等内部要素转移。”中国企业研究院首席研究员李锦说，未来，央企间产业重组合作整合将被更快地推进，央企内部的各种要素将被再次优化。
-    </p>
-  </div>
-
-  <div id="out">
-    <div id="con">据新华社电中航工业、国机集团等8家央企6日在京签约，在重要项目、科技转化等相关领域开展重组合作整合，这将成为央企间产业联合协作的新典范，也将开启央企间产业重组合作整合的新阶段。 相关合作内容包括：中航工业和国机集团共同发展八万吨模锻压机项目；中航工业将房地产业务全部划转保利集团，中核建设和中国一重在高温气冷堆主设备制造领域合作，兵器工业、兵器装备、中国国新对北方公司进行股权重组。
-      国务院国资委主任肖亚庆在6日参加中央企业产业合作座谈会上表示，下一步，国资委政策将加码推动央企产业重组步伐，通过业务整合、资产重组、股权合作、资产置换、无偿划转、协议转让、战略联盟、联合开发等多途径，加快央企间产业重组合作整合。
-      肖亚庆同时清晰地勾勒出国企改革兼并重组“路线图”：通过产业重组，在突破关键技术、掌握核心资源，打造知名品牌等方面，实现产业重组合作“一加一大于二”的效果。肖亚庆同时透露，目前部分央企在牵头技术创新战略联盟、设立创新投资基金、构建创新孵化平台等方面，取得了重大突破。据统计，央企牵头国家及地方技术创新联盟141个，50多家中央企业共发起和参与基金179只，构建面向社会的创新孵化平台57个，创业创新平台27个。
-      “此次集中签约，意味着央企重组的重心开始向资本、项目、产业板块等内部要素转移。”中国企业研究院首席研究员李锦说，未来，央企间产业重组合作整合将被更快地推进，央企内部的各种要素将被再次优化。
-    </div>
-    <div id="box">
-      <p id="drag"></p>
-    </div>
-  </div>
-  <script>
-    var out = document.getElementById('out');
-    var con = document.getElementById('con');
-    var box = document.getElementById('box');
-    var drag = document.getElementById('drag');
-    drag.onmousedown = function (ev) {
-      var e = ev || window.event;
-      if (e.preventDefault) {
-        e.preventDefault();
-      } else {
-        e.returnValue = false;
-      };
-      var d_bkt = e.clientY - drag.offsetTop;
-      document.onmousemove = function (ev) {
-        var e = ev || window.event;
-        var top = e.clientY - d_bkt;
-        if (top <= 0) {
-          top = 0;
-        };
-        if (top >= box.clientHeight - drag.clientHeight) {
-          top = box.clientHeight - drag.clientHeight;
-        };
-        var scale = top / (box.clientHeight - drag.clientHeight);
-        var cony = scale * (con.clientHeight - out.clientHeight);
-        drag.style.top = top + 'px';
-        con.style.top = -cony + 'px';
-        console.log(top);
+  <head>
+    <meta charset="utf-8" />
+    <title>标题</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
       }
-      document.onmouseup = function () {
-        document.onmousemove = null;
+
+      body {
+        height: 2000px;
       }
-    }
-    var str = window.navigator.userAgent.toLowerCase();
-    if (str.indexOf('firefox') != -1) {//火狐浏览器
-      out.addEventListener('DOMMouseScroll', function (e) {
-        e.preventDefault();//阻止窗口默认的滚动事件
-        if (e.detail < 0) {
-          var t = con.offsetTop + 20;
-          if (t >= 0) {
-            t = 0;
-          };
-          if (t <= -(con.clientHeight - out.clientHeight)) {
-            t = -(con.clientHeight - out.clientHeight);
-          };
-          var scale = t / (con.clientHeight - out.clientHeight);
-          var top = scale * (box.clientHeight - drag.clientHeight);
-          con.style.top = t + 'px';
-          drag.style.top = -top + 'px';
-        };
-        if (e.detail > 0) {
-          var t = con.offsetTop - 20;
-          if (t >= 0) {
-            t = 0;
-          };
-          if (t <= -(con.clientHeight - out.clientHeight)) {
-            t = -(con.clientHeight - out.clientHeight);
-          };
-          var scale = t / (con.clientHeight - out.clientHeight);
-          var top = scale * (box.clientHeight - drag.clientHeight);
-          con.style.top = t + 'px';
-          drag.style.top = -top + 'px';
-        };
-      }, false);
-    } else {//非火狐浏览器
-      out.onmousewheel = function (ev) {
+
+      .box1 {
+        width: 320px;
+        height: 400px;
+        background: #ccc;
+        overflow: hidden;
+        overflow-y: scroll;
+        margin: 20px 0 0 100px;
+      }
+
+      .con1 {
+        font-size: 18px;
+      }
+
+      #out {
+        width: 320px;
+        height: 400px;
+        background: url(bg1.png) 0 0 repeat-x;
+        position: absolute;
+        left: 500px;
+        top: 20px;
+        overflow: hidden;
+      }
+
+      #con {
+        width: 280px;
+        padding: 5px;
+        font-size: 18px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
+
+      #box {
+        width: 30px;
+        height: 400px;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+
+      #drag {
+        width: 30px;
+        height: 53px;
+        /* background: url(icon2.png) 0 0 no-repeat; */
+        background-color: slategray;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box1">
+      <p class="con1">
+        据新华社电中航工业、国机集团等8家央企6日在京签约，在重要项目、科技转化等相关领域开展重组合作整合，这将成为央企间产业联合协作的新典范，也将开启央企间产业重组合作整合的新阶段。
+        相关合作内容包括：中航工业和国机集团共同发展八万吨模锻压机项目；中航工业将房地产业务全部划转保利集团，中核建设和中国一重在高温气冷堆主设备制造领域合作，兵器工业、兵器装备、中国国新对北方公司进行股权重组。
+        国务院国资委主任肖亚庆在6日参加中央企业产业合作座谈会上表示，下一步，国资委政策将加码推动央企产业重组步伐，通过业务整合、资产重组、股权合作、资产置换、无偿划转、协议转让、战略联盟、联合开发等多途径，加快央企间产业重组合作整合。
+        肖亚庆同时清晰地勾勒出国企改革兼并重组“路线图”：通过产业重组，在突破关键技术、掌握核心资源，打造知名品牌等方面，实现产业重组合作“一加一大于二”的效果。肖亚庆同时透露，目前部分央企在牵头技术创新战略联盟、设立创新投资基金、构建创新孵化平台等方面，取得了重大突破。据统计，央企牵头国家及地方技术创新联盟141个，50多家中央企业共发起和参与基金179只，构建面向社会的创新孵化平台57个，创业创新平台27个。
+        “此次集中签约，意味着央企重组的重心开始向资本、项目、产业板块等内部要素转移。”中国企业研究院首席研究员李锦说，未来，央企间产业重组合作整合将被更快地推进，央企内部的各种要素将被再次优化。
+      </p>
+    </div>
+
+    <div id="out">
+      <div id="con">
+        据新华社电中航工业、国机集团等8家央企6日在京签约，在重要项目、科技转化等相关领域开展重组合作整合，这将成为央企间产业联合协作的新典范，也将开启央企间产业重组合作整合的新阶段。
+        相关合作内容包括：中航工业和国机集团共同发展八万吨模锻压机项目；中航工业将房地产业务全部划转保利集团，中核建设和中国一重在高温气冷堆主设备制造领域合作，兵器工业、兵器装备、中国国新对北方公司进行股权重组。
+        国务院国资委主任肖亚庆在6日参加中央企业产业合作座谈会上表示，下一步，国资委政策将加码推动央企产业重组步伐，通过业务整合、资产重组、股权合作、资产置换、无偿划转、协议转让、战略联盟、联合开发等多途径，加快央企间产业重组合作整合。
+        肖亚庆同时清晰地勾勒出国企改革兼并重组“路线图”：通过产业重组，在突破关键技术、掌握核心资源，打造知名品牌等方面，实现产业重组合作“一加一大于二”的效果。肖亚庆同时透露，目前部分央企在牵头技术创新战略联盟、设立创新投资基金、构建创新孵化平台等方面，取得了重大突破。据统计，央企牵头国家及地方技术创新联盟141个，50多家中央企业共发起和参与基金179只，构建面向社会的创新孵化平台57个，创业创新平台27个。
+        “此次集中签约，意味着央企重组的重心开始向资本、项目、产业板块等内部要素转移。”中国企业研究院首席研究员李锦说，未来，央企间产业重组合作整合将被更快地推进，央企内部的各种要素将被再次优化。
+      </div>
+      <div id="box">
+        <p id="drag"></p>
+      </div>
+    </div>
+    <script>
+      var out = document.getElementById("out");
+      var con = document.getElementById("con");
+      var box = document.getElementById("box");
+      var drag = document.getElementById("drag");
+      drag.onmousedown = function (ev) {
         var e = ev || window.event;
         if (e.preventDefault) {
           e.preventDefault();
         } else {
           e.returnValue = false;
+        }
+        var d_bkt = e.clientY - drag.offsetTop;
+        document.onmousemove = function (ev) {
+          var e = ev || window.event;
+          var top = e.clientY - d_bkt;
+          if (top <= 0) {
+            top = 0;
+          }
+          if (top >= box.clientHeight - drag.clientHeight) {
+            top = box.clientHeight - drag.clientHeight;
+          }
+          var scale = top / (box.clientHeight - drag.clientHeight);
+          var cony = scale * (con.clientHeight - out.clientHeight);
+          drag.style.top = top + "px";
+          con.style.top = -cony + "px";
+          console.log(top);
         };
-        if (e.wheelDelta > 0) {
-          var t = con.offsetTop + 20;
-          if (t >= 0) {
-            t = 0;
-          };
-          if (t <= -(con.clientHeight - out.clientHeight)) {
-            t = -(con.clientHeight - out.clientHeight);
-          };
-          var scale = t / (con.clientHeight - out.clientHeight);
-          var top = scale * (box.clientHeight - drag.clientHeight);
-          con.style.top = t + 'px';
-          drag.style.top = -top + 'px';
+        document.onmouseup = function () {
+          document.onmousemove = null;
         };
-        if (e.wheelDelta < 0) {
-          var t = con.offsetTop - 20;
-          if (t >= 0) {
-            t = 0;
-          };
-          if (t <= -(con.clientHeight - out.clientHeight)) {
-            t = -(con.clientHeight - out.clientHeight);
-          };
-          var scale = t / (con.clientHeight - out.clientHeight);
-          var top = scale * (box.clientHeight - drag.clientHeight);
-          con.style.top = t + 'px';
-          drag.style.top = -top + 'px';
+      };
+      var str = window.navigator.userAgent.toLowerCase();
+      if (str.indexOf("firefox") != -1) {
+        //火狐浏览器
+        out.addEventListener(
+          "DOMMouseScroll",
+          function (e) {
+            e.preventDefault(); //阻止窗口默认的滚动事件
+            if (e.detail < 0) {
+              var t = con.offsetTop + 20;
+              if (t >= 0) {
+                t = 0;
+              }
+              if (t <= -(con.clientHeight - out.clientHeight)) {
+                t = -(con.clientHeight - out.clientHeight);
+              }
+              var scale = t / (con.clientHeight - out.clientHeight);
+              var top = scale * (box.clientHeight - drag.clientHeight);
+              con.style.top = t + "px";
+              drag.style.top = -top + "px";
+            }
+            if (e.detail > 0) {
+              var t = con.offsetTop - 20;
+              if (t >= 0) {
+                t = 0;
+              }
+              if (t <= -(con.clientHeight - out.clientHeight)) {
+                t = -(con.clientHeight - out.clientHeight);
+              }
+              var scale = t / (con.clientHeight - out.clientHeight);
+              var top = scale * (box.clientHeight - drag.clientHeight);
+              con.style.top = t + "px";
+              drag.style.top = -top + "px";
+            }
+          },
+          false
+        );
+      } else {
+        //非火狐浏览器
+        out.onmousewheel = function (ev) {
+          var e = ev || window.event;
+          if (e.preventDefault) {
+            e.preventDefault();
+          } else {
+            e.returnValue = false;
+          }
+          if (e.wheelDelta > 0) {
+            var t = con.offsetTop + 20;
+            if (t >= 0) {
+              t = 0;
+            }
+            if (t <= -(con.clientHeight - out.clientHeight)) {
+              t = -(con.clientHeight - out.clientHeight);
+            }
+            var scale = t / (con.clientHeight - out.clientHeight);
+            var top = scale * (box.clientHeight - drag.clientHeight);
+            con.style.top = t + "px";
+            drag.style.top = -top + "px";
+          }
+          if (e.wheelDelta < 0) {
+            var t = con.offsetTop - 20;
+            if (t >= 0) {
+              t = 0;
+            }
+            if (t <= -(con.clientHeight - out.clientHeight)) {
+              t = -(con.clientHeight - out.clientHeight);
+            }
+            var scale = t / (con.clientHeight - out.clientHeight);
+            var top = scale * (box.clientHeight - drag.clientHeight);
+            con.style.top = t + "px";
+            drag.style.top = -top + "px";
+          }
         };
       }
-    };
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>
 ```
 
@@ -1950,35 +1964,34 @@ function findMax(str) {
 
 ```html
 <html>
-<head>
-<style>
-    .container {
-      border: 1px solid red;
-      width: 100px;
-      height: 100px;
-      position: relative;
-    }
-</style>
- <script>
-    function init() {
-      var div = document.getElementsByClassName("container")[0];
-      for (var i = 0; i < 11; i++) {
-        (function (j) {
-          setTimeout(function () {
-            div.style.top = j * 10 + 'px';
-            div.style.left = j * 10 + 'px';
-          }, j * 1000);
-        })(i);
+  <head>
+    <style>
+      .container {
+        border: 1px solid red;
+        width: 100px;
+        height: 100px;
+        position: relative;
       }
-
-    }
-  </script>
-</head>
-<body>
-<div class="container">
-    一个可以移动的方框
-</div>
-</body>
+    </style>
+    <script>
+      function init() {
+        var div = document.getElementsByClassName("container")[0];
+        for (var i = 0; i < 11; i++) {
+          (function (j) {
+            setTimeout(function () {
+              div.style.top = j * 10 + "px";
+              div.style.left = j * 10 + "px";
+            }, j * 1000);
+          })(i);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      一个可以移动的方框
+    </div>
+  </body>
 </html>
 ```
 
@@ -2024,36 +2037,39 @@ function PromiseM() {
   this.msg = "";
   var that = this;
   var process = arguments[0];
-  process(function() {
-    that.status = 'resolve';
-    that.msg =arguments[0];
-  }, function() {
-    that.status = 'reject';
-    that.msg =arguments[0];
-  });
+  process(
+    function () {
+      that.status = "resolve";
+      that.msg = arguments[0];
+    },
+    function () {
+      that.status = "reject";
+      that.msg = arguments[0];
+    }
+  );
   return this;
 }
-PromiseM.prototype.then = function() {
-  if(this.status == 'resolve') {
+PromiseM.prototype.then = function () {
+  if (this.status == "resolve") {
     arguments[0](this.msg);
   }
-  if(this.status == 'reject' && arguments[1]) {
+  if (this.status == "reject" && arguments[1]) {
     arguments[1](this.msg);
   }
-}
+};
 
 // 测试用例
 
-var p = new PromiseM(function(resolve, reject) {
+var p = new PromiseM(function (resolve, reject) {
   resolve("123");
 });
 
 p.then(
-  function(success) {
+  function (success) {
     console.log(success);
     console.log("success");
   },
-  function() {
+  function () {
     console.log("fail！");
   }
 );
@@ -2062,11 +2078,12 @@ p.then(
 ## 50. 如何实现一下 Object.create()?
 
 `Object.create(parent)`主要完成了三件事情：
-* 创建一个对象
-* 继承指定父对象
-* 为新对象扩展新属性
 
-何时使用create: 希望在创建对象时就提前指定继承的父对象，并同时扩展新属性时。
+- 创建一个对象
+- 继承指定父对象
+- 为新对象扩展新属性
+
+何时使用 create: 希望在创建对象时就提前指定继承的父对象，并同时扩展新属性时。
 
 ```js
 Object.mycreate = function(parent,props) {
@@ -2094,38 +2111,43 @@ var hmm=Object.mycreate(father,{//create调用的也是defineproperty
 
 location 是 javascript 里边管理地址栏的内置对象，比如 location.href 就管理页面的 url，用 location.href=url 就可以直接将页面重定向 url。而 location.hash 则可以用来获取或设置页面的标签值。
 
-* #后的字符
-在第一个#后面出现的任何字符，都会被浏览器解读为位置标识符。这意味着，这些字符都不会被发送到服务器端。
+- #后的字符
+  在第一个#后面出现的任何字符，都会被浏览器解读为位置标识符。这意味着，这些字符都不会被发送到服务器端。
 
-* window.hash
-hash 属性是一个可读可写的字符串，该字符串是 URL 的锚部分（从 # 号开始的部分）。
+- window.hash
+  hash 属性是一个可读可写的字符串，该字符串是 URL 的锚部分（从 # 号开始的部分）。
 
 ## 52. 对 websocket 的理解？
 
-WebSocket 协议在2008年诞生，2011年成为国际标准。所有浏览器都已经支持了。
+WebSocket 协议在 2008 年诞生，2011 年成为国际标准。所有浏览器都已经支持了。
 
-WebSocket 是一个持久化的协议，是基于http协议来完成一部分握手。
+WebSocket 是一个持久化的协议，是基于 http 协议来完成一部分握手。
 
 Websocket 握手中多了:
 Upgrade: websocket
 Connection: Upgrade
-这就是WebSocket的核心，告诉服务器是一个WebSocket协议。
+这就是 WebSocket 的核心，告诉服务器是一个 WebSocket 协议。
 
-> ajax轮询和long poll 都是不断的建立http连接，等待服务端处理，可以体现http协议的一个特点：被动性（服务器端不能主动联系客户端，只能客户端发起）。
-> * ajax轮询</br>
+> ajax 轮询和 long poll 都是不断的建立 http 连接，等待服务端处理，可以体现 http 协议的一个特点：被动性（服务器端不能主动联系客户端，只能客户端发起）。
+>
+> - ajax 轮询</br>
+
     ajax轮询的原理特别简单。让浏览器隔个几秒就发送一次请求，询问服务器是否有新信息。
-> * long poll</br>
+
+> - long poll</br>
+
     long poll 其实原理跟 ajax轮询 差不多，都是采用轮询的方式，不过采取的是阻塞模型（一直打电话，没收到就不挂电话），也就是说，客户端发起连接后，如果没消息，就一直不返回Response给客户端。直到有消息才返回，返回完之后，客户端再次建立连接，周而复始。
 
 ### 特点
 
-* 服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话，属于服务器推送技术的一种。
-* 建立在 TCP 协议之上，服务器端的实现比较容易。
-* 与 HTTP 协议有着良好的兼容性。默认端口也是80和443，并且握手阶段采用 HTTP 协议，因此握手时不容易屏蔽，能通过各种 HTTP 代理服务器。
-- 数据格式比较轻量，性能开销小，通信高效。
-- 可以发送文本，也可以发送二进制数据。
-- 没有同源限制，客户端可以与任意服务器通信。
-- 协议标识符是ws（如果加密，则为wss），服务器网址就是 URL。
+- 服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话，属于服务器推送技术的一种。
+- 建立在 TCP 协议之上，服务器端的实现比较容易。
+- 与 HTTP 协议有着良好的兼容性。默认端口也是 80 和 443，并且握手阶段采用 HTTP 协议，因此握手时不容易屏蔽，能通过各种 HTTP 代理服务器。
+
+* 数据格式比较轻量，性能开销小，通信高效。
+* 可以发送文本，也可以发送二进制数据。
+* 没有同源限制，客户端可以与任意服务器通信。
+* 协议标识符是 ws（如果加密，则为 wss），服务器网址就是 URL。
 
   ![ws和wss](../images/ws.png)
 
@@ -2135,20 +2157,21 @@ Connection: Upgrade
 
 ### 参考
 
-* [websocket原理](https://www.cnblogs.com/fuqiang88/p/5956363.html)
+- [websocket 原理](https://www.cnblogs.com/fuqiang88/p/5956363.html)
 
 ## 53. 对 Pure functions（纯函数）的理解？
 
 纯函数是满足如下条件的函数：
+
 - 相同输入总是会返回相同的输出。
 - 不产生副作用。
 - 不依赖于外部状态。
 
 ## 54. js 单线程的理解？
 
-JS的单线程是指一个浏览器进程中只有一个JS的执行线程，同一时刻内只会有一段代码在执行。
+JS 的单线程是指一个浏览器进程中只有一个 JS 的执行线程，同一时刻内只会有一段代码在执行。
 
-作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。
+作为浏览器脚本语言，JavaScript 的主要用途是与用户互动，以及操作 DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。
 
 ## 55. 如何用 promise 和 setTimeout 实现一个 delay 函数，`.then` 里面可以正常完成 promise 的一些后续操作？
 
@@ -2157,35 +2180,37 @@ JS的单线程是指一个浏览器进程中只有一个JS的执行线程，同�
 delay(1000).then();
 ```
 
-> 当时没有想好，但是知道肯定要返回一个promise，不然没有办法`.then`下去。
-> 其实也是主要没有理解好promise。
+> 当时没有想好，但是知道肯定要返回一个 promise，不然没有办法`.then`下去。
+> 其实也是主要没有理解好 promise。
 
 实现方法如下：
 
 ```js
 function delay(delayTime) {
-  return new Promise(function(resolve, reject){
-      setTimeout(resolve, delayTime);
-  })
+  return new Promise(function (resolve, reject) {
+    setTimeout(resolve, delayTime);
+  });
 }
-delay(1000).then( function () {
-  console.log('0：执行成功！');
+delay(1000).then(function () {
+  console.log("0：执行成功！");
 });
 
-delay(2000).then(function () {
-  console.log('1：执行成功！');
-  return delay(1000);
-}).then(function() {
-  console.log('2：执行失败！');
-});
+delay(2000)
+  .then(function () {
+    console.log("1：执行成功！");
+    return delay(1000);
+  })
+  .then(function () {
+    console.log("2：执行失败！");
+  });
 ```
 
 ## 56. array、null、object 数据如何判断？
 
-typeof方法判断`array、null、object`类型的数据，都会返回`object`。
+typeof 方法判断`array、null、object`类型的数据，都会返回`object`。
 
-设变量为`i` ,那么`i== null`为true,则i 为null;
-i.constructor.name 如果是`Array`则为数组，如果是`Object`则是简单的object类型数据。
+设变量为`i` ,那么`i== null`为 true,则 i 为 null;
+i.constructor.name 如果是`Array`则为数组，如果是`Object`则是简单的 object 类型数据。
 
 还可以`b.constructor == Array`来进行是否是数组的判断；
 还可以`b.constructor == Object`来进行是否是对象的判断；
@@ -2200,18 +2225,21 @@ var d[a] = 1;
 d[b] = 1;
 d[c] // 1
 ```
+
 > 原因：
-> **在对象中属性名永远都是字符串。**如果使用string以外的其他值作为属性名，那么它首先会被转化为一个字符串。
-> ```js
->  var obj = {};
->  obj[true] = "foo";
->  obj[3] = "bar";
+> **在对象中属性名永远都是字符串。**如果使用 string 以外的其他值作为属性名，那么它首先会被转化为一个字符串。
 >
->  //等价于
->  obj["true"] = "foo";
->  obj["3"] = "bar";
->  obj["[object Object]"] = "baz";
+> ```js
+> var obj = {};
+> obj[true] = "foo";
+> obj[3] = "bar";
+>
+> //等价于
+> obj["true"] = "foo";
+> obj["3"] = "bar";
+> obj["[object Object]"] = "baz";
 > ```
+>
 > obj.toString() // "[object Object]",所有对象的`toString()`的值都是`"[object Object]"`
 
 > 备注：
@@ -2239,13 +2267,12 @@ var obj = { name: "hehe", age: 27 };
 
 ![值的存储](../images/object-store.png)
 
-
 ## 60. 判断是否是回文
 
->如果给定的字符串是回文，返回true，反之，返回false。
->如果一个字符串忽略标点符号、大小写和空格，正着读和反着读一模一样，那么这个字符串就是palindrome(回文)。
+> 如果给定的字符串是回文，返回 true，反之，返回 false。
+> 如果一个字符串忽略标点符号、大小写和空格，正着读和反着读一模一样，那么这个字符串就是 palindrome(回文)。
 
->注意你需要去掉字符串多余的标点符号和空格，然后把字符串转化成小写来验证此字符串是否为回文。
+> 注意你需要去掉字符串多余的标点符号和空格，然后把字符串转化成小写来验证此字符串是否为回文。
 
 ```
 function palindrome(str) {
@@ -2271,8 +2298,8 @@ palindrome("eye");
 
 ## 62. JavaScript 如何判断一个对象是空的？
 
-* 第一种： `const isEmptyObject = obj => Object.getOwnPropertyNames(obj).length === 0`
-* 第二种： `Object.keys(obj).length == 0`
+- 第一种： `const isEmptyObject = obj => Object.getOwnPropertyNames(obj).length === 0`
+- 第二种： `Object.keys(obj).length == 0`
 
 ## 63. js 的作用域是什么？作用域是什么时候确定的？
 
@@ -2292,30 +2319,30 @@ palindrome("eye");
 ```js
 console.log("1");
 
-setTimeout(function() {
+setTimeout(function () {
   console.log("2");
-  new Promise(function(resolve) {
+  new Promise(function (resolve) {
     console.log("3");
     resolve();
-  }).then(function() {
+  }).then(function () {
     console.log("4");
   });
 });
 
-new Promise(function(resolve) {
+new Promise(function (resolve) {
   console.log("5");
   resolve();
-}).then(function() {
+}).then(function () {
   console.log("6");
 });
 
-setTimeout(function() {
+setTimeout(function () {
   console.log("7");
 
-  new Promise(function(resolve) {
+  new Promise(function (resolve) {
     console.log("8");
     resolve();
-  }).then(function() {
+  }).then(function () {
     console.log("9");
   });
 });
@@ -2326,9 +2353,9 @@ setTimeout(function() {
 
 ## 65. 构造函数是什么？new 的时候都去做了什么
 
-## 68. js的顶级对象是什么
+## 68. js 的顶级对象是什么
 
-## 69. instanceof是做什么的? Array instanceof Object是什么？Array是谁new出来的
+## 69. instanceof 是做什么的? Array instanceof Object 是什么？Array 是谁 new 出来的
 
 `instanceof`运算符是用来测试一个对象在其原型链中是否存在一个构造函数的`prototype`属性。
 语法：
@@ -2343,14 +2370,15 @@ alert(a instanceof Array); // true，
 同时 alert(a instanceof Object) //也会返回 true;
 这是因为 Array 是 object 的子类。
 ```
+
 另外，更重的一点是 instanceof 可以在继承关系中用来判断一个实例是否属于它的父类型。
 
 ```js
-function Foo(){} 
-Foo.prototype = new Aoo();//JavaScript 原型继承 
-var foo = new Foo(); 
-console.log(foo instanceof Foo)//true 
-console.log(foo instanceof Aoo)//true
+function Foo() {}
+Foo.prototype = new Aoo(); //JavaScript 原型继承
+var foo = new Foo();
+console.log(foo instanceof Foo); //true
+console.log(foo instanceof Aoo); //true
 ```
 
 Q: function 的 arguments instanceof Array // false
@@ -2359,4 +2387,4 @@ Q: function 的 arguments instanceof Array // false
 
 把函数作为参数传入，这样的函数称为高阶函数，函数式编程就是指这种高度抽象的编程范式。
 
-es6的迭代器、filter、forEach、map等都是高阶函数。
+es6 的迭代器、filter、forEach、map 等都是高阶函数。
